@@ -1,0 +1,440 @@
+{
+  "common": {
+    "name": "COVID Tracker Ireland",
+    "url": "https://www.covidtracker.ie/",
+    "message": "Join COVID Tracker Ireland to fight against COVID-19",
+    "networkError": "Connection issue. Please check your internet connection and try again.",
+    "missingDataAction": "Refresh page",
+    "missingError": "Loading issue. We were not able to load some of the data correctly.",
+    "preferNotToSay": "Prefer not to say",
+    "confirmChanges": "Confirm changes",
+    "changesUpdated": "Changes updated",
+    "dismiss": "Dismiss"
+  },
+  "viewNames": {
+    "age": "Confirm your age",
+    "getStarted": "Get Started",
+    "casesByCounty": "Cases By County",
+    "updates": "Updates",
+    "symptomchecker": "COVID Checker",
+    "settings": "Settings",
+    "uploadKeys": "Upload Your Random Keys",
+    "closeContact": "Close Contact",
+    "settingsContactTracing": "Contact Tracing Settings",
+    "settingsCheckin": "COVID Checkin Settings",
+    "dataPolicy": "Data Protection Policy",
+    "terms": "Terms and Conditions",
+    "metrics":"Settings For App Metrics",
+    "leave": "Leave COVID Tracker Ireland",
+    "contactTracing": "Contact Tracing"
+  },
+  "navbar": {
+    "settings": "Settings",
+    "settingsHint": "View or amend application settings",
+    "back": "Back",
+    "backHint": "Navigate back to previous screen"
+  },
+  "tabBar": {
+    "updates": "Updates",
+    "symptomCheck": "COVID Check-In",
+    "contactTracing": "Contact Tracing",
+    "shareApp": "Share app ",
+    "shareError": "There was an error sharing. Please try again or contact us."
+  },
+  "onboarding": {
+    "intro": {
+      "title": "With COVID Tracker you can do 3 things to help fight COVID-19:",
+      "view1": {
+        "title": "Contact Tracing",
+        "text": "Help contact tracing, protecting your privacy."
+      },
+      "view2": {
+        "title": "COVID Check-In",
+        "text": "Check your symptoms every day."
+      },
+      "view3": {
+        "title": "Updates",
+        "text": "Keep up to date on the fight against COVID-19."
+      },
+      "view4": {
+        "text": "If you tap Get started, you are accepting the ",
+        "link": "Terms & Conditions"
+      },
+      "action": "Get started"
+    },
+    "information": {
+      "title": "Contact Tracing",
+      "highlight": "Contact tracing helps prevent the spread of COVID-19.",
+      "highlight1": "This app supports the work of the HSE’s Contact Tracing teams, but those teams may also contact you as part of manual contact tracing.",
+      "text": "The app will send you a Close Contact Alert if you have been in close contact with someone who has tested positive for the virus.",
+      "text1": "To enable Contact Tracing for this app you need to turn on:",
+      "text2": "and to get an alert you need to turn on:",
+      "action": "Continue",
+      "later": "Maybe later",
+      "skip": "Skip for now",
+      "bluetooth": "Exposure Notification Service",
+      "notifications": "Notifications",
+      "quote": "If you change your mind, you can change your permissions in Settings at any time."
+    },
+    "upgrade": {
+      "ios": {
+        "title": "Apple iOS must be updated",
+        "text": "To enable Contact Tracing, you need to upgrade to the latest version of Apple iOS.",
+        "action": "Check for upgrades"
+      },
+      "android": {
+        "title": "Google Play Services must be updated",
+        "text": "To enable Contact Tracing, you need to upgrade to the latest version of Google Play Services.",
+        "action": "Check for upgrades"
+      }
+    }
+  },
+  "dataProtectionPolicy": {
+    "title": "Data Protection Information Notice",
+    "link": "You can read the Data Protection Information Notice here",
+    "text": "The DPIN could not be loaded"
+  },
+  "tandcPolicy": {
+    "title": "Terms & Conditions",
+    "link": "Terms & Conditions",
+    "text": "The Terms & Conditions could not be loaded"
+  },
+  "stats": {
+    "title": "Latest update",
+    "totalConfirmed": "Total confirmed cases",
+    "totalDeaths": "Total deaths",
+    "totalHospitalised": "Number hospitalised",
+    "requiredICU": "Required ICU"
+  },
+  "checker": {
+    "title": "COVID Check-In",
+    "resultTitle": "Thank you",
+    "question1": "**Do you have a fever – a high temperature over 38 degrees Celsius?**\n\nSymptoms of a fever can include flushed cheeks, feeling tired and being warm or hot to touch.",
+    "question1id": "fever",
+    "question1Label": "High temperature or chills",
+    "question2id": "cough",
+    "question2": "**Do you have any type of cough?**",
+    "question2Label": "Cough",
+    "question3id": "breath",
+    "question3": "**Do you have any difficulty breathing?**\n\nThis might be like panting or feeling like you can't fill your lungs.",
+    "question3Label": "Difficulty breathing",
+    "question4id": "flu",
+    "question4": "**Do you have any loss of sense of taste or smell?**\n\nThis might mean you can't taste or smell anything, or things taste or smell different to normal.",
+    "question4Label": "Loss of sense of taste or smell",
+    "yes": "Yes",
+    "no": "No",
+    "virusIsolation": "These symptoms are a match for the symptoms of coronavirus. Remember, 8 out of 10 people with COVID-19 recover at home with rest and over-the-counter medicine.\n\n## What to do next\n\nPlease self-isolate at home to protect others.\n\nCall your GP to get advice and see if you should be tested for COVID-19.",
+    "recovered": "Good to hear you’re feeling better. Stay well by following the advice on hse.ie.",
+    "linkButton": "Read more advice here",
+    "viewHistory": "View my history",
+    "introTitle": "COVID Check-In",
+    "introWelcome": "About you",
+    "introButton": "Continue",
+    "noresults": "You haven't tried the symptom checker yet. Start now by tapping the button above",
+    "noSymptomsWell": {
+      "message": "We’re happy to hear you’re feeling well. Thank you for checking in. Even if you are still well, please come back tomorrow to let us know how you're doing.",
+      "viewHistory": "View my history",
+      "advice": "Visit hse.ie to read more about how to protect yourself and others from coronavirus.",
+      "protectionAdvice": "Advice on protection"
+    },
+    "noSymptomsNotWell": {
+      "message": "Thank you for checking in. Sorry to hear you're not feeing well.\n\nIf you have symptoms like a runny nose or sore throat, you should behave like you have coronavirus and self-isolate for 14 days to protect other people.\n\nPhone your GP to discuss your symptoms and whether you need a test for coronavirus.",
+      "viewHistory": "View my history",
+      "advice": "Visit hse.ie to read more about how to protect yourself and others from coronavirus.",
+      "protectionAdvice": "Advice on protection"
+    },
+    "riskGroup": {
+      "warning": "Because of your age, we would like you to take extra care to protect yourself from COVID-19.\n\nPeople who are older and people who have long-term health conditions are more at risk of serious illness if they get COVID-19.",
+      "warningReadMore": "Read more about this here",
+      "advice": "We know this isn’t an easy time. If you need support or advice on how to manage at home, tap below for more information.",
+      "adviceReadMore": "Get more information"
+    }
+  },
+  "welcome": {
+    "title": "Hi there 👋",
+    "text": "COVID Check-In allows everyone using the app to check symptoms and get advice. It also helps the HSE to map and track how COVID-19 is affecting Ireland.\n\nThe COVID Check-In does not reveal your identity. You can share your age, sex and locality to help make the information more useful for public health analysis.\n\nThe COVID Check-In also keeps a record on your phone of any symptoms you've had, so you can check back and review at any time.",
+    "action": "Yes, I'd like to use COVID Check-In",
+    "letUsKnow": "Let us know if you have\nsymptoms today"
+  },
+  "returning": {
+    "title": "Welcome back 👋",
+    "subtitle": "How are you feeling today?",
+    "action1": "I’m good, no symptoms",
+    "action2": "I'm not feeling well today",
+    "completeTitle": "Great to hear 👍",
+    "completeLink": "View your history"
+  },
+  "settings": {
+    "title": "Settings",
+    "contactTracing": "Contact Tracing",
+    "contactTracingHint": "View or amend settings for Contact Tracing",
+    "checkIn": "COVID Check-In",
+    "checkinHint": "View or amend settings for COVID Check In",
+    "privacyPolicy": "Data Protection Information Notice",
+    "privacyPolicyHint": "View the Data Protection Information Notice",
+    "termsAndConditions": "Terms & Conditions",
+    "termsAndConditionsHint": "View the Terms and Conditions",
+    "metrics": "App Metrics",
+    "metricsHint": "View or amend settings for App Metrics",
+    "leave": "Leave",
+    "leaveHint": "Leave the application"
+  },
+  "leave": {
+    "title": "Leave",
+    "info": "Thank you for helping us fight COVID-19. We're sorry to see you go. When you tap 'I want to leave' we will remove all data stored by the app from your device including a mobile number, if you have shared one, symptom data and any demographic health data you may have shared. Non-identifying authorisation tokens stored on the server will also be deleted.\n\nRandom IDs created or collected by Exposure Notification Services cannot be removed by the COVID Tracker app. If you wish to remove these Random IDs you can do this via your device Settings.",
+    "button": "I want to leave",
+    "confirmTitle": "Leave",
+    "confirmText": "Are you sure you want to leave?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "error": "There was an error clearing your data. Please try again or contact us."
+  },
+  "checkInSettings": {
+    "title": "COVID Check-In",
+    "checkInFirst": "Your settings will be visible here as soon as you do your first Check-In.",
+    "intro": "You have shared the following information with us.",
+    "gotoCheckIn": "Go to COVID Check-In"
+  },
+  "appStats": {
+    "title": "Today's fight",
+    "totalCheckins": "Total Check-Ins today",
+    "noSymptoms": "Feeling good",
+    "someSymptoms": "Some symptoms",
+    "nationalPicture": "The national picture",
+    "breakdown": "Tap for county breakdown"
+  },
+  "contactTracing": {
+    "title": "Contact Tracing",
+    "active": {
+      "title": "Contact Tracing active"
+    },
+    "noSupport": {
+      "title": "Contact Tracing not available",
+      "message": "Unfortunately, this device does not support Contact Tracing. You can still use the app for COVID Check-In and Updates."
+    },
+    "canSupport": {
+      "title": "Contact Tracing not available",
+      "message": {
+        "ios": "To enable Contact Tracing you need to upgrade to the latest iOS version (13.5 and above).",
+        "android": "To enable Contact Tracing you need to upgrade to the latest version of Google Play Services."
+      },
+      "button": "Check for upgrade"
+    },
+    "notEnabled": {
+      "title": "Contact Tracing not enabled",
+      "message": "To enable Contact Tracing you need it setup.",
+      "button": "Setup"
+    },
+    "notActive": {
+      "title": "Contact Tracing not active",
+      "message00": "You need to enable **Exposure notification service** in your settings",
+      "message10": "You need to enable **Exposure notification service** in your settings",
+      "message01": "You need to enable **Bluetooth** in your settings",
+      "message11": "You need to enable **Exposure notification service** and **Bluetooth** in your settings",
+      "button": "Go to settings",
+      "android": {
+        "button": "Enable",
+        "message": "You need to enable **Exposure notification service** to activate Contact Tracing"
+      }
+    },
+    "registrationsTitle": "App registrations",
+    "registrationsYesterday": "total app registrations",
+    "registrationsHint": "Graph displaying how many registrations there has been in the app over time",
+    "shareAppText": "The more people we can get using this app the more effective our Contact Tracing effort will become. Share the app to help us reach our goal.",
+    "uploadCard": {
+      "title": "Upload your Random IDs",
+      "text": "For use only if the HSE contacts you."
+    },
+    "closeContactCard": {
+      "title": "Close contact information",
+      "text": "What to do if you are told you are a close contact of someone with COVID-19."
+    },
+    "settings": {
+      "status": {
+        "title": "Status",
+        "active": "Service is currently active",
+        "notActive": "Service is not active",
+        "intro": "To update your permission settings, go to your device's app settings.",
+        "gotoSettings": "Update settings",
+        "android": {
+          "intro": "Exposure notifications service is not currently enabled, click enable to start.",
+          "gotoSettings": "Enable"
+        }
+      },
+      "clearData": {
+        "title": "Close Contacts",
+        "intro": "Tap the button below to clear all your Close Contacts events.",
+        "button": "Clear all",
+        "confirmTitle": "Close Contacts",
+        "confirmText": "Are you sure you want to clear all your Close Contacts?",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "error": "There was an error clearing your Close Contacts. Please try again."
+      }
+    }
+  },
+  "confirmedChart": {
+    "title": "Daily confirmed cases",
+    "label": "Daily confirmed cases graph",
+    "hint": "Graph showing daily confirmed cases over time",
+    "yesterday": "confirmed cases yesterday"
+  },
+  "transmissionChart": {
+    "title": "How COVID-19 is spreading",
+    "community": "Community transmission",
+    "contact": "Close contact",
+    "travel": "Travel abroad"
+  },
+  "statsSource": {
+    "monitor": "COVID-19 Health Surveillance Monitor (Ireland)",
+    "communityTransmissions": "Community Transmissions, no known close contact",
+    "lastUpdatedStats": "Confirmed cases last update: ",
+    "lastUpdatedProfile": "Cases profile last update: "
+  },
+  "symptomsHistory": {
+    "title": "Your symptom history",
+    "symptom": "Symptom",
+    "symptoms": "Symptoms",
+    "completed": "You can check symptoms again tomorrow"
+  },
+  "casesByCounty": {
+    "title": "Cases by county"
+  },
+  "yourData": {
+    "title": "Your data",
+    "info": "The COVID Tracker app protects your privacy and does not share personal information about you with other app users. **Your identity will never be revealed to other app users.**\n\nAny personal data you provide will be processed in line with GDPR and data protection law. You can read more about this in the Data Protection Information Notice below. **Your data will only be used in relation to the COVID-19 pandemic response** as set out in the Data Protection Information Notice.\n\nIf you need to be alerted, the app will start this process with a secure in-app notification. Separate to using this app, the HSE contact tracing team may phone you if someone with COVID-19 identifies you as a close contact. If you have a COVID-19 test, the HSE will contact you by text or by phone with results.\n\nTake care with any suspicious phone calls, emails or texts asking you for personal information. **The HSE will not ask you for personal information by text or email.**",
+    "viewInSettings": "You can view this notice at any time in Settings. If you do not want to continue, close and delete the app. If you consent, tap Continue to proceed.",
+    "continue": "Continue"
+  },
+  "sorry": {
+    "title": "Sorry to hear",
+    "info": "Unfortunately you won’t be able to use the app any further. You can rejoin at any time. Just tap the back button.",
+    "back": "Back"
+  },
+  "ageRequirement": {
+    "notice": "You must be 16 or older to use this app",
+    "over": "I am 16 or older",
+    "under": "I am under 16"
+  },
+  "underAge": {
+    "title": "Under 16",
+    "notice": "Thank you for your interest but unfortunately you are too young to participate in this initiative.\n\nKeep safe."
+  },
+  "followUpCall": {
+    "title": "Contact Tracing follow-up call",
+    "shortTitle": "Call Back",
+    "intro": "If someone you've been in close contact with tests positive for COVID-19, the app will send you a Close Contact Alert.  The HSE will also phone you if you provide your number below.",
+    "note": "The HSE may also phone if you are identified as a close contact by manual contact tracing. The HSE will give you advice and refer you for testing if appropriate.\n\nThe app will only share your phone number with the HSE if you get a Close Contact Alert. You can enter your number below, or add it later in Settings.",
+    "noteAlt": "If someone you've been in close contact with tests positive for COVID-19, the app will send you a Close Contact Alert.  The HSE will also phone you if you provide your number below.\n\nThe HSE may also phone if you are identified as a close contact by manual contact tracing. The HSE will give you advice and refer you for testing if appropriate.\n\nThe app will only share your phone number with the HSE if you get a Close Contact Alert. You can enter your number below.",
+    "noteSettings": "If you want we will try to call you to provide further assistance after you receive an exposure notification.\n\nYour phone number will only be shared with the HSE if you get an exposure notification.",
+    "optIn": "Yes, I want to opt-in",
+    "noThanks": "No thanks"
+  },
+  "closeContactNotification": {
+    "title": "Close Contact Alert",
+    "description": "Please check the COVID Tracker app now."
+  },
+  "closeContactWarn": {
+    "title": "Close Contact Alert",
+    "notice": "The app has detected that you have been in close contact with someone who has tested positive for COVID-19."
+  },
+  "closeContact": {
+    "title": "Close Contact Alert",
+    "infoTitle": "Close contact information",
+    "intro": "If you have received a notification from the app, or a call from our Contact Tracing team, telling you that you have been in close contact with someone that has tested positive for coronavirus, you may need to be tested.",
+    "alertintro": "The COVID Tracker App has detected that you have been in close contact with someone that has tested positive for coronavirus. You may need to be tested.",
+    "callBack": "Call Back",
+    "callBackQueue": "The HSE contact tracing team will call you as soon as possible.",
+    "todo": {
+      "title": "There are some things that you should do to protect others.",
+      "selfIsolationDetails": "For details on how to self-isolate go to [https://www2.hse.ie/conditions/coronavirus/self-isolation-and-limited-social-interaction.html#close-contact](https://www2.hse.ie/conditions/coronavirus/self-isolation-and-limited-social-interaction.html#close-contact)",
+      "list": "1. Stay at home.\n\n2. Do not go to work.\n\n3. Do not use public transport.\n\n4. Do not have visitors at your home.\n\n5. Do not visit others, even if you usually care for them.\n\n6. Do not go to the shops or pharmacy unless it's absolutely necessary - where possible, order your groceries online or have some family or friends drop them off.\n\n7. Keep away from older people, anyone with long-term medical conditions and pregnant women."
+    },
+    "symptoms": {
+      "title": "Phone your GP if you develop symptoms.",
+      "intro": "Find out more about what you need to do on hse.ie.",
+      "callHSE": "Go to HSE.ie"
+    }
+  },
+  "uploadKeys": {
+    "title": "Upload your Random IDs",
+    "code": {
+      "intro": "A member of the Contact Tracing team may ask you to share Random IDs generated by your phone over the previous 14 days.\n\nIf so, you will receive a unique 6-digit code by text message to activate the upload functionality.",
+      "expiredError": "Code has expired. Contact HSE to request another one.",
+      "invalidError": "Invalid code. Please try again.",
+      "error": "There was an error validating the code. Please try again."
+    },
+    "upload": {
+      "intro": "To assist us in tracing your recent contacts over the last 14 days, we are asking you to share your anonymous Random IDs generated by your phone with the HSE.",
+      "button": "Upload your Random IDs to HSE"
+    },
+    "permissionError": "We have not uploaded your keys as you did not grant permission.",
+    "uploadError": "An error occurred trying to upload",
+    "uploadSuccess": {
+      "toast": "Upload complete",
+      "thanks": "Thanks for uploading your Random Ids. This will help our contact tracing team to slow the spread of COVID-19 and protect others.",
+      "updates": "Return to Updates"
+    }
+  },
+  "sex": {
+    "label": "Your sex (optional)",
+    "female": "Female",
+    "male": "Male"
+  },
+  "ageRange": {
+    "label": "Your age range (optional)",
+    "placeholder": "Choose your age range"
+  },
+  "phoneNumber": {
+    "code": {
+      "label": "Your country code",
+      "placeholder": "Country",
+      "searchPlaceholder": "Search a country",
+      "noResults": "No results found for this search.\nTry with something else.",
+      "error": {
+        "required": "Your country code is required."
+      }
+    },
+    "number": {
+      "label": "Your phone number (optional)",
+      "placeholder": "Your number",
+      "error": {
+        "invalid": "Your number is not valid. Please provide your full phone number.",
+        "short": "Your number is incomplete. Please provide your full phone number.",
+        "required": "Your number is required."
+      }
+    }
+  },
+  "county": {
+    "label": "Your county (optional)",
+    "placeholder": "Choose your county",
+    "searchPlaceholder": "Search",
+    "noResults": "No results found for this search.\nTry with something else."
+  },
+  "locality": {
+    "label": "Your locality (optional)",
+    "placeholder": "Choose your locality",
+    "searchPlaceholder": "Search",
+    "noResults": "No results found for this search.\nTry with something else."
+  },
+  "appUsage": {
+    "title": "App Metrics",
+    "info": "The HSE would like to understand your use of the App for the purpose of improving it.\n\nThe app will collect anonymous metrics about how you use the app and the effectiveness of Contact Tracing processes.\n\nThis information is gathered by the HSE directly and does not use any third parties to gather metrics. **This information is only gathered with your consent and cannot be used to identify you.**",
+    "settingsInfo": "If you change your mind, you can change these permissions in Settings at any time.",
+    "yesButton": "Yes, I consent",
+    "noThanks": "No thanks"
+  },
+  "metrics": {
+    "title": "App Metrics",
+    "info": "The HSE would like to understand your use of the App for the purpose of improving it.\n\nThe app will collect anonymous metrics about how you use the app and the effectiveness of Contact Tracing processes.\n\nThis information is gathered by the HSE directly and does not use any third parties to gather metrics. **This information is only gathered with your consent and cannot be used to identify you.**",
+    "share": "Share app usage statistics"
+  },
+  "tracingAvailable": {
+    "title": "Contact Tracing is now available for you",
+    "text": "Get setup now"
+  },
+  "codeInput": {
+    "accessibilityLabel": "Code digit {{number}}",
+    "accessibilityHint": "Enter {{count}} digit code"
+  }  
+}

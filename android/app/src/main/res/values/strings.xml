@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">COVID Tracker Ireland</string>
+    <string name="default_notification_channel_group">Default</string>
+    <string name="default_notification_channel_group_description">Notifications from COVID Tracker Ireland</string>
+</resources>

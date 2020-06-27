@@ -1,0 +1,73 @@
+<manifest
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.covidtracker.hse"
+>
+  <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+  <uses-feature android:name="android.hardware.bluetooth" />
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- crashed without this -->
+
+  <!-- permissions remove list (merged from sub modules)-->
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:node="remove" />
+  <uses-permission android:name="android.permission.VIBRATE" tools:node="remove" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="remove"  />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" tools:node="remove" />
+  <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
+  <uses-permission android:name="android.permission.STORAGE" tools:node="remove" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:node="remove" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove" />
+  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" tools:node="remove" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" tools:node="remove" /> 
+  <uses-permission android:name="com.sec.android.provider.badge.permission.READ" tools:node="remove"/>
+  <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" tools:node="remove" /> 
+  <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" tools:node="remove" />
+  <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" tools:node="remove" />
+  <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" tools:node="remove" />
+  <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" tools:node="remove" />
+  <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" tools:node="remove" />
+  <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" tools:node="remove" />
+  <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" tools:node="remove" />
+  <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" tools:node="remove" />
+  <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" tools:node="remove" /> 
+  <uses-permission android:name="android.permission.READ_APP_BADGE" tools:node="remove" /> 
+  <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" tools:node="remove" />
+  <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" tools:node="remove" />
+  <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" tools:node="remove" />
+  <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" tools:node="remove" />
+
+  <application
+    android:name=".MainApplication"
+    android:label="@string/app_name"
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:allowBackup="false"
+    android:theme="@style/AppTheme"
+  >
+    <activity
+      android:name=".MainActivity"
+      android:label="@string/app_name"
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+      android:launchMode="singleTask"
+      android:windowSoftInputMode="adjustResize"
+      android:screenOrientation="portrait"
+      android:hardwareAccelerated="true"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:ignore="LockedOrientationActivity"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:immersive="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+  </application>
+</manifest>
