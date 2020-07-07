@@ -1857,7 +1857,7 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Kerry',
-    locality: 'Cahirciveen',
+    locality: 'Cahersiveen',
     geocode: '19001'
   },
   {
