@@ -4067,7 +4067,7 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Tipperary',
-    locality: 'Puckaun',
+    locality: 'Puckane',
     geocode: '22007'
   },
   {
