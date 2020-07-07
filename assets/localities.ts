@@ -1482,11 +1482,6 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Dublin',
-    locality: 'Leixlip',
-    geocode: '6010'
-  },
-  {
-    county: 'Dublin',
     locality: 'Loughshinny',
     geocode: '4006'
   },
