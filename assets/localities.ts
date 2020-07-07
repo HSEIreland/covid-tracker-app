@@ -3832,7 +3832,7 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Sligo',
-    locality: 'Inniscrone',
+    locality: 'Enniscrone',
     geocode: '31003'
   },
   {
