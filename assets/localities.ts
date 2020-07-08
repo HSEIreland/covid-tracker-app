@@ -1472,7 +1472,7 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Dublin',
-    locality: 'Kinsaley',
+    locality: 'Kinsealy',
     geocode: '4019'
   },
   {
