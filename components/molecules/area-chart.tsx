@@ -27,7 +27,7 @@ function formatLabel(value: number) {
     return `${millions}m`;
   }
 
-  if (value > 1000) {
+  else (value > 1000) {
     const thousands = parseFloat((value / 1000).toFixed(1));
     return `${thousands}k`;
   }
