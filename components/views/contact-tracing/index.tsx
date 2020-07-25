@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 
@@ -16,9 +16,7 @@ import {Card} from '../../atoms/card';
 import {Button} from '../../atoms/button';
 
 import {CloseContactWarning} from '../../molecules/close-contact-warning';
-import {TrackerAreaChart} from '../../molecules/area-chart';
 import {shareApp} from '../../organisms/tab-bar-bottom';
-import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
 import Layouts from '../../../theme/layouts';
 
@@ -77,6 +75,11 @@ export const ContactTracing = ({navigation}) => {
     }
   }
 
+  let appRegistrationsCount = 0;
+  if (data?.installs.length) {
+    appRegistrationsCount = data.installs[data.installs.length - 1][1];
+  }
+
   return (
     <Layouts.Scrollable
       safeArea={false}
@@ -92,24 +95,31 @@ export const ContactTracing = ({navigation}) => {
       {data && data.installs && (
         <>
           <Spacing s={16} />
-          <Card padding={{h: 12}}>
-            <TrackerAreaChart
-              data={data.installs}
-              title={t('contactTracing:registrationsTitle')}
-              hint={t('contactTracing:registrationsHint')}
-              yesterday={t('contactTracing:registrationsYesterday')}
-              gradientStart={colors.yellow}
-              lineColor={colors.yellow}
-              intervalsCount={5}
-            />
-            <Spacing s={12} />
+          <Card padding={{h: 12, r: 12}}>
+            <View style={style.cardWidth}>
+              <Image
+                accessibilityIgnoresInvertColors
+                style={style.registrationsImage}
+                source={require('../../../assets/images/app-registrations/app-registrations.png')}
+                resizeMode="cover"
+              />
+            </View>
+            <Spacing s={8} />
+            <View style={style.center}>
+              <Text style={text.xxxlargeBlack}>
+                {new Intl.NumberFormat('en-IE').format(appRegistrationsCount)}
+              </Text>
+              <Text style={text.defaultBold}>
+                {t('contactTracing:registrationsTitle')}
+              </Text>
+              <Text style={text.defaultBoldOpacity70}>
+                {t('contactTracing:registrationsSince')}
+              </Text>
+            </View>
+            <Spacing s={20} />
             <Text style={text.default}>{t('contactTracing:shareAppText')}</Text>
             <Spacing s={16} />
-            <View style={{alignItems: 'center'}}>
-              <Button width="60%" type="empty" onPress={() => shareApp(t)}>
-                {t('tabBar:shareApp')}
-              </Button>
-            </View>
+            <Button onPress={() => shareApp(t)}>{t('tabBar:shareApp')}</Button>
           </Card>
         </>
       )}
@@ -144,3 +154,16 @@ export const ContactTracing = ({navigation}) => {
     </Layouts.Scrollable>
   );
 };
+
+const style = StyleSheet.create({
+  cardWidth: {
+    marginHorizontal: -12
+  },
+  registrationsImage: {
+    height: 126,
+    width: '100%'
+  },
+  center: {
+    alignItems: 'center'
+  }
+});

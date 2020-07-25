@@ -46,8 +46,6 @@ export const CloseContact: FC<any> = ({route}) => {
           <Spacing s={16} />
         </>
       )}
-      <Text style={text.defaultBold}>{t('closeContact:todo:title')}</Text>
-      <Spacing s={8} />
       <Markdown>{todoList}</Markdown>
       <Spacing s={24} />
       <Text style={text.defaultBold}>{t('closeContact:symptoms:title')}</Text>

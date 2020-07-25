@@ -1,6 +1,5 @@
 apply plugin: "com.android.application"
 
-
 import com.android.build.OutputFile
 
 /**
@@ -133,8 +132,8 @@ android {
         applicationId "com.covidtracker.hse"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 56
-        versionName "1.0.40"
+        versionCode 61
+        versionName "1.0.1.44"
         resConfigs "en", "ga"
     }
 
@@ -173,7 +172,6 @@ android {
             shrinkResources enableProguardInReleaseBuilds
             zipAlignEnabled enableProguardInReleaseBuilds
             minifyEnabled enableProguardInReleaseBuilds
-            useProguard enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
@@ -218,12 +216,9 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
-    implementation 'com.google.firebase:firebase-messaging:20.1.5'
-
     addUnimodulesDependencies()
 
     implementation project(':react-native-permissions')
-
     // debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
     //   exclude group:'com.facebook.fbjni'
     // }
@@ -244,7 +239,7 @@ dependencies {
         implementation jscFlavor
     }
 
-    compile project(':react-native-google-safetynet')
+    implementation project(':react-native-google-safetynet')
 }
 
 // Run this once to be able to run the application with BUCK

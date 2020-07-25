@@ -1492,6 +1492,11 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Dublin',
+    locality: 'Lucan',
+    geocode: '4013'
+  },
+  {
+    county: 'Dublin',
     locality: 'Lusk',
     geocode: '4007'
   },
@@ -1512,7 +1517,7 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Dublin',
-    locality: 'North Country Dublin',
+    locality: 'North County Dublin',
     geocode: '4013'
   },
   {
@@ -1557,7 +1562,7 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Dublin',
-    locality: 'South Country Dublin',
+    locality: 'South County Dublin',
     geocode: '4013'
   },
   {

@@ -11,7 +11,6 @@ import {ConfirmedCasesData} from '../../services/api';
 
 interface TrackerAreaChartProps {
   title?: string;
-  label?: string;
   hint?: string;
   yesterday?: string;
   data: ConfirmedCasesData;
@@ -38,7 +37,6 @@ function formatLabel(value: number) {
 export const TrackerAreaChart: FC<TrackerAreaChartProps> = ({
   title,
   data,
-  label,
   hint,
   yesterday,
   intervalsCount = 5,
@@ -55,9 +53,11 @@ export const TrackerAreaChart: FC<TrackerAreaChartProps> = ({
   );
   const interval = Math.floor(totalDays / intervalsCount);
 
-  const visibleAxisData = Array.from(new Array(6), (_, i) => i).map(
-    (i) => axisData[Math.min(i * interval, axisData.length - 1)]
-  );
+  const visibleAxisData = Array.from(
+    new Array(intervalsCount + 1),
+    (_, i) => i
+  ).map((i) => axisData[i * interval]);
+  visibleAxisData[intervalsCount] = axisData[axisData.length - 1];
 
   const ChartLine = ({line}: {line?: string}) => (
     <Path key="line" d={line} stroke={lineColor} strokeWidth={3} fill="none" />

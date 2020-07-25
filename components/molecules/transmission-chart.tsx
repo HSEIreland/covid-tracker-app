@@ -55,11 +55,10 @@ export const TransmissionChart: FC<TransmissionChartProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    ...shadows.default,
     flex: 1,
     backgroundColor: '#FFFFFF',
-    borderRadius: 3,
-    padding: 16,
-    ...shadows.default
+    padding: 16
   },
   title: {
     ...text.defaultBold,
@@ -85,7 +84,8 @@ const styles = StyleSheet.create({
   valueWrapper: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    marginRight: 16
+    marginRight: 16,
+    justifyContent: 'flex-end'
   },
   progress: {
     width: '100%',

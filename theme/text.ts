@@ -77,5 +77,10 @@ export default (scale: (v: number) => number) => ({
     fontSize: scale(32),
     letterSpacing: -0.65,
     color: colors.text
+  },
+  xxxlargeBlack: {
+    fontFamily: 'lato-black',
+    fontSize: scale(48),
+    color: colors.text
   }
 });

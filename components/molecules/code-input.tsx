@@ -5,7 +5,8 @@ import {
   TextInput,
   ViewStyle,
   NativeSyntheticEvent,
-  TextInputKeyPressEventData
+  TextInputKeyPressEventData,
+  Platform
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 
@@ -52,20 +53,29 @@ export const CodeInput: FC<CodeInputProps> = ({
   };
 
   const onChangeTextHandler = (index: number, value: string) => {
-    const newValues = [...values];
-    newValues.splice(index, 1, value);
+    const normalisedValue = value.substring(0, count);
+    let newValues = [...values];
+
+    // If the length is > 1, that means it's an OTP from the keyboard's autocomplete
+    // Or it's been pasted from the clipboard
+    if (normalisedValue.length > 1) {
+      newValues.splice(0, normalisedValue.length, ...normalisedValue);
+      refs[normalisedValue.length - 1].current?.focus();
+    } else {
+      newValues.splice(index, 1, normalisedValue);
+      if (normalisedValue && index < count - 1) {
+        refs[index + 1].current?.focus();
+      }
+    }
+
     setValue(newValues);
 
-    if (!value) {
+    if (!normalisedValue) {
       return;
     }
 
     if (newValues.every((v) => !!v)) {
       onChange && onChange(newValues.join(''));
-    }
-
-    if (index < count - 1) {
-      refs[index + 1].current?.focus();
     }
   };
 
@@ -82,9 +92,9 @@ export const CodeInput: FC<CodeInputProps> = ({
               index === 0 && styles.leftMargin,
               index === count - 1 && styles.rightMargin
             ]}
-            maxLength={1}
             keyboardType="number-pad"
             returnKeyType="done"
+            textContentType={Platform.OS === 'ios' ? 'oneTimeCode' : 'none'}
             editable={!disabled}
             value={value}
             onChangeText={(txt) => onChangeTextHandler(index, txt)}
