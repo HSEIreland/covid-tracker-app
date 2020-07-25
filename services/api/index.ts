@@ -138,7 +138,9 @@ async function createToken(): Promise<string> {
 
     return resp.token;
   } catch (err) {
-    if (isMountedRef.current && navigationRef.current) {
+    // We get a 401 Unauthorized if the refresh token is missing, invalid or has expired
+    // If this is the case, send the user back into onboarding to activate & generate a new one
+    if (err.status === 401 && isMountedRef.current && navigationRef.current) {
       navigationRef.current.reset({
         index: 0,
         routes: [{name: 'over16'}]
@@ -234,7 +236,7 @@ export async function checkIn(checks: Check[], checkInData: CheckIn) {
 
 export async function loadSettings() {
   try {
-    const req = await request(`${urls.api}/settings`, {
+    const req = await request(`${urls.api}/settings/language`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

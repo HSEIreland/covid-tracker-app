@@ -34,7 +34,6 @@ export const Debug = ({navigation}) => {
         .replace(/^,/, '')
         .split(',')
         .map((d) => {
-          console.log('DDD', d);
           return format(parseInt(d), 'dd/MM HH:mm:ss');
         });
       logData.lastRun = dates.join(', ');
@@ -68,7 +67,7 @@ export const Debug = ({navigation}) => {
       emitter.removeListener('exposureEvent', handleEvent);
     } catch (e) {}
     let subscription = emitter.addListener('exposureEvent', handleEvent);
-    await exposure.checkExposure(true);
+    await exposure.checkExposure(false, true);
   };
 
   useEffect(() => {

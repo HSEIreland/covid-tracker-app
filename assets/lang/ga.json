@@ -238,8 +238,7 @@
       }
     },
     "registrationsTitle": "Clárúcháin aip",
-    "registrationsYesterday": "Clárúcháin iomlán",
-    "registrationsHint": "Graf ag taispeáint cé mhéad clárúcháin a bhí san aip le himeacht ama",
+    "registrationsSince": "ó seoladh é",
     "shareAppText": "Más mó daoine a bhaineann úsáid as an aip seo is ea is fearr a oibreoidh ár n-iarrachtaí le teagmhálaithe a rianú. Roinn an aip seo le daoine eile agus bainfidh muid amach ár sprioc.",
     "uploadCard": {
       "title": "Uaslódáil d'Aitheantas Randamach",

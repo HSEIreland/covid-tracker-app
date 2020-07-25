@@ -85,7 +85,7 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
     enableReinitialize: true,
     onSubmit: async ({iso, number}) => {
       const country = countryCodes.find((cc) => cc.iso === iso);
-      const [mobile] = phone(`${country?.code}${number}`, iso);
+      const [mobile] = phone(`${country?.code}${number.replace(/^0+/, '')}`, iso);
       app.setContext({
         callBackData: {
           iso,

@@ -1492,6 +1492,11 @@ export const localities: LocalityItem[] = [
   },
   {
     county: 'Dublin',
+    locality: 'Lucan',
+    geocode: '4013'
+  },
+  {
+    county: 'Dublin',
     locality: 'Lusk',
     geocode: '4007'
   },

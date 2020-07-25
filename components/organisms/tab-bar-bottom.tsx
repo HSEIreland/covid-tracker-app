@@ -22,9 +22,7 @@ export const shareApp = async (t: TFunction) => {
       {
         title: t('common:message'),
         message:
-          Platform.OS === 'android'
-            ? t('common:url')
-            : t('common:message'),
+          Platform.OS === 'android' ? t('common:url') : t('common:message'),
         url: t('common:url')
       },
       {
@@ -79,11 +77,11 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
         w: 30,
         h: 24,
         inactive:
-          status.state === StatusState.active && enabled
+          status.initial || (enabled && status.state === StatusState.active)
             ? ctOnUnselected
             : ctOffUnselected,
         active:
-          status.state === StatusState.active && enabled
+          status.initial || (enabled && status.state === StatusState.active)
             ? ctOnSelected
             : ctOffSelected
       }

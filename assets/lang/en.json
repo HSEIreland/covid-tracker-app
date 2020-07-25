@@ -24,7 +24,7 @@
     "settingsCheckin": "COVID Checkin Settings",
     "dataPolicy": "Data Protection Policy",
     "terms": "Terms and Conditions",
-    "metrics":"Settings For App Metrics",
+    "metrics": "Settings For App Metrics",
     "leave": "Leave COVID Tracker Ireland",
     "contactTracing": "Contact Tracing"
   },
@@ -238,8 +238,7 @@
       }
     },
     "registrationsTitle": "App registrations",
-    "registrationsYesterday": "total app registrations",
-    "registrationsHint": "Graph displaying how many registrations there has been in the app over time",
+    "registrationsSince": "since launch",
     "shareAppText": "The more people we can get using this app the more effective our Contact Tracing effort will become. Share the app to help us reach our goal.",
     "uploadCard": {
       "title": "Upload your Random IDs",
@@ -436,5 +435,5 @@
   "codeInput": {
     "accessibilityLabel": "Code digit {{number}}",
     "accessibilityHint": "Enter {{count}} digit code"
-  }  
+  }
 }
