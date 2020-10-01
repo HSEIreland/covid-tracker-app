@@ -1,0 +1,498 @@
+{
+  "common": {
+    "name": "COVID Tracker Ireland",
+    "url": "https://www.covidtracker.ie/",
+    "message": "Prisijunkite prie „COVID Tracker Ireland“ ir kovokite su COVID-19",
+    "networkError": "Ryšio problema. Patikrinkite interneto ryšį ir bandykite dar kartą.",
+    "missingDataAction": "Atnaujinti puslapį",
+    "missingError": "Įkėlimo klaida. Nepavyko tinkamai įkelti kai kurių duomenų.",
+    "preferNotToSay": "Nenoriu nurodyti",
+    "confirmChanges": "Patvirtinti pakeitimus",
+    "changesUpdated": "Pakeitimai atnaujinti",
+    "dismiss": "Atmesti",
+    "registerError": "Atsiprašome, tai tinkamai nesuveikė. Klaidos kodas: ({{code}}).\nBandykite dar kartą.",
+    "registerTimestampError": "Nepavyko patikrinti jūsų įrenginio. Patikrinkite, ar nustatyta teisinga įrenginio data ir laikas ir bandykite dar kartą."
+  },
+  "viewNames": {
+    "age": "Patvirtinti amžių",
+    "getStarted": "Pradėti",
+    "casesByCounty": "Atvejai grafystėse",
+    "updates": "Naujienos",
+    "symptomchecker": "COVID tikrintuvas",
+    "settings": "Nustatymai",
+    "uploadKeys": "Siųsti atsitiktinius kodus",
+    "closeContact": "Artimas kontaktas",
+    "settingsContactTracing": "Kontaktų sekimo nustatymai",
+    "settingsCheckin": "COVID registro nustatymai",
+    "dataPolicy": "Duomenų apsaugos politika",
+    "terms": "Sąlygos ir nuostatos",
+    "metrics": "Programėlės metrikos nustatymai",
+    "leave": "Išeiti iš „COVID Tracker Ireland“",
+    "contactTracing": "Kontaktų sekimas",
+    "requestACallback": "Prašyti perskambinti"
+  },
+  "navbar": {
+    "settings": "Nustatymai",
+    "settingsHint": "Peržiūrėti arba pakeisti programėlės nustatymus",
+    "back": "Atgal",
+    "backHint": "Grįžti atgal į ankstesnį ekraną"
+  },
+  "tabBar": {
+    "updates": "Naujienos",
+    "symptomCheck": "COVID registras",
+    "contactTracing": "Kontaktų sekimas",
+    "shareApp": "Dalintis",
+    "shareError": "Dalinantis programėlė įvyko klaida. Bandykite dar kartą arba susisiekite su mumis."
+  },
+  "onboarding": {
+    "intro": {
+      "title": "Naudodami „COVID Tracker“ programėlę galite atlikti tris veiksmus, padėsiančius kovoti su COVID-19:",
+      "view1": {
+        "title": "Kontaktų sekimas",
+        "text": "Padėkite sekti kontaktus ir apsaugoti jūsų privatumą."
+      },
+      "view2": {
+        "title": "COVID registras",
+        "text": "Registruokite jaučiamus simptomus kiekvieną dieną."
+      },
+      "view3": {
+        "title": "Naujienos",
+        "text": "Gaukite naujausią informaciją apie kovą su COVID-19."
+      },
+      "view4": {
+        "text": "Paspaudę „Pradėti“ sutiksite su",
+        "link": "Sąlygomis ir nuostatomis"
+      },
+      "action": "Pradėti"
+    },
+    "information": {
+      "title": "Kontaktų sekimas",
+      "highlight": "Kontaktų sekimas padeda užkirsti kelią COVID-19 plitimui.",
+      "highlight1": "Ši programėlė palaiko HSE Kontaktų sekimo grupių darbą, tačiau grupių atstovai taip pat gali susisiekti su jumis atlikdami įprastą kontaktų sekimą.",
+      "text": "Jeigu jūs buvote šalia žmogaus, kuriam patvirtintas koronavirusas, programėlė atsiųs jums įspėjimą apie artimą kontaktą.",
+      "text1": "Norėdami įjungti šios programėlės kontaktų sekimo funkciją turite įjungti:",
+      "text2": "norėdami gauti įspėjimus turite įjungti:",
+      "action": "Tęsti",
+      "later": "Gal vėliau",
+      "skip": "Dabar praleisti",
+      "bluetooth": "Pranešimų apie galimą kontaktą paslauga",
+      "notifications": "Pranešimai",
+      "quote": "Jeigu persigalvosite, suteiktus leidimus galėsite bet kuriuo metu pakeisti Nustatymuose."
+    },
+    "upgrade": {
+      "ios": {
+        "title": "Atnaujinkite „Apple iOS“",
+        "text": "Norėdami įjungti kontaktų sekimą turite įdiegti naujausią „Apple iOS“ versiją.",
+        "action": "Tikrinti atnaujinimus"
+      },
+      "android": {
+        "title": "Atnaujinkite „Google Play Services“",
+        "text": "Norėdami įjungti kontaktų sekimą turite įdiegti naujausią „Google Play Services“ versiją.",
+        "action": "Tikrinti atnaujinimus"
+      }
+    }
+  },
+  "dataProtectionPolicy": {
+    "title": "Duomenų apsaugos informacinis pranešimas (DAIP)",
+    "link": "Duomenų apsaugos informacinį pranešimą rasite čia",
+    "text": "Nepavyko įkelti DAIP"
+  },
+  "tandcPolicy": {
+    "title": "Sąlygos ir nuostatos",
+    "link": "Sąlygos ir nuostatos",
+    "text": "Nepavyko įkelti Sąlygų ir nuostatų"
+  },
+  "stats": {
+    "last24Hours": {
+      "title": "Per pastarąsias 24 valandas",
+      "hospital": {
+        "admissions": "Hospitalizavimo atvejai",
+        "discharges": "Išrašymai iš ligoninės",
+        "confrmed": "Ligoninėse patvirtinti atvejai"
+      },
+      "icu": {
+        "admissions": "Paguldymai į Intensyviosios terapijos skyrių",
+        "discharges": "Išrašymai iš Intensyviosios terapijos skyriaus",
+        "confrmed": "Intensyviosios terapijos skyriuose patvirtinti atvejai"
+      }
+    },
+    "last7days": {
+      "title": "Per pastarąsias 7 dienas",
+      "tests": "Atlikti testai",
+      "rate": "Teigiamų rezultatų dalis"
+    }
+  },
+  "checker": {
+    "title": "COVID registras",
+    "resultTitle": "Ačiū!",
+    "question1": "**Ar jūs karščiuojate, t.y., ar jums pasireiškė aukštesnė nei 38 laipsnių Celsijaus temperatūra?**\n\nKarščiavimo simptomai apima paraudusius skruostus, nuovargį, šiltą arba karštą odą.",
+    "question1id": "karščiavimas",
+    "question1Label": "Aukšta temperatūra, šaltkrėtis",
+    "question2id": "kosulys",
+    "question2": "**Ar jus kamuoja bet kokio pobūdžio kosulys?**",
+    "question2Label": "Kosulys",
+    "question3id": "kvėpavimas",
+    "question3": "**Ar jums pasireiškė pasunkėjęs kvėpavimas?**\n\nGalite jausti dusulį arba jaustis taip, lyg įkvėptas oras nepripildytų plaučių.",
+    "question3Label": "Apsunkęs kvėpavimas",
+    "question4id": "gripas",
+    "question4": "**Ar jums pasireiškė uoslės ir skonio pojūčio praradimas?**\n\nTai gali reikšti, kad jūs nieko neužuodžiate, nejaučiate skonio arba visko, ką uostote ar ragaujate, kvapas ar skonis yra neįprastas.",
+    "question4Label": "Uoslės arba skonio pojūčio praradimas",
+    "yes": "Taip",
+    "no": "Ne",
+    "virusIsolation": "Šie simptomai atitinka koronaviruso simptomus. Nepamirškite, kad 8 iš 10 COVID-19 užsikrėtusių žmonių pasveiksta namuose naudodami nereceptinius vaistus ir ilsėdamiesi. \n\n## Ką daryti toliau?\n\nIzoliuokitės namuose, kad apsaugotumėte kitus žmones.\n\nPaskambinkite savo šeimos gydytojui ir išsiaiškinkite, ar jums reikia atlikti COVID-19 tyrimą.",
+    "recovered": "Smagu girdėti, kad jaučiatės geriau. Likite sveikas ir laikykitės hse.ie rekomendacijų.",
+    "linkButton": "Daugiau rekomendacijų čia",
+    "viewHistory": "Mano istorija",
+    "introTitle": "COVID registras",
+    "introWelcome": "Apie jus",
+    "introButton": "Tęsti",
+    "noresults": "Dar neišmėginote simptomų tikrintuvo. Pradėkite dabar bakstelėdami viršuje esantį mygtuką.",
+    "noSymptomsWell": {
+      "message": "Smagu girdėti, kad jaučiatės gerai. Ačiū, kad užsiregistravote. Net jeigu jaučiatės gerai, prisijunkite rytoj ir praneškite mums kaip jaučiatės.",
+      "viewHistory": "Mano istorija",
+      "advice": "Jei norite sužinoti daugiau informacijos apie savęs ir kitų apsaugojimą nuo koronaviruso, apsilankykite hse.ie.",
+      "protectionAdvice": "Apsaugos rekomendacijos"
+    },
+    "noSymptomsNotWell": {
+      "message": "Ačiū, kad užsiregistravote. Apgailestaujame, kad jaučiatės prastai.\n\nJei jums pasireiškė tokie simptomai, kaip sloga arba skaudanti gerklė, turėtumėte elgtis taip, lyg sirgtumėte koronavirusu, ir laikytis 14 dienų izoliacijos, kad apsaugotumėte kitus žmones.\n\nPaskambinkite savo šeimos gydytojui ir aptarkite jaučiamus simptomus bei sužinokite, ar jums reikia atlikti koronaviruso tyrimą.",
+      "viewHistory": "Mano istorija",
+      "advice": "Jei norite sužinoti daugiau informacijos apie savęs ir kitų apsaugojimą nuo koronaviruso, apsilankykite hse.ie.",
+      "protectionAdvice": "Apsaugos rekomendacijos"
+    },
+    "riskGroup": {
+      "warning": "Atsižvelgdami į jūsų amžių norėtume, kad imtumėtės papildomų priemonių, padėsiančių apsisaugoti nuo COVID-19.\n\nUžsikrėtus COVID-19 vyresnio amžiaus žmonėms ir tiems, kurie turi ilgalaikių sveikatos sutrikimų, kyla didesnė rizika susirgti sunkia ligos forma.",
+      "warningReadMore": "Daugiau skaitykite čia",
+      "advice": "Suprantame, jog išgyvename sunkų laikotarpį. Jeigu jums reikia pagalbos arba patarimų, padėsiančių praleisti laiką namuose, daugiau informacijos rasite bakstelėję apačioje.",
+      "adviceReadMore": "Daugiau informacijos"
+    }
+  },
+  "welcome": {
+    "title": "Labas!",
+    "text": "COVID registras suteikia visiems programėlės naudotojams galimybę registruoti savo simptomus ir gauti rekomendacijas. Ši funkcija taip pat padės HSE sekti COVID-19 plitimą Airijoje bei sudaryti apimtų teritorijų žemėlapį.\n\nCOVID registras neatskleidžia jūsų tapatybės. Norėdami suteikti visuomenės sveikatos analizei naudingą informaciją jūs galite bendrinti savo amžių, lytį ir vietovę.\n\nNaudojant COVID registrą visa informacija apie jums pasireiškusius simptomus yra saugoma telefone, todėl bet kuriuo metu galite ją peržiūrėti.",
+    "action": "Taip, noriu naudotis COVID registru",
+    "letUsKnow": "Praneškite mums, jei šiandien jums pasireiškė\nsimptomai"
+  },
+  "returning": {
+    "title": "Sveiki sugrįžę 👋",
+    "subtitle": "Kaip šiandien jaučiatės?",
+    "action1": "Gerai, simptomų nėra",
+    "action2": "Šiandien jaučiuosi prastai",
+    "completeTitle": "Smagu girdėti 👍",
+    "completeLink": "Peržiūrėti istoriją"
+  },
+  "settings": {
+    "title": "Nustatymai",
+    "contactTracing": "Kontaktų sekimas",
+    "contactTracingHint": "Peržiūrėti ar keisti kontaktų sekimo nustatymus",
+    "checkIn": "COVID registras",
+    "checkinHint": "Peržiūrėti ar keisti COVID registro nustatymus",
+    "privacyPolicy": "Duomenų apsaugos informacinis pranešimas (DAIP)",
+    "privacyPolicyHint": "Peržiūrėti Duomenų apsaugos informacinį pranešimą",
+    "termsAndConditions": "Sąlygos ir nuostatos",
+    "termsAndConditionsHint": "Žiūrėti sąlygas ir nuostatas",
+    "metrics": "Programėlės metrika",
+    "metricsHint": "Peržiūrėti arba pakeisti programėlės metrikos nustatymus",
+    "leave": "Išeiti",
+    "leaveHint": "Išeiti iš programėlės"
+  },
+  "leave": {
+    "title": "Išeiti",
+    "info": "Ačiū, kad padedate mums kovoti su COVID-19. Nemalonu, kad norite išeiti. Bakstelėjus „Noriu išeiti“ mes ištrinsime visus jūsų įrenginio duomenis, kuriuos saugo programėlė, įskaitant telefono numerį, jeigu juo pasidalinote, simptomų duomenis ir demografinius sveikatos duomenis, kuriais galėjote pasidalinti. Serveryje saugomi tapatybės neatskleidžiantys autorizavimo prieigos raktai taip pat bus ištrinti.\n\n\\Pranešimų apie galimą kontaktą paslaugos surinkti arba sukurti atsitiktiniai ID negali būti ištrinti iš „COVID Tracker\" programėlės. Jei norite panaikinti tokius atsitiktinius ID, galite tai atlikti įrenginio nustatymuose.",
+    "button": "Noriu išeiti",
+    "confirmTitle": "Išeiti",
+    "confirmText": "Ar tikrai norite išeiti?",
+    "cancel": "Atšaukti",
+    "confirm": "Patvirtinti",
+    "error": "Valant jūsų duomenis įvyko klaida. Bandykite dar kartą arba susisiekite su mumis."
+  },
+  "checkInSettings": {
+    "title": "COVID registras",
+    "checkInFirst": "Įvedus pirmąjį registro įrašą jūsų nustatymai bus matomi čia.",
+    "intro": "Su mumis pasidalinote šia informacija.",
+    "gotoCheckIn": "Eiti į COVID registrą"
+  },
+  "appStats": {
+    "title": "Šiandienos kova",
+    "appUsers": "Programėlės naudotojai nuo jos paleidimo",
+    "dailyCheckIns": "Šiandien prisiregistravę naudotojai",
+    "nationalPicture": "Situacija šalyje",
+    "breakdown": "Bakstelėję matysite grafysčių duomenis"
+  },
+  "contactTracing": {
+    "title": "Kontaktų sekimas",
+    "active": {
+      "title": "Kontaktų sekimas aktyvus",
+      "message": "Kuo daugiau žmonių naudosis šia programėle, tuo geresnių rezultatų pavyks pasiekti vykdant kontaktų sekimą. Programėlė jau padeda sumažinti COVID-19 plitimą pranešdama žmonėms apie artimą kontaktą su virusu užsikrėtusiais asmenimis."
+    },
+    "noSupport": {
+      "title": "Kontaktų sekimas negalimas",
+      "message": "Deja, šis įrenginys nepalaiko kontaktų sekimo. Jūs vis vien galite naudoti šios programėlės COVID registro ir naujienų funkcijas."
+    },
+    "canSupport": {
+      "title": "Kontaktų sekimas negalimas",
+      "message": {
+        "ios": "Norėdami įjungti kontaktų sekimą turite įdiegti naujausią „iOS“ versiją (13.5 arba vėlesnę).",
+        "android": "Norėdami įjungti kontaktų sekimą turite įdiegti naujausią „Google Play Services“ versiją."
+      },
+      "button": "Tikrinti, ar yra atnaujinimų"
+    },
+    "notEnabled": {
+      "title": "Kontaktų sekimas išjungtas",
+      "message": "Norėdami įjungti kontaktų sekimą turite jį nustatyti.",
+      "button": "Nustatymas"
+    },
+    "notActive": {
+      "title": "Kontaktų sekimas neaktyvus",
+      "message00": "Nustatymuose turite įjungti **Pranešimų apie galimą kontaktą paslaugą**",
+      "message10": "Nustatymuose turite įjungti **Pranešimų apie galimą kontaktą paslaugą**",
+      "message01": "Nustatymuose turite įjungti **„Bluetooth“**",
+      "message11": "Nustatymuose turite įjungti **Pranešimų apie galimą kontaktą paslaugą** ir **„Bluetooth“**",
+      "button": "Eiti į nustatymus",
+      "android": {
+        "button": "Įjungti",
+        "message": "Norėdami aktyvuoti kontaktų sekimą turite įjungti **Pranešimų apie galimą kontaktą paslaugą**"
+      }
+    },
+    "registrationsTitle": "Registravimasis",
+    "registrationsSince": "nuo pradžios",
+    "shareAppText": "Kuo daugiau žmonių naudosis šia programėle, tuo geresnių rezultatų pasieks mūsų vykdomas kontaktų sekimas. Dalinkitės programėle ir padėkite mums pasiekti šį tikslą.",
+    "statsCard": {
+      "uploads": {
+        "text": "„COVID Tracker“ naudotojai, kuriems buvo nustatytas koronavirusas, nusiuntė savo atsitiktinius ID"
+      },
+      "alerts": {
+        "text": "„COVID Tracker“ vartotojams buvo išsiųstas įspėjimas apie artimą kontaktą"
+      }
+    },
+    "registrationsCard": {
+      "title": "Aktyvūs vartotojai",
+      "registrations": "{{registrations}}",
+      "text": "{{percentage}} % vyresnių nei 16 metų Airijos gyventojų naudojasi „COVID Tracker“ programėle saugodami kitus žmones. Programėlė turi {{registrations}} registruotus vartotojus."
+    },
+    "uploadCard": {
+      "title": "Siųsti atsitiktinius ID",
+      "text": "Naudoti tik jei su jumis susisieks HSE. Šiuo metu nusiuntusių vartotojų skaičius yra  **{{uploads}}**.",
+      "uploads": "Šiuo metu nusiuntusių vartotojų skaičius yra  **{{uploads}}**."
+    },
+    "closeContactCard": {
+      "title": "Artimo kontakto informacija",
+      "text": "Kokių veiksmų turite imtis dabar?"
+    },
+    "settings": {
+      "status": {
+        "title": "Būsena",
+        "active": "Šiuo metu paslauga aktyvi",
+        "notActive": "Paslauga neaktyvi",
+        "intro": "Norėdami atnaujinti savo leidimų nustatymus eikite į savo įrenginio programėlių nustatymus.",
+        "gotoSettings": "Atnaujinti nustatymus",
+        "android": {
+          "intro": "Pranešimų apie galimą kontaktą paslauga šiuo metu neįjungta. Jei norite pradėti, spustelėkite „Įjungti“.",
+          "gotoSettings": "Įjungti"
+        }
+      },
+      "clearData": {
+        "title": "Artimi kontaktai",
+        "intro": "Jei norite išvalyti visus turėtus artimus kontaktus, spustelėkite apačioje esantį mygtuką.",
+        "button": "Valyti visus",
+        "confirmTitle": "Artimi kontaktai",
+        "confirmText": "Ar tikrai norite išvalyti visus savo artimus kontaktus?",
+        "cancel": "Atšaukti",
+        "confirm": "Patvirtinti",
+        "error": "Valant artimus kontaktus įvyko klaida. Bandykite dar kartą."
+      }
+    }
+  },
+  "requestACallback": {
+    "heading": "Prašyti perskambinti",
+    "text": "Programėlė bendrins jūsų numerį su kontaktų sekimo grupe. Kontaktų sekimo grupės narys paskambins jums ir prireikus paskirs atlikti tyrimą.",
+    "buttonLabel": "Perskambinti",
+    "complete": {
+      "title": "Prašymas perskambinti išsiųstas",
+      "text": "Mūsų kontaktų sekimo grupės narys susisieks su jumis ir pateiks jums rekomendacijas bei paskirs atlikti tyrimą, jeigu jis bus reikalingas.",
+      "button": "Eiti į naujienas"
+    }
+  },
+  "confirmedChart": {
+    "title": "Patvirtinti atvejai per parą",
+    "label": "Paros patvirtintų atvejų kreivė",
+    "hint": "Kreivė, rodanti per parą patvirtintų atvejų skaičių",
+    "yesterday": "patvirtintų atvejų vakar",
+    "prevCases": "Atvejai",
+    "prevDeaths": "Mirtys",
+    "prevCase": "Atvejis",
+    "prevDeath": "Mirtis",
+    "sourceDate": "Atvejų duomenys",
+    "ranges": {
+      "default": "Per pastarąsias 2 savaites",
+      "months": "Per pastaruosius 2 mėnesius",
+      "all": "Visi"
+    }
+  },
+  "statsSource": {
+    "monitor": "COVID-19 sveikatos stebėsena (Airijoje)",
+    "lastUpdatedStats": "Patvirtinti atvejai naujinti:",
+    "lastUpdatedProfile": "Atvejų profilis naujintas:"
+  },
+  "symptomsHistory": {
+    "title": "Simptomų istorija",
+    "symptom": "Simptomas",
+    "symptoms": "Simptomai",
+    "completed": "Savo simptomus galėsite registruoti rytoj"
+  },
+  "casesByCounty": {
+    "title": "Atvejai grafystėse",
+    "casesDay": "Atvejai",
+    "casesWeeks": {
+      "first": "Buvęs",
+      "second": "2 savaitės"
+    }
+  },
+  "yourData": {
+    "title": "Jūsų duomenys",
+    "info": "„COVID Tracker“ programėlė saugo jūsų privatumą ir nebendrina jūsų asmeninės informacijos su kitų programėlių naudotojais. **Jūsų tapatybė niekada nebus atskleista kitų programėlių naudotojams.**\n\nBet kokie jūsų pateikti asmens duomenys bus tvarkomi laikantis BDAR ir duomenų apsaugos įstatymų. Daugiau informacijos apie tai rasite toliau pateiktame Duomenų apsaugos informavimo pranešime. **Jūsų duomenys bus naudojami tik su atsaku į COVID-19 pandemiją susijusiais tikslais** ir taip, kaip nurodyta Duomenų apsaugos informavimo pranešime.\n\nJeigu norite gauti įspėjimus, programėlė pradės šį procesą pateikdama saugų pranešimą programėlėje. Nepriklausomai nuo šios programėlės naudojimo, jeigu COVID-19 užsikrėtęs žmogus turėjo artimą kontaktą su jumis, jums gali paskambinti HSE kontaktų sekimo grupės atstovas. Jeigu jums buvo atliktas COVID-19 tyrimas, HSE praneš jums tyrimo rezultatus tekstine žinute arba telefono skambučiu.\n\nSaugokite save nuo bet kokių įtartinų skambučių, el. laiškų arba tekstinių žinučių, kuriose prašoma atskleisti savo asmeninę informaciją. **HSE neprašys pateikti savo asmeninės informacijos tekstine žinute arba el. laišku.**",
+    "viewInSettings": "Bet kuriuo metu galite peržiūrėti šį pranešimą Nustatymuose. Jeigu nenorite tęsti, uždarykite ir ištrinkite programėlę. Jei sutinkate, spustelėkite „Tęsti“, kad tęstumėte.",
+    "continue": "Tęsti"
+  },
+  "sorry": {
+    "title": "Apgailestaujame",
+    "info": "Deja, jūs negalėsite toliau naudotis programėle. Bet kuriuo metu galėsite grįžti prie programėlės naudojimo spustelėję grįžimo atgal mygtuką.",
+    "back": "Atgal"
+  },
+  "ageRequirement": {
+    "notice": "Norėdami naudotis šia programėle turite būti sulaukę 16 metų.",
+    "over": "Man yra 16 m.",
+    "under": "Man nėra 16 m."
+  },
+  "underAge": {
+    "title": "Nėra 16 m.",
+    "notice": "Ačiū, kad domitės. Deja, jūs esate per jaunas, todėl negalite prisijungti prie šios iniciatyvos.\n\nSaugokite save."
+  },
+  "followUpCall": {
+    "title": "Kontaktų sekimo kontrolinis skambutis",
+    "shortTitle": "Perskambinti",
+    "intro": "Jei žmogui, su kuriuo turėjote artimą kontaktą, patvirtinamas COVID-19, programėlė atsiųs jums artimo kontakto įspėjimą. Jeigu toliau pateiksite savo telefono numerį, taip pat sulauksite HSE skambučio.",
+    "note": "HSE gali paskambinti jums įprastu būdu nustačiusi, kad jūs turėjote artimą kontaktą su žmogumi, kuriam patvirtintas COVID-19. HSE pateiks jums rekomendacijas ir prireikus siųs atlikti tyrimus.\n\nProgramėlė bendrins jūsų telefono numerį su HSE tik jeigu jūs gausite artimo kontakto įspėjimą. Savo telefono numerį galite įvesti toliau arba bet kuriuo metu pateikti Nustatymuose.",
+    "noteAlt": "Jeigu žmogui, su kuriuo turėtoje artimą kontaktą, patvirtinamas COVID-19, programėlė atsiųs jums artimo kontakto įspėjimą. Jeigu toliau pateiksite savo telefono numerį, taip pat sulauksite HSE skambučio.\n\nHSE gali paskambinti jums įprastu būdu nustačiusi, kad jūs turėjote artimą kontaktą su žmogumi, kuriam patvirtintas COVID-19. HSE pateiks jums rekomendacijas ir prireikus siųs atlikti tyrimus.\n\nProgramėlė bendrins jūsų telefono numerį su HSE tik jeigu jūs gausite artimo kontakto įspėjimą. Savo telefono numerį galite įvesti toliau arba bet kuriuo metu pateikti Nustatymuose.",
+    "noteSettings": "Jeigu norite, mes galime paskambinti jums ir suteikti pagalbą gavus pranešimą apie galimą kontaktą.\n\nProgramėlė bendrins jūsų telefono numerį su HSE tik jeigu jūs gausite pranešimą apie galimą kontaktą.",
+    "optIn": "Taip, noriu",
+    "noThanks": "Ne, ačiū"
+  },
+  "closeContactNotification": {
+    "title": "Artimo kontakto įspėjimas",
+    "description": "Patikrinkite „COVID Tracker“ programėlę."
+  },
+  "closeContactWarn": {
+    "title": "Artimo kontakto įspėjimas",
+    "notice": "Programėlė nustatė, kad jūs turėjote artimą kontaktą su žmogumi, kuriam buvo patvirtintas COVID-19."
+  },
+  "closeContact": {
+    "title": "Artimas kontaktas",
+    "text": "Lengviausias būdas tai padaryti – paprašyti Kontaktų sekimo grupės paskambinti jums gavus įspėjimą. Jūs taip pat galite susisiekti su **HSELive telefono numeriu 1850 24 1850** ir jie užtikrins, kad jums būtų perskambinta.",
+    "titleInfo": "Artimo kontakto informacija",
+    "introInfo": "Jeigu jūs gavote programėlės pranešimą arba sulaukėte kontaktų sekimo grupės skambučio, kurio metu buvo pranešta, jog jūs turėjote artimą kontaktą su žmogumi, kuriam patvirtintas koronavirusas, jums gali reikėti atlikti tyrimą.",
+    "text2Info": "**Pasireiškus simptomams paskambinkite savo šeimos gydytojui.**\n\nDaugiau informacijos apie veiksmus, kurių turite imtis, rasite apsilankę hse.ie.",
+    "titleAlert": "Artimo kontakto įspėjimas",
+    "introAlert": "„COVID Tracker“ programėlė nustatė, kad jūs turėjote artimą kontaktą su žmogumi, kuriam buvo diagnozuotas COVID-19. Sužinokite, kokių veiksmų turite imtis, kad padėtumėte sau ir apsaugotumėte kitus.",
+    "text2Alert": "**Pasireiškus simptomams paskambinkite savo šeimos gydytojui.**\n\nDaugiau informacijos apie veiksmus, kurių turite imtis, rasite apsilankę hse.ie.",
+    "todo": "1. Likite namuose.\n\n2. Neikite į darbą.\n\n3. Nesinaudokite viešuoju transportu.\n\n4. Namuose nepriimkite svečių.\n\n5. Nelankykite kitų žmonių, net jeigu įprastai jais rūpinatės.\n\n6. Nesilankykite parduotuvėse arba vaistinėse, išskyrus atvejus, kai tai padaryti būtina. Jeigu įmanoma, apsipirkite internetu arba paprašykite, kad pirkinius pristatytų šeimos nariai arba draugai.\n\n7. Laikykitės atokiau nuo vyresnio amžiaus žmonių, tų, kurie turi ilgalaikių sveikatos sutrikimų, arba besilaukiančių moterų.",
+    "gotoHSE": "Apsilankykite HSE.ie",
+    "requestCallback": {
+      "title": "Paprašykite perskambinti",
+      "text": "Pasikalbėkite su Kontaktų sekimo grupės nariu"
+    }
+  },
+  "uploadKeys": {
+    "title": "Siųsti atsitiktinius ID",
+    "code": {
+      "intro": "Kontaktų sekimo grupės narys gali paprašyti jūsų pasidalinti atsitiktiniais ID, kuriuos per 14 d. sugeneravo jūsų telefonas.\n\nSulaukę tokio prašymo tekstine žinute gausite unikalų 6 skaitmenų kodą, kuris aktyvuos nusiuntimo funkciją.",
+      "expiredError": "Kodas baigė galioti. Susisiekite su HSE.ie ir paprašykite kito kodo.",
+      "invalidError": "Netinkamas kodas. Bandykite dar kartą.",
+      "error": "Tikrinant kodą įvyko klaida. Bandykite dar kartą."
+    },
+    "upload": {
+      "intro": "Prašome jūs�� pasidalinti su HSE anonimiškais atsitiktiniais ID, kuriuos sugeneravo jūsų telefonas, ir padėti mums susekti jūsų 14 dienų kontaktus.",
+      "button": "Siųsti HSE savo atsitiktinius ID"
+    },
+    "permissionError": "Jūsų kodai nebuvo nusiųsti, nes jūs nesuteikėte leidimo.",
+    "uploadError": "Siunčiant įvyko klaida",
+    "uploadSuccess": {
+      "toast": "Siuntimas baigtas",
+      "thanks": "Ačiū, kad nusiuntėte savo atsitiktinius ID. Jie padės mūsų kontaktų sekimo grupei sulėtinti COVID-19 plitimą ir apsaugoti kitus.",
+      "updates": "Grįžti į naujienas"
+    }
+  },
+  "sex": {
+    "label": "Lytis (neprivaloma)",
+    "female": "Moteris",
+    "male": "Vyras"
+  },
+  "ageRange": {
+    "label": "Amžius (neprivalomas)",
+    "placeholder": "Jūsų amžiaus grupė"
+  },
+  "phoneNumber": {
+    "code": {
+      "label": "Šalies kodas",
+      "placeholder": "Šalis",
+      "searchPlaceholder": "Ieškoti šalies",
+      "noResults": "Nerasta šios paieškos rezultatų.\nBandykite naudoti kitus raktažodžius.",
+      "error": {
+        "required": "Reikalingas jūsų šalies kodas."
+      }
+    },
+    "number": {
+      "label": "Telefono Nr. (neprivalomas)",
+      "placeholder": "Tel. Nr.",
+      "error": {
+        "invalid": "Jūsų numeris negalioja. Pateikite visą telefono numerį.",
+        "short": "Jūsų numeris nebaigtas. Pateikite visą telefono numerį.",
+        "required": "Reikalingas telefono Nr."
+      }
+    }
+  },
+  "county": {
+    "label": "Grafystė (neprivaloma)",
+    "placeholder": "Pasirinkite grafystę",
+    "searchPlaceholder": "Paieška",
+    "noResults": "Nerasta šios paieškos rezultatų.\nBandykite naudoti kitus raktažodžius."
+  },
+  "locality": {
+    "label": "Vietovė (neprivaloma)",
+    "placeholder": "Pasirinkite vietovę",
+    "searchPlaceholder": "Paieška",
+    "noResults": "Nerasta šios paieškos rezultatų.\nBandykite naudoti kitus raktažodžius."
+  },
+  "appUsage": {
+    "title": "Programėlės metrika",
+    "info": "HSE nori suprasti, kaip naudojatės programėle, kad galėtų ją pagerinti.\n\nProgramėlė rinks anoniminę metriką apie jūsų programėlės naudojimą ir kontaktų sekimo procesų efektyvumą.\n\nŠią informaciją renka tiesiogiai HSE; metrikos rinkimui nėra pasitelkiamos jokios trečiosios šalys. **Ši informacija renkama tik gavus jūsų sutikimą ir negali būti naudojama jūsų tapatybei nustatyti.**",
+    "settingsInfo": "Jeigu persigalvosite, suteiktus leidimus galėsite bet kuriuo metu pakeisti Nustatymuose.",
+    "yesButton": "Taip, sutinku",
+    "noThanks": "Ne, ačiū"
+  },
+  "metrics": {
+    "title": "Programėlės metrika",
+    "info": "HSE nori suprasti, kaip naudojatės programėle, kad galėtų ją pagerinti.\n\nProgramėlė rinks anoniminę metriką apie jūsų programėlės naudojimą ir kontaktų sekimo procesų efektyvumą.\n\nŠią informaciją renka tiesiogiai HSE; metrikos rinkimui nėra pasitelkiamos jokios trečiosios šalys. **Ši informacija renkama tik gavus jūsų sutikimą ir negali būti naudojama jūsų tapatybei nustatyti.**",
+    "share": "Dalintis naudojimo statistika"
+  },
+  "tracingAvailable": {
+    "title": "Nuo šiol galite naudoti kontaktų sekimo funkciją",
+    "text": "Gauti nustatymus"
+  },
+  "codeInput": {
+    "accessibilityLabel": "Kodo skaičiai {{number}}",
+    "accessibilityHint": "Įvesti {{count}} skaičių kodą"
+  },
+  "policyUpdates": {
+    "title": "Labas!",
+    "tandcOnly": "Mes atnaujinome programėlės Sąlygas ir nuostatas.",
+    "dpinOnly": "Mes atnaujinome Duomenų apsaugos informacinį pranešimą.",
+    "info": "Mes atnaujinome programėlės Sąlygas ir nuostatas bei Duomenų apsaugos informacinį pranešimą.",
+    "dpinLink": "Duomenų apsaugos informacinį pranešimą rasite čia",
+    "tandcLink": "Sąlygas ir nuostatas rasite čia"
+  },
+  "newVersionAvailable": {
+    "title_ios": "Naująją „Covid Tracker“ programėlės versiją rasite „App Store“ parduotuvėje",
+    "title_android": "Naująją „Covid Tracker“ programėlės versiją rasite „Play Store“ parduotuvėje",
+    "text": "Naujinti dabar"
+  }
+}

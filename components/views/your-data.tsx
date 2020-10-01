@@ -26,7 +26,7 @@ export const YourData: FC<YourDataProps> = ({navigation}) => {
   const [registerError, setRegisterError] = useState<string | null>(null);
 
   const onContinue = async () => {
-    try {      
+    try {
       app.showActivityIndicator();
       await app.clearContext();
       const {token, refreshToken} = await register();
@@ -47,9 +47,18 @@ export const YourData: FC<YourDataProps> = ({navigation}) => {
         routes: [{name: 'appUsage'}]
       });
     } catch (err) {
+      console.log('Error registering device: ', err);
+      console.log('Error code:', err.code);
       app.hideActivityIndicator();
-      console.log('Error registering device: ', err, typeof err, err.message);
-      setRegisterError(t('common:networkError'));
+      if (err.message === 'Network Unavailable') {
+        setRegisterError(t('common:networkError'));
+      } else {
+        setRegisterError(
+          err.code === 108
+            ? t('common:registerTimestampError')
+            : t('common:registerError', {code: err.code})
+        );
+      }
     }
   };
 

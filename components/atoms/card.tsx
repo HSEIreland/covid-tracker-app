@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, MutableRefObject} from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -23,12 +23,14 @@ interface CountyBreakdownCardProps {
     source: ImageRequireSource;
   };
   onPress?: () => void;
+  cardRef?: MutableRefObject<TouchableWithoutFeedback>;
 }
 export const Card: FC<CountyBreakdownCardProps> = ({
   type,
   padding: {h = 16, v = 16, r = 16} = {},
   icon,
   onPress,
+  cardRef,
   children
 }) => {
   if (!onPress) {
@@ -66,7 +68,10 @@ export const Card: FC<CountyBreakdownCardProps> = ({
   }
 
   return (
-    <TouchableWithoutFeedback accessibilityRole="button" onPress={onPress}>
+    <TouchableWithoutFeedback
+      ref={cardRef}
+      accessibilityRole="button"
+      onPress={onPress}>
       <View
         style={[
           styles.card,

@@ -31,7 +31,10 @@ export const Heading: React.FC<HeadingProps> = ({
     if (ref.current && accessibilityFocus) {
       const tag = findNodeHandle(ref.current);
       if (tag) {
-        setTimeout(() => AccessibilityInfo.setAccessibilityFocus(tag), 200);
+        setTimeout(
+          () => ref.current && AccessibilityInfo.setAccessibilityFocus(tag),
+          200
+        );        
       }
     }
   }, []);
@@ -40,7 +43,10 @@ export const Heading: React.FC<HeadingProps> = ({
     if (isFocused && accessibilityRefocus && ref.current) {
       const tag = findNodeHandle(ref.current);
       if (tag) {
-        setTimeout(() => AccessibilityInfo.setAccessibilityFocus(tag), 200);
+        setTimeout(
+          () => ref.current && AccessibilityInfo.setAccessibilityFocus(tag),
+          200
+        );
       }
     }
   });

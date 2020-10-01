@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Text, Switch, View, StyleSheet} from 'react-native';
-import * as SecureStore from 'expo-secure-store';
+import {useExposure} from 'react-native-exposure-notification-service';
 
 import {Markdown} from '../../atoms/markdown';
 
@@ -10,31 +10,19 @@ import {Spacing} from '../../atoms/spacing';
 import {DataProtectionLink} from '../data-protection-policy';
 import {text} from '../../../theme';
 import {colors} from '../../../constants/colors';
-import {useExposure} from '../../../providers/exposure';
+import {useApplication} from '../../../providers/context';
 
 export const Metrics = () => {
   const {t} = useTranslation();
   const {configure} = useExposure();
-  const [enabled, setEnabled] = useState(false);
+  const {setContext, analyticsConsent} = useApplication();
+
   useEffect(() => {
-    SecureStore.getItemAsync('analyticsConsent')
-      .then((consent) => {
-        if (consent) {
-          setEnabled(consent === 'true');
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    configure();
+  }, [analyticsConsent]);
 
   const toggleSwitch = async () => {
-    if (enabled) {
-      setEnabled(false);
-      SecureStore.setItemAsync('analyticsConsent', String(false), {});
-    } else {
-      setEnabled(true);
-      SecureStore.setItemAsync('analyticsConsent', String(true), {});
-    }
-    configure();
+    await setContext({analyticsConsent: !analyticsConsent});
   };
 
   return (
@@ -52,7 +40,7 @@ export const Metrics = () => {
           }}
           thumbColor={colors.white}
           onValueChange={toggleSwitch}
-          value={enabled}
+          value={analyticsConsent}
           style={styles.switch}
         />
       </View>

@@ -9,7 +9,11 @@
     "preferNotToSay": "Prefer not to say",
     "confirmChanges": "Confirm changes",
     "changesUpdated": "Changes updated",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "registerError": "Sorry, that didn't work properly.Error code: ({{code}}).\nPlease try again.",
+    "registerTimestampError": "We couldn’t verify your device. Please check it’s set to the correct date and time, and try again.",
+    "millions": "millions",
+    "thousands": "thousands"
   },
   "viewNames": {
     "age": "Confirm your age",
@@ -26,7 +30,8 @@
     "terms": "Terms and Conditions",
     "metrics": "Settings For App Metrics",
     "leave": "Leave COVID Tracker Ireland",
-    "contactTracing": "Contact Tracing"
+    "contactTracing": "Contact Tracing",
+    "requestACallback": "Request a call-back"
   },
   "navbar": {
     "settings": "Settings",
@@ -100,11 +105,24 @@
     "text": "The Terms & Conditions could not be loaded"
   },
   "stats": {
-    "title": "Latest update",
-    "totalConfirmed": "Total confirmed cases",
-    "totalDeaths": "Total deaths",
-    "totalHospitalised": "Number hospitalised",
-    "requiredICU": "Required ICU"
+    "last24Hours": {
+      "title": "In the last 24 hours",
+      "hospital": {
+        "admissions": "Hospital admissions",
+        "discharges": "Hospital discharges",
+        "confrmed": "Hospital confirmed cases"
+      },
+      "icu": {
+        "admissions": "Intensive Care Unit admissions",
+        "discharges": "Intensive Care Unit discharges",
+        "confrmed": "Intensive Care Unit confirmed cases"
+      }
+    },
+    "last7days": {
+      "title": "In the last 7 days",
+      "tests": "Tests Completed",
+      "rate": "Positive Rate"
+    }
   },
   "checker": {
     "title": "COVID Check-In",
@@ -197,16 +215,16 @@
   },
   "appStats": {
     "title": "Today's fight",
-    "totalCheckins": "Total Check-Ins today",
-    "noSymptoms": "Feeling good",
-    "someSymptoms": "Some symptoms",
+    "appUsers": "App users since the launch",
+    "dailyCheckIns": "Users checked-in today",
     "nationalPicture": "The national picture",
     "breakdown": "Tap for county breakdown"
   },
   "contactTracing": {
     "title": "Contact Tracing",
     "active": {
-      "title": "Contact Tracing active"
+      "title": "Contact Tracing active",
+      "message": "The more people who use this app, the more effective our Contact Tracing efforts will be. The app is already helping to reduce the spread of COVID-19 by notifying close contacts of those who test positive for the virus."
     },
     "noSupport": {
       "title": "Contact Tracing not available",
@@ -240,13 +258,27 @@
     "registrationsTitle": "App registrations",
     "registrationsSince": "since launch",
     "shareAppText": "The more people we can get using this app the more effective our Contact Tracing effort will become. Share the app to help us reach our goal.",
+    "statsCard": {
+      "uploads": {
+        "text": "COVID\n Trackers who tested positive uploaded their Random IDs"
+      },
+      "alerts": {
+        "text": "COVID\n Trackers were sent a Close Contact Alert"
+      }
+    },
+    "registrationsCard": {
+      "title": "Active users",
+      "registrations": "{{registrations}}",
+      "text": "{{percentage}}% of over 16s in Ireland are now COVID Trackers, keeping other people safe and protected. The app has {{registrations}} app registrations."
+    },
     "uploadCard": {
       "title": "Upload your Random IDs",
-      "text": "For use only if the HSE contacts you."
+      "text": "For use only if the HSE contacts you. **{{uploads}}** users have uploaded so far.",
+      "uploads": "**{{uploads}}** users have uploaded so far."
     },
     "closeContactCard": {
-      "title": "Close contact information",
-      "text": "What to do if you are told you are a close contact of someone with COVID-19."
+      "title": "Close Contact information",
+      "text": "Steps to follow now"
     },
     "settings": {
       "status": {
@@ -272,21 +304,34 @@
       }
     }
   },
+  "requestACallback": {
+    "heading": "Request a call-back",
+    "text": "The app will share your number with our Contact Tracing team. A member of the team will phone you and arrange testing if appropriate.",
+    "buttonLabel": "Call me back",
+    "complete": {
+      "title": "Call-back request sent",
+      "text": "A member of our Contact Tracing team will be in contact with you to provide advice and arrange testing if appropriate.",
+      "button": "Go to updates"
+    }
+  },
   "confirmedChart": {
     "title": "Daily confirmed cases",
     "label": "Daily confirmed cases graph",
     "hint": "Graph showing daily confirmed cases over time",
-    "yesterday": "confirmed cases yesterday"
-  },
-  "transmissionChart": {
-    "title": "How COVID-19 is spreading",
-    "community": "Community transmission",
-    "contact": "Close contact",
-    "travel": "Travel abroad"
+    "yesterday": "confirmed cases yesterday",
+    "prevCases": "Cases",
+    "prevDeaths": "Deaths",
+    "prevCase": "Case",
+    "prevDeath": "Death",
+    "sourceDate": "Case data from",
+    "ranges": {
+      "default": "Last 2 weeks",
+      "months": "Last 2 months",
+      "all": "All"
+    }
   },
   "statsSource": {
     "monitor": "COVID-19 Health Surveillance Monitor (Ireland)",
-    "communityTransmissions": "Community Transmissions, no known close contact",
     "lastUpdatedStats": "Confirmed cases last update: ",
     "lastUpdatedProfile": "Cases profile last update: "
   },
@@ -297,7 +342,14 @@
     "completed": "You can check symptoms again tomorrow"
   },
   "casesByCounty": {
-    "title": "Cases by county"
+    "title": "Cases by county",
+    "casesDay": "Cases",
+    "casesWeeks": {
+      "first": "Previous",
+      "second": "2 weeks"
+    },
+    "summary": "{{county}}: {{lastStat}} cases on {{date}}, {{twoWeeksStat}} in the previous two weeks",
+    "summaryHint": "Tap to see details for {{county}}"
   },
   "yourData": {
     "title": "Your data",
@@ -338,21 +390,21 @@
     "notice": "The app has detected that you have been in close contact with someone who has tested positive for COVID-19."
   },
   "closeContact": {
-    "title": "Close Contact Alert",
-    "infoTitle": "Close contact information",
-    "intro": "If you have received a notification from the app, or a call from our Contact Tracing team, telling you that you have been in close contact with someone that has tested positive for coronavirus, you may need to be tested.",
-    "alertintro": "The COVID Tracker App has detected that you have been in close contact with someone that has tested positive for coronavirus. You may need to be tested.",
-    "callBack": "Call Back",
-    "callBackQueue": "The HSE contact tracing team will call you as soon as possible.",
-    "todo": {
-      "title": "There are some things that you should do to protect others.",
-      "selfIsolationDetails": "For details on how to self-isolate go to [https://www2.hse.ie/conditions/coronavirus/self-isolation-and-limited-social-interaction.html#close-contact](https://www2.hse.ie/conditions/coronavirus/self-isolation-and-limited-social-interaction.html#close-contact)",
-      "list": "1. Stay at home.\n\n2. Do not go to work.\n\n3. Do not use public transport.\n\n4. Do not have visitors at your home.\n\n5. Do not visit others, even if you usually care for them.\n\n6. Do not go to the shops or pharmacy unless it's absolutely necessary - where possible, order your groceries online or have some family or friends drop them off.\n\n7. Keep away from older people, anyone with long-term medical conditions and pregnant women."
-    },
-    "symptoms": {
-      "title": "Phone your GP if you develop symptoms.",
-      "intro": "Find out more about what you need to do on hse.ie.",
-      "callHSE": "Go to HSE.ie"
+    "title": "Close contact",
+    "text": "The easiest way to check what to do next is to request a call back from the Contact Tracing Team. They will check if your close contact alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.",
+    "titleInfo": "Close contact information",
+    "introInfo": "If you have received a notification from the app, or a call from our Contact Tracing team, telling you that you have been in close contact with someone that has tested positive for coronavirus, you may need to be tested.",
+    "text1Info": "If you get an alert in the app, the easiest way to check what to do next is to request a call back from the Contact Tracing team. They will check if your Close Contact Alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.\n\nThere are some things that you should do to protect others.",
+    "text2Info": "**Phone your GP if you develop symptoms.\n\nFind out more about what you need to do on hse.ie",
+    "titleAlert": "Close Contact Alert",
+    "introAlert": "The COVID Tracker app has detected that you have been in close contact with someone that has tested positive for coronavirus. You may need to be tested.",
+    "text1Alert": "**The Contact Tracing team will be in touch with you shortly. They will check if your Close Contact Alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.**\n\nThere are some things that you should do to protect others.",
+    "text2Alert": "**Phone your GP if you develop symptoms.**\n\nFind out more about what you need to do on hse.ie",
+    "todo": "1. Stay at home.\n\n2. Do not go to work.\n\n3. Do not use public transport.\n\n4. Do not have visitors at your home.\n\n5. Do not visit others, even if you usually care for them.\n\n6. Do not go to the shops or pharmacy unless it''s absolutely necessary - where possible, order your groceries online or have some family or friends drop them off.\n\n7. Keep away from older people, anyone with long-term medical conditions and pregnant women.",
+    "gotoHSE": "Go to HSE.ie",
+    "requestCallback": {
+      "title": "Request a call-back",
+      "text": "Speak with a member of our Contact Tracing team"
     }
   },
   "uploadKeys": {
@@ -435,5 +487,18 @@
   "codeInput": {
     "accessibilityLabel": "Code digit {{number}}",
     "accessibilityHint": "Enter {{count}} digit code"
+  },
+  "policyUpdates": {
+    "title": "Hi there,",
+    "tandcOnly": "We have made an update to the app Terms and Conditions.",
+    "dpinOnly": "We have made an update to the Data Protection Information notice.",
+    "info": "We have made an update to the app Terms and Conditions and Data Protection Information notice.",
+    "dpinLink": "You can read the Data Protection Information Notice here",
+    "tandcLink": "You can view Terms and Conditions here"
+  },
+  "newVersionAvailable": {
+    "title_ios": "A new version of Covid Tracker is available on the App Store",
+    "title_android": "A new version of Covid Tracker is available on the Play Store",
+    "text": "Update now"
   }
 }

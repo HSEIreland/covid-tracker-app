@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, StyleSheet} from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import {useTranslation} from 'react-i18next';
+
 import {useSettings} from '../../providers/settings';
 import {Markdown} from '../atoms/markdown';
 import {Link} from '../atoms/link';
@@ -43,9 +45,27 @@ export const DataProtectionPolicy = () => {
   const {dpinText} = useSettings();
   const {t} = useTranslation();
 
+  const [initialRender, setInitialRender] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setInitialRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (!initialRender) {
+      setLoading(false);
+    }
+  }, [initialRender]);
+
   return (
     <Layouts.Scrollable heading={t('dataProtectionPolicy:title')}>
-      <Markdown markdownStyles={markDownStyles}>{dpinText}</Markdown>
+      {!loading && (
+        <Markdown markdownStyles={markDownStyles}>{dpinText}</Markdown>
+      )}
+      {loading && (
+        <Spinner animation="fade" visible overlayColor={'rgba(0, 0, 0, 0.5)'} />
+      )}
     </Layouts.Scrollable>
   );
 };
@@ -54,9 +74,27 @@ export const TermsAndConditions = () => {
   const {tandcText} = useSettings();
   const {t} = useTranslation();
 
+  const [initialRender, setInitialRender] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setInitialRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (!initialRender) {
+      setLoading(false);
+    }
+  }, [initialRender]);
+
   return (
     <Layouts.Scrollable heading={t('tandcPolicy:title')}>
-      <Markdown markdownStyles={markDownStyles}>{tandcText}</Markdown>
+      {!loading && (
+        <Markdown markdownStyles={markDownStyles}>{tandcText}</Markdown>
+      )}
+      {loading && (
+        <Spinner animation="fade" visible overlayColor={'rgba(0, 0, 0, 0.5)'} />
+      )}
     </Layouts.Scrollable>
   );
 };
@@ -65,7 +103,7 @@ const markDownStyles = StyleSheet.create({
   listItemNumber: {
     ...text.largeBold,
     color: colors.darkGray,
-    paddingRight: 16    
+    paddingRight: 16
   },
   listItemContent: {
     paddingTop: 2,

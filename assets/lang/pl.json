@@ -1,0 +1,498 @@
+{
+  "common": {
+    "name": "COVID Tracker Ireland",
+    "url": "https://www.covidtracker.ie/",
+    "message": "Pobierz COVID Tracker Ireland, by walczyć z COVID-19",
+    "networkError": "Problem z połączeniem. Sprawdź połączenie internetowe i spróbuj ponownie.",
+    "missingDataAction": "Odśwież stronę",
+    "missingError": "Problem z ładowaniem. Niektórych danych nie udało się załadować poprawnie.",
+    "preferNotToSay": "Wolę nie podawać",
+    "confirmChanges": "Zatwierdź zmiany",
+    "changesUpdated": "Zmiany zapisane",
+    "dismiss": "Odrzuć",
+    "registerError": "Przepraszamy, coś poszło nie tak. Kod błędu: ({{code}}).\nSpróbuj ponownie.",
+    "registerTimestampError": "Weryfikacja Twojego urządzenia nie powiodła się. Sprawdź poprawność ustawień daty i zegara, i spróbuj ponownie."
+  },
+  "viewNames": {
+    "age": "Potwierdź wiek",
+    "getStarted": "Rozpocznij",
+    "casesByCounty": "Przypadki na hrabstwa",
+    "updates": "Aktualizacje",
+    "symptomchecker": "Monitorowanie COVID",
+    "settings": "Ustawienia",
+    "uploadKeys": "Wgraj swoje losowe klucze",
+    "closeContact": "Bliski kontakt",
+    "settingsContactTracing": "Ustawienia śledzenia kontaktów",
+    "settingsCheckin": "Ustawienia Rejestracji COVID",
+    "dataPolicy": "Polityka ochrony danych",
+    "terms": "Zasady i warunki",
+    "metrics": "Ustawienia dla metryk aplikacji",
+    "leave": "Wyjdź z COVID Tracker Ireland",
+    "contactTracing": "Śledzenie kontaktów",
+    "requestACallback": "Zamów rozmowę. Oddzwonimy!"
+  },
+  "navbar": {
+    "settings": "Ustawienia",
+    "settingsHint": "Przeglądaj lub zmień ustawienia aplikacji",
+    "back": "Wróć",
+    "backHint": "Wróć do poprzedniego ekranu"
+  },
+  "tabBar": {
+    "updates": "Aktualizacje",
+    "symptomCheck": "Rejestracja COVID",
+    "contactTracing": "Śledzenie kontaktów",
+    "shareApp": "Udostępnij aplikację",
+    "shareError": "Błąd przy udostępnianiu. Spróbuj ponownie lub skontaktuj się z nami."
+  },
+  "onboarding": {
+    "intro": {
+      "title": "Dzięki COVID Tracker możesz pomóc w walce z COVID-19 na 3 sposoby:",
+      "view1": {
+        "title": "Śledzenie kontaktów",
+        "text": "Pomóż śledzić kontakty chroniąc swoją prywatność."
+      },
+      "view2": {
+        "title": "Rejestracja COVID",
+        "text": "Sprawdzaj codziennie swoje objawy."
+      },
+      "view3": {
+        "title": "Aktualizacje",
+        "text": "Bądź na bieżąco w walce z COVID-19."
+      },
+      "view4": {
+        "text": "Dotykając Rozpocznij, akceptujesz",
+        "link": "Zasady i warunki"
+      },
+      "action": "Rozpocznij"
+    },
+    "information": {
+      "title": "Śledzenie kontaktów",
+      "highlight": "Śledzenie kontaktów pomaga zapobiec roznoszeniu COVID-19.",
+      "highlight1": "Aplikacja wspomaga pracę zespołów HSE do śledzenia kontaktów, ale mogą one również skontaktować się z Tobą w ramach osobistego śledzenia kontaktów.",
+      "text": "Aplikacja wyśle Ci powiadomienie o bliskim kontakcie, jeśli miałeś  bliski kontak z kimś, kto ma dodatni wynik testu na wirusa.",
+      "text1": "W celu aktywacji śledzenia kontaktów, musisz włączyć:",
+      "text2": "aby dostać powiadomienie, musisz włączyć:",
+      "action": "Dalej",
+      "later": "Może później",
+      "skip": "Chwilowo pomiń",
+      "bluetooth": "Usługa powiadomień o ryzyku",
+      "notifications": "Powiadomienia",
+      "quote": "Jeśli zmienisz zdanie, możesz w każdej chwili zmienić swoje zezwolenia w Ustawieniach."
+    },
+    "upgrade": {
+      "ios": {
+        "title": "Wymagana aktualizacja Apple iOS",
+        "text": "W celu aktywacji śledzenia kontaktów, musisz zainstalować najnowszą wersję Apple iOS.",
+        "action": "Sprawdź aktualizacje"
+      },
+      "android": {
+        "title": "Google Play Services wymaga aktualizacji",
+        "text": "W celu aktywacji śledzenia kontaktów, musisz zainstalować najnowszą wersję Google Play Services.",
+        "action": "Sprawdź aktualizacje"
+      }
+    }
+  },
+  "dataProtectionPolicy": {
+    "title": "Informacje o ochronie danych",
+    "link": "Informacje o ochronie danych możesz przeczytać tutaj",
+    "text": "Ładowanie DPIN nie powiodło się"
+  },
+  "tandcPolicy": {
+    "title": "Zasady i warunki",
+    "link": "Zasady i warunki",
+    "text": "Ładowanie Zasad i warunków nie powiodło się"
+  },
+  "stats": {
+    "last24Hours": {
+      "title": "W ciągu ostatnich 24 godz.",
+      "hospital": {
+        "admissions": "Przyjęcia do szpitala",
+        "discharges": "Wypisy ze szpitala",
+        "confrmed": "Potwierdzone przypadki w szpitalu"
+      },
+      "icu": {
+        "admissions": "Przyjęcia na OIT",
+        "discharges": "Wypisy z OIT",
+        "confrmed": "Potwierdzone przypadki na OIT"
+      }
+    },
+    "last7days": {
+      "title": "W ciągu ostatnich 7 dni",
+      "tests": "Przeprowadzone testy",
+      "rate": "Ilość pozytywnych"
+    }
+  },
+  "checker": {
+    "title": "Rejestracja COVID",
+    "resultTitle": "Dziękujemy",
+    "question1": "**Czy masz gorączkę – temperaturę powyżej 38 st. C?**\n\nObjawami gorączki mogą być rozpalone policzki, uczucie zmęczenia i ciepła lub gorąca w dotyku skóra.",
+    "question1id": "gorączka",
+    "question1Label": "wysoka temp. lub dreszcze",
+    "question2id": "kaszel",
+    "question2": "**Czy masz jakikolwiek rodzaj kaszlu?**",
+    "question2Label": "Kaszel",
+    "question3id": "oddech",
+    "question3": "**Czy masz trudności w oddychaniu?**\n\nNp. dyszenie lub uczucie niemożności wypełnienia płuc.",
+    "question3Label": "trudności w oddychaniu",
+    "question4id": "grypa",
+    "question4": "**Czy masz zaburzenia poczucia smaku lub zapachu?**\n\nNp. brak smaku lub węchu, albo wrażenie, że smak lub zapach się zmienił.",
+    "question4Label": "Utrata smaku lub zapachu",
+    "yes": "Tak",
+    "no": "Nie",
+    "virusIsolation": "Te objawy są zgodne z objawami koronawirusa. Pamiętaj, że 8 na 10 osób z COVID-19 wraca do zdrowia odpoczywając w domu i biorąc leki dostępne bez recepty.\n\n## Co robić dalej\n\nPozostań w samoizolacji, aby chronić innych.\n\nZadzwoń do lekarza, by ustalić, czy zalecany jest test na obecność COVID-19.",
+    "recovered": "Dobrze, że czujesz się lepiej. Pozostań w zdrowiu stosując się do porad na hse.ie",
+    "linkButton": "Więcej porad tutaj",
+    "viewHistory": "Przeglądaj historię",
+    "introTitle": "Rejestracja COVID",
+    "introWelcome": "O Tobie",
+    "introButton": "Dalej",
+    "noresults": "Nie próbowałeś jeszcze monitorowania objawów. Uruchom teraz dotykając przycisk powyżej.",
+    "noSymptomsWell": {
+      "message": "Cieszymy się, że dobrze się czujesz. Dziękujemy za rejestrację . Nawet jeśli nadal czujesz się dobrze, jutro też się zgłoś, by poinformować nas jak się czujesz.",
+      "viewHistory": "Przeglądaj historię",
+      "advice": "Odwiedź stronę hse.ie, aby przeczytać więcej na temat ochrony siebie i innych przed koronawirusem.",
+      "protectionAdvice": "Rady na temat ochrony"
+    },
+    "noSymptomsNotWell": {
+      "message": "Dziękujemy za rejestrację. Przykro nam, że nie czujesz się dobrze.\n\nJeśli masz objawy takie jak wyciek z nosa czy ból gardła, powinieneś zachowywać się tak, jakbyś miał koronawirus i pozostać w izolacji domowej przez 14 dni, aby chronić innych.",
+      "viewHistory": "Przeglądaj historię",
+      "advice": "Odwiedź stronę hse.ie, aby przeczytać więcej na temat ochrony siebie i innych przed koronawirusem.",
+      "protectionAdvice": "Rady na temat ochrony"
+    },
+    "riskGroup": {
+      "warning": "Ze względu na Twój wiek, prosimy o szczególną ostrożność, aby uchronić się przed COVID-19.\n\nOsoby starsze i cierpiące na przewlekłe schorzenia narażone są na większe ryzyko poważnej choroby, jeśli zarażą się COVID-19.",
+      "warningReadMore": "Więcej na ten temat tutaj",
+      "advice": "Zdajemy sobie sprawę, że nie jest to łatwy okres. Jeśli potrzebujesz pomocy lub wskazówek, jak radzić sobie w domu, dotknij poniżej, aby uzyskać więcej informacji.",
+      "adviceReadMore": "Więcej informacji"
+    }
+  },
+  "welcome": {
+    "title": "Witaj!",
+    "text": "Rejestracja COVID pozwala użytkownikom aplikacji sprawdzać objawy i uzyskać porady. Pomaga też HSE uzyskać obraz wpływu COVID-19 na Irlandię.\n\nRejestracja COVID nie ujawnia Twojej tożsamości. Możesz podać swój wiek, płeć i rejon, aby ułatwić wykorzystanie informacji do analizy zdrowia publicznego.\n\nRejestracja COVID prowadzi również w Twoim telefonie rejestr Twoich objawów, które możesz w każdej chwili sprawdzić.",
+    "action": "Tak, chcę korzystać z Rejestracji COVID",
+    "letUsKnow": "Poinformuj nas, czy masz\ndziś jakieś objawy"
+  },
+  "returning": {
+    "title": "Witamy ponownie",
+    "subtitle": "Jak się dzisiaj czujesz?",
+    "action1": "Dobrze, brak objawów",
+    "action2": "Nie czuję się dziś dobrze",
+    "completeTitle": "Świetnie",
+    "completeLink": "Przeglądaj historię"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "contactTracing": "Śledzenie kontaktów",
+    "contactTracingHint": "Przeglądaj lub zmień ustawienia śledzenia kontaktów",
+    "checkIn": "Rejestracja COVID",
+    "checkinHint": "Przeglądaj lub zmień ustawienia Rejestracji COVID",
+    "privacyPolicy": "Informacja o ochronie danych",
+    "privacyPolicyHint": "Przeglądaj informację o ochronie danych",
+    "termsAndConditions": "Zasady i warunki",
+    "termsAndConditionsHint": "Przeglądaj zasady i warunki",
+    "metrics": "Metryki aplikacji",
+    "metricsHint": "Przeglądaj lub zmień ustawienia metryk aplikacji",
+    "leave": "Wyjdź",
+    "leaveHint": "Wyjdź z aplikacji"
+  },
+  "leave": {
+    "title": "Wyjdź",
+    "info": "Dziękujemy Ci za pomoc w walce z COVID-19. Przykro nam, że odchodzisz. Gdy dotkniesz  \"chcę wyjść\", usuniemy z Twojego urządzenia wszystkie przechowywane przez aplikację dane, włącznie z nr tel. komórkowego, jeśli go udostępniłeś, dane dotyczące objawów oraz inne dane demograficzno-zdrowotne, które udostępniłeś. Nieidentyfikujące tokeny autoryzacji przechowywane na serwerze również zostaną usunięte.  \n\nLosowe ID utworzone lub zebrane przez usługę powiadomień o ryzyku, nie mogą być usunięte przez aplikację COVID Tracker. Jeśli chcesz usunąć losowe ID, możesz to zrobić przez Ustawienia twojego urządzenia.",
+    "button": "Chcę wyjść",
+    "confirmTitle": "Wyjdź",
+    "confirmText": "Czy na pewno chcesz wyjść?",
+    "cancel": "Anuluj",
+    "confirm": "Potwierdź",
+    "error": "Błąd przy usuwaniu Twoich danych. Spróbuj ponownie lub skontaktuj się z nami."
+  },
+  "checkInSettings": {
+    "title": "Rejestracja COVID",
+    "checkInFirst": "Twoje ustawienia będą widoczne, gdy tylko zarejestrujesz się po raz pierwszy.",
+    "intro": "Udostępniłeś nam następujące informacje:",
+    "gotoCheckIn": "Idź do Rejestracji COVID"
+  },
+  "appStats": {
+    "title": "Dzisiejsza walka",
+    "appUsers": "Użytkownicy aplikacji od wprowadzenia",
+    "dailyCheckIns": "Rejestracje użytkowników dziś",
+    "nationalPicture": "Sytuacja krajowa",
+    "breakdown": "Podział na hrabstwa (dotknij)"
+  },
+  "contactTracing": {
+    "title": "Śledzenie kontaktów",
+    "active": {
+      "title": "Śledzenie kontaktów aktywne",
+      "message": "Im więcej ludzi korzysta z tej aplikacji, tym większa skuteczność śledzenia kontaktów. Aplikacja już pomaga zmniejszyć roznoszenie COVID-19 poprzez powiadamianie bliskich kontaktów o tych, którzy otrzymali dodatni wynik testu na wirusa."
+    },
+    "noSupport": {
+      "title": "Śledzenie kontaktów niedostępne",
+      "message": "Niestety to urządzenie nie obsługuje śledzenia kontaktów. Możesz jednak nadal korzystać z aplikacji do Rejestracji COVID i aktualizacji."
+    },
+    "canSupport": {
+      "title": "Śledzenie kontaktów niedostępne",
+      "message": {
+        "ios": "W celu aktywacji śledzenia kontaktów, musisz zainstalować najnowszą wersję iOS (13.5 i wyżej).",
+        "android": "W celu aktywacji śledzenia kontaktów, musisz zainstalować najnowszą wersję Google Play Services."
+      },
+      "button": "Sprawdź aktualizacje"
+    },
+    "notEnabled": {
+      "title": "Śledzenie kontaktów niewłączone",
+      "message": "W celu aktywacji śledzenia kontaktów, musisz włączyć:",
+      "button": "Konfiguruj"
+    },
+    "notActive": {
+      "title": "Śledzenie kontaktów nieaktywne",
+      "message00": "Musisz włączyć **Usługę powiadomień o ryzyku** w swoich ustawieniach",
+      "message10": "Musisz włączyć **Usługę powiadomień o ryzyku** w swoich ustawieniach",
+      "message01": "Musisz włączyć **Bluetooth** w swoich ustawieniach",
+      "message11": "Musisz włączyć **Usługę powiadomień o ryzyku** i **Bluetooth** w swoich ustawieniach",
+      "button": "Idź do ustawień",
+      "android": {
+        "button": "Włącz",
+        "message": "Musisz włączyć **Usługę powiadomień o ryzyku** by aktywować śledzenie kontaktów"
+      }
+    },
+    "registrationsTitle": "Rejestracje aplikacji",
+    "registrationsSince": "od wprowadzenia",
+    "shareAppText": "Im więcej ludzi skłonimy do korzystania z tej aplikacji, tym bardziej skuteczne będzie śledzenie kontaktów. Udostępniaj aplikację, by pomóc nam osiągnąć nasz cel.",
+    "statsCard": {
+      "uploads": {
+        "text": "Użytkownicy COVID Tracker z dodatnim wynikiem testu przesłali swoje losowe ID"
+      },
+      "alerts": {
+        "text": "Do użytkowników COVID Tracker wysłano powiadomienie o bliskim kontakcie"
+      }
+    },
+    "registrationsCard": {
+      "title": "Aktywni użytkownicy",
+      "registrations": "{{registrations}}",
+      "text": "{{percentage}}% osób powyżej 16 lat w Irlandii używa COVID Tracker, zapewniając poczucie bezpieczeństwa i ochrony innym. Aplikacja ma {{registrations}} rejestracji."
+    },
+    "uploadCard": {
+      "title": "Prześlij swoje losowe ID",
+      "text": "Do użytku wyłącznie, gdy HSE skontaktuje się z Tobą. Do tej pory **{{uploads}}** użytkowników przesłało dane.",
+      "uploads": "Do tej pory **{{uploads}}** użytkowników przesłało dane."
+    },
+    "closeContactCard": {
+      "title": "Informacje o bliskim kontakcie",
+      "text": "Co robić, gdy się dowiesz, że jesteś bliskim kontaktem kogoś z COVID-19."
+    },
+    "settings": {
+      "status": {
+        "title": "Status",
+        "active": "Usługa aktywna",
+        "notActive": "Usługa nieaktywna",
+        "intro": "W celu aktualizacji ustawień Twoich zezwoleń, przedź do ustawień aplikacji w Twoim urządzeniu.",
+        "gotoSettings": "Aktualizuj ustawienia",
+        "android": {
+          "intro": "Usługa powiadomień o ryzyku nie jest włączona. Kliknij, by rozpocząć.",
+          "gotoSettings": "Włącz"
+        }
+      },
+      "clearData": {
+        "title": "Bliskie kontakty",
+        "intro": "Dotknij przycisk poniżej,aby usunąć wszystkie zdarzenia bliskich kontaktów.",
+        "button": "Usuń wszystkie",
+        "confirmTitle": "Bliskie kontakty",
+        "confirmText": "Czy na pewno chcesz usunąć wszystkie bliskie kontakty?",
+        "cancel": "Anuluj",
+        "confirm": "Potwierdź",
+        "error": "Błąd przy usuwaniu Twoich danych. Spróbuj ponownie lub skontaktuj się z nami."
+      }
+    }
+  },
+  "requestACallback": {
+    "heading": "Zamów rozmowę. Oddzwonimy!",
+    "text": "Aplikacja udostępni Twój nr naszemu zespołowi do śledzenia kontaktów",
+    "buttonLabel": "Proszę do mnie oddzwonić",
+    "complete": {
+      "title": "Zamówienie rozmowy wysłane.",
+      "text": "Członek zespołu do śledzenia kontaktów skontaktuje się z Tobą, by udzielić porady, a w stosownym przypadku zorganizować badanie.",
+      "button": "Przejdź do aktualizacji"
+    }
+  },
+  "confirmedChart": {
+    "title": "Potwierdzone przypadki/dzień",
+    "label": "Potwierdzone przypadki/dzień-wykres",
+    "hint": "Wykres dziennych potwierdzonych przypadków w czasie",
+    "yesterday": "Potwierdz.przypadki wczoraj",
+    "prevCases": "Przypadki",
+    "prevDeaths": "Zgony",
+    "prevCase": "Przypadek",
+    "prevDeath": "Zgon",
+    "sourceDate": "Dane o przypadkach z okresu",
+    "ranges": {
+      "default": "Ostatnie 2 tygodnie",
+      "months": "Ostatnie 2 miesiące",
+      "all": "Wszystkie"
+    }
+  },
+  "statsSource": {
+    "monitor": "Monitoring zdrowia COVID-19 (Irlandia)",
+    "lastUpdatedStats": "Najnowsze potwierdz. przypadki",
+    "lastUpdatedProfile": "Profil najnowszych przypadków"
+  },
+  "symptomsHistory": {
+    "title": "Twoja historia objawów",
+    "symptom": "Objaw",
+    "symptoms": "Objawy",
+    "completed": "Jutro możesz ponownie sprawdzić objawy"
+  },
+  "casesByCounty": {
+    "title": "Przypadki na hrabstwa",
+    "casesDay": "Przypadki",
+    "casesWeeks": {
+      "first": "Wcześniejsze",
+      "second": "2 tygodnie"
+    }
+  },
+  "yourData": {
+    "title": "Twoje dane",
+    "info": "Aplikacja COVID Tracker chroni Twoją prywatność i nie udostępnia prywatnych informacji o Tobie innym użytkownikom. **Twoja tożsamość nigdy nie zostanie ujawniona innym użytkownikom aplikacji.**\n\nWszelkie dane osobiste podane przez Ciebie będą przetwarzane w zgodzie z RODO i przepisami o ochronie danych. Więcej na ten temat znajdziesz w informacji o ochronie danych poniżej. **Twoje dane będą wykorzystane wyłącznie w związku z reagowaniem na pandemię COVID-19** jak określono w informacji o ochronie danych.\n\nJeśli będzie konieczność powiadomienia Cię, aplikacja uruchomi ten proces poprzez bezpieczne powiadomienia wewnątrz aplikacji. Niezależnie od korzystania z aplikacji, zespół HSE do śledzenia kontaktów może do Ciebie zadzwonić, jeśli ktoś z COVID-19 zidentyfikuje Cię jako bliski kontakt. W przypadku testu na COVID-19, HSE poda Ci wynik SMS-em lub telefonicznie.\n\nZachowaj ostrożność w razie podejrzanych telefonów, emaili lub SMS-ów z zapytaniem o osobiste informacje. **HSE nie prosi o podanie osobistych informacji mailowo czy SMS-em.**",
+    "viewInSettings": "Tę informację możesz w każdej chwili znaleźć w Ustawieniach. Jeśli nie chcesz kontynuować, zamknij i usuń aplikację. Jeśli wyrażasz zgodę, dotknij Dalej, by kontynuować.",
+    "continue": "Dalej"
+  },
+  "sorry": {
+    "title": "Przykro nam",
+    "info": "Niestety dalsze korzystanie z aplikacji będzie niemożliwe. W każdej chwili możesz ponownie się zarejestrować. Wystarczy dotknąć przycisk Wróć.",
+    "back": "Wróć"
+  },
+  "ageRequirement": {
+    "notice": "Aby korzystać z aplikacji, musisz mieć ukończone 16 lat",
+    "over": "Mam ponad 16 lat",
+    "under": "Mam poniżej 16 lat"
+  },
+  "underAge": {
+    "title": "Poniżej 16 lat",
+    "notice": "Dziękujemy z zainteresowanie, ale niestety jesteś za młody/a, na udział w tej inicjatywie.\n\nZachowaj bezpieczeństwo."
+  },
+  "followUpCall": {
+    "title": "Telefon kontrolny w sprawie śledzenia kontaktów",
+    "shortTitle": "Oddzwoń",
+    "intro": "Jeśli ktoś, z kim byłeś w bliskim kontakcie otrzyma dodatni wynik testu na COVID-19, aplikacja wyśle Ci powiadomienie o bliskim kontakcie. HSE również do Ciebie zadzwoni, jeśli poniżej podasz swój numer.",
+    "note": "HSE może też do Ciebie zadzwonić, jeśli zostaniesz zidentyfikowany jako bliski kontakt poprzez osobiste śledzenie kontaktów. HSE udzieli Ci porad oraz skieruje na badanie, jeśli b��dzie to wymagane.\n\nAplikacja udostępni Twój numer HSE wyłącznie wtedy, gdy otrzymasz powiadomienie o bliskim kontakcie. Możesz wprowadzić swój numer poniżej lub podać go później w Ustawieniach.",
+    "noteAlt": "Jeśli ktoś, z kim byłeś w bliskim kontakcie otrzyma dodatni wynik testu na COVID-19, aplikacja wyśle Ci powiadomienie o bliskim kontakcie. HSE również do Ciebie zadzwoni, jeśli poniżej podasz swój numer. HSE może też do Ciebie zadzwonić, jeśli zostaniesz zidentyfikowany jako bliski kontakt poprzez osobiste śledzenie kontaktów. HSE udzieli Ci porad oraz skieruje na badanie, jeśli będzie to wymagane.\n\nAplikacja udostępni Twój numer HSE wyłącznie wtedy, gdy otrzymasz powiadomienie o bliskim kontakcie. Możesz wprowadzić swój numer poniżej lub podać go później w Ustawieniach.",
+    "noteSettings": "Jeśli chcesz, spróbujemy do Ciebie zadzwonić w celu dalszej pomocy po otrzymaniu powiadomienia o ryzyku.\n\nTwój nr tel. będzie udostępniony HSE wyłącznie wtedy, gdy otrzymasz powiadomienie o ryzyku.",
+    "optIn": "Tak, decyduję się",
+    "noThanks": "Nie, dziękuję"
+  },
+  "closeContactNotification": {
+    "title": "Powiadomienie o bliskim kontakcie",
+    "description": "Sprawdź aplikację COVID Tracker"
+  },
+  "closeContactWarn": {
+    "title": "Powiadomienie o bliskim kontakcie",
+    "notice": "Aplikacja wykryła, że byłeś w bliskim kontakcie z kimś, kto ma dodatni wynik testu na COVID-19."
+  },
+  "closeContact": {
+    "title": "Bliski kontakt",
+    "text": "Najprostszy sposób, to poprosić zespół do śledzenia kontaktów o oddzwonienie, gdy otrzymasz powiadomienie. Możesz też skontaktować się z **HSELive on 1850 24 1850** skąd ktoś do Ciebie oddzwoni.",
+    "titleInfo": "Informacja o bliskim kontakcie",
+    "introInfo": "Jeśli otrzymałeś powiadomienie aplikacji lub telefon od naszego zespołu do śledzenia kontaktów informujący Cię, że miałeś bliski kontakt z kimś, kto otrzymał dodatni wynik testu na koronawirusa, może być konieczne wykonanie badań.  , or a call from our Contact Tracing team, telling you that you have been in close contact with someone that has tested positive for coronavirus, you may need to be tested.",
+    "text2Info": "**Jeśli wystąpią objawy, zadzwoń do lekarza rodzinnego.**\n\nWięcej wskazówek znajdziesz na hse.ie.",
+    "titleAlert": "Bliski kontakt alert",
+    "introAlert": "Aplikacja COVID Tracker wykryła, że miałeś bliski kontakt z kimś, u kogo zdiagnozowano COVID-19. Dowiedz się co robić dalej, aby chronić siebie i innych.",
+    "text2Alert": "**Jeśli wystąpią objawy, zadzwoń do lekarza rodzinnego.**\n\nWięcej wskazówek znajdziesz na hse.ie.",
+    "todo": "1. Pozostań w domu.\n\n2. Nie chodź do pracy.\n\n3. Nie korzystaj z transportu publicznego.\n\n4. Nie przyjmuj nikogo w domu.\n\n5. Nie odwiedzaj innych, nawet gdy zwykle opiekujesz się nimi.\n\n6. Nie chodź do sklepu czy apteki, chyba że jest to konieczne - jeśli możliwe, zakupy rób online lub poproś rodzinę czy znajomych, by je Tobie przywieźli.\n\n7. Trzymaj się z dala od osób starszych, osób przewlekle chorych i kobiet ciężarnych.",
+    "gotoHSE": "Przejdź do HSE.ie",
+    "requestCallback": {
+      "title": "Zamów rozmowę. Oddzwonimy!",
+      "text": "Porozmawiaj z członkiem zespołu do śledzenia kontaktów."
+    }
+  },
+  "uploadKeys": {
+    "title": "Prześlij swoje losowe ID",
+    "code": {
+      "intro": "Członek zespołu do śledzenia kontaktów może Cię poprosić o podanie losowych ID wygenerowanych przez Twój telefon w ciągu minionych 14 dni.\n\nOtrzymasz wówczas SMS-em niepowtarzalny 6-cyfrowy kod aktywujący funkcjonalność przesyłania.",
+      "expiredError": "Ważność kodu wygasła. Skontaktuj się z HSE, by otrzymać nowy.",
+      "invalidError": "Nieważny kod. Spróbuj ponownie.",
+      "error": "Błąd przy zatwierdzaniu kodu. Spróbuj ponownie."
+    },
+    "upload": {
+      "intro": "Aby pomóc nam w śledzeniu Twoich kontaktów z ostatnich 14 dni, prosimy o przesłanie do HSE anonimowych, losowych ID wygenerowanych przez Twój telefon.",
+      "button": "Prześlij swoje losowe ID do HSE"
+    },
+    "permissionError": "Nie pobraliśmy Twoich kluczy, ponieważ nie udzieliłeś zgody.",
+    "uploadError": "Błąd podczas próby przesłania",
+    "uploadSuccess": {
+      "toast": "Przesyłanie zakończone",
+      "thanks": "Dziękujemy za przesłanie losowych ID. Pomoże to naszemu zespołowi do śledzenia kontaktów spowolnić roznoszenie COVID-19 i chronić innych.",
+      "updates": "Wróć do aktualizacji"
+    }
+  },
+  "sex": {
+    "label": "Płeć (opcjonalnie)",
+    "female": "Żeńska",
+    "male": "Męska"
+  },
+  "ageRange": {
+    "label": "Przedział wieku (opcjonalnie)",
+    "placeholder": "Wybierz przedział wieku"
+  },
+  "phoneNumber": {
+    "code": {
+      "label": "Kod twojego kraju",
+      "placeholder": "Kraj",
+      "searchPlaceholder": "Wyszukaj kraj",
+      "noResults": "Brak wyników wyszukiwania.\nSpróbuj inaczej.",
+      "error": {
+        "required": "Kod twojego kraju jest wymagany."
+      }
+    },
+    "number": {
+      "label": "Twój nr tel. (opcjonalnie)",
+      "placeholder": "Twój numer",
+      "error": {
+        "invalid": "Twój numer jest nieprawidłowy. Prosimy podać pełny numer.",
+        "short": "Your number is incomplete. Please provide your full phone number.",
+        "required": "Twój numer jest wymagany"
+      }
+    }
+  },
+  "county": {
+    "label": "Twoje hrabstwo (opcjonalnie)",
+    "placeholder": "Wybierz swoje hrabstwo",
+    "searchPlaceholder": "Wyszukaj",
+    "noResults": "Brak wyników wyszukiwania. Spróbuj inaczej."
+  },
+  "locality": {
+    "label": "Twój rejon (opcjonalnie)",
+    "placeholder": "Wybierz swój rejon",
+    "searchPlaceholder": "Wyszukaj",
+    "noResults": "Brak wyników wyszukiwania.\nSpróbuj inaczej."
+  },
+  "appUsage": {
+    "title": "Metryki aplikacji",
+    "info": "HSE pragnie zrozumieć w jaki sposób korzystasz z aplikacji, w celu doskonalenia jej.\n\nAplikacja zgromadzi anonimowe metryki, które pokażą w jaki sposób z niej korzystasz oraz skuteczność procesów śledzenia kontaktów.\n\nInformacje te zbierane są bezpośrednio przez HSE bez pośredników do zbierania metryk. **Informacje zbierane są wyłącznie za Twoją zgodą i nie mogą być wykorzystane do zidentyfikowania Cię.**",
+    "settingsInfo": "Jeśli zmienisz zdanie, możesz w każdej chwili zmienić uprawnienia w Ustawieniach.",
+    "yesButton": "Zgadzam się",
+    "noThanks": "Nie, dziękuję"
+  },
+  "metrics": {
+    "title": "Metryki aplikacji",
+    "info": "HSE pragnie zrozumieć Twoje korzystanie z aplikacji, w celu doskonalenia jej.\n\nAplikacja zgromadzi anonimowe metryki, które pokażą w jaki sposób z niej korzystasz oraz skuteczność procesów śledzenia kontaktów.\n\nInformacje te zbierane są bezpośrednio przez HSE, bez pośredników do zbierania metryk. **Informacje zbierane są wyłącznie za Twoją zgodą i nie mogą być wykorzystane do zidentyfikowania Cię.**",
+    "share": "Udostępnij statystyki aplikacji"
+  },
+  "tracingAvailable": {
+    "title": "Śledzenie kontaktów jest teraz dostępne",
+    "text": "Pobierz ustawienia"
+  },
+  "codeInput": {
+    "accessibilityLabel": "Cyfra kodu {{number}}",
+    "accessibilityHint": "Wpisz kod cyfrowy {{count}}"
+  },
+  "policyUpdates": {
+    "title": "Witaj!",
+    "tandcOnly": "Uaktualniliśmy zasady i warunki aplikacji",
+    "dpinOnly": "Uaktualniliśmy informacje o ochronie danych",
+    "info": "Uaktualniliśmy zasady i warunki aplikacji i informacje o ochronie danych",
+    "dpinLink": "Przeglądaj informacje o ochronie danych tutaj",
+    "tandcLink": "Przeglądaj zasady i warunki tutaj"
+  },
+  "newVersionAvailable": {
+    "title_ios": "Nowa wersja Covid Tracker jest dostępna w App Store",
+    "title_android": "Nowa wersja Covid Tracker jest dostępna w Play Store",
+    "text": "Aktualizuj teraz"
+  }
+}

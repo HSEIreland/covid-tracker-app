@@ -3,9 +3,9 @@ import {Text, View, Image, StyleSheet, Platform, Linking} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 import * as SecureStore from 'expo-secure-store';
+import {useExposure} from 'react-native-exposure-notification-service';
 
-import {usePermissions} from '../../providers/permissions';
-import {useExposure} from '../../providers/exposure';
+import {useApplication} from '../../providers/context';
 
 import {SingleRow, Spacing} from '../atoms/layout';
 import {Button} from '../atoms/button';
@@ -31,7 +31,7 @@ const upgradeImage: {[key: string]: any} = {
 export const ContactTracingInformation = ({navigation, route}: Props) => {
   const {t} = useTranslation();
   const exposure = useExposure();
-  const {askPermissions} = usePermissions();
+  const application = useApplication();
 
   const checkForUpgradeHandler = async () => {
     try {
@@ -53,8 +53,9 @@ export const ContactTracingInformation = ({navigation, route}: Props) => {
   }, []);
 
   const handlePermissions = async () => {
-    await askPermissions();
+    await exposure.askPermissions();
     const opts = (route && route.params) || {};
+    await application.setContext({completedExposureOnboarding: true});
     navigation.navigate('followUpCall', opts);
   };
 
@@ -193,14 +194,14 @@ export const ContactTracingInformation = ({navigation, route}: Props) => {
       heading={t('onboarding:information:title')}
       headingShort={true}>
       <View style={headerStyles.row}>
-         <View style={headerStyles.textBlock}>
+        <View style={headerStyles.textBlock}>
           <Text style={headerStyles.text}>
             {t('onboarding:information:highlight')}
           </Text>
           <Text style={text.default}>
             {t('onboarding:information:highlight1')}
           </Text>
-         </View>
+        </View>
         <Image
           accessibilityIgnoresInvertColors
           style={headerStyles.image}
@@ -234,8 +235,8 @@ const headerStyles = StyleSheet.create({
     alignItems: 'center'
   },
   textBlock: {
-    flexDirection: 'column', 
-    flex: 1   
+    flexDirection: 'column',
+    flex: 1
   },
   text: {
     flex: 1,
@@ -243,7 +244,6 @@ const headerStyles = StyleSheet.create({
     ...text.defaultBold,
     color: colors.teal,
     paddingBottom: 16
-
   },
   image: {
     width: 157,

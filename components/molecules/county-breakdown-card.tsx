@@ -23,6 +23,7 @@ export const CountyBreakdownCard: FC<CountyBreakdownCardProps> = ({
             accessibilityIgnoresInvertColors
             style={styles.imageSize}
             {...styles.imageSize}
+            resizeMode="center"
             source={require('../../assets/images/map/ireland.png')}
           />
         </View>
@@ -49,17 +50,16 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: `${colors.success}1A`,
+    backgroundColor: '#EAFBED',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 20
   },
   title: {
-    flex: 1,
-    ...text.largeBlack
+    ...text.largeBlack,
+    marginBottom: 4
   },
   subTitle: {
-    flex: 1,
     ...text.smallBold,
     color: colors.teal
   },

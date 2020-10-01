@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, FC} from 'react';
+import React, {useRef, useEffect, FC, MutableRefObject} from 'react';
 import {
   Text,
   View,
@@ -22,6 +22,7 @@ import {text} from '../../theme';
 interface Props {
   onDismissed: () => void;
   nextHandler: () => void;
+  cardRef: MutableRefObject<View>;
 }
 
 const DURATION = 200;
@@ -29,53 +30,41 @@ const DURATION = 200;
 interface PromptProps {
   complete: boolean;
   t: TFunction;
+  cardRef: MutableRefObject<View>;
   handleNext: (value?: string) => void;
 }
 
-const Prompt: FC<PromptProps> = ({complete, t, handleNext}) => {
-  const height = useRef(new Animated.Value(0));
+const Prompt: FC<PromptProps> = ({complete, t, cardRef, handleNext}) => {
   const opacity = useRef(new Animated.Value(0));
 
   useEffect(() => {
     if (!complete) {
-      Animated.parallel([
-        Animated.timing(opacity.current, {
-          toValue: 1,
-          duration: DURATION,
-          useNativeDriver: false
-        }),
-        Animated.timing(height.current, {
-          toValue: 206,
-          duration: DURATION,
-          useNativeDriver: false
-        })
-      ]).start();
+      Animated.timing(opacity.current, {
+        toValue: 1,
+        duration: DURATION,
+        useNativeDriver: false
+      }).start();
     } else {
-      Animated.parallel([
-        Animated.timing(opacity.current, {
-          toValue: 0,
-          duration: DURATION,
-          useNativeDriver: false
-        }),
-        Animated.timing(height.current, {
-          toValue: 0,
-          duration: DURATION,
-          useNativeDriver: false
-        })
-      ]).start();
+      Animated.timing(opacity.current, {
+        toValue: 0,
+        duration: DURATION,
+        useNativeDriver: false
+      }).start();
     }
   }, [complete]);
 
   return (
     <Animated.View
       style={{
-        height: height.current,
         opacity: opacity.current,
-        zIndex: complete ? 0 : 1
+        height: complete ? 0 : 'auto',
+        zIndex: complete ? 1 : 0
       }}>
       <View>
-        <Text style={text.largeBold}>{t('returning:title')}</Text>
-        <Text style={text.largeBold}>{t('returning:subtitle')}</Text>
+        <View accessible ref={cardRef}>
+          <Text style={text.largeBold}>{t('returning:title')}</Text>
+          <Text style={text.largeBold}>{t('returning:subtitle')}</Text>
+        </View>
         <Spacing s={12} />
         <View style={styles.buttonsContainer}>
           <Button
@@ -103,39 +92,22 @@ const Result: FC<ResultProps> = ({complete, t}) => {
   const navigation = useNavigation();
 
   const opacity = useRef(new Animated.Value(0));
-  const height = useRef(new Animated.Value(0));
 
   useEffect(() => {
     if (complete) {
-      Animated.parallel([
-        Animated.timing(opacity.current, {
-          toValue: 1,
-          delay: DURATION,
-          duration: DURATION,
-          useNativeDriver: false
-        }),
-        Animated.timing(height.current, {
-          toValue: 80,
-          delay: DURATION,
-          duration: DURATION,
-          useNativeDriver: false
-        })
-      ]).start();
+      Animated.timing(opacity.current, {
+        toValue: 1,
+        delay: DURATION,
+        duration: DURATION,
+        useNativeDriver: false
+      }).start();
     } else {
-      Animated.parallel([
-        Animated.timing(opacity.current, {
-          toValue: 0,
-          delay: DURATION,
-          duration: DURATION,
-          useNativeDriver: false
-        }),
-        Animated.timing(height.current, {
-          toValue: 0,
-          delay: DURATION,
-          duration: DURATION,
-          useNativeDriver: false
-        })
-      ]).start();
+      Animated.timing(opacity.current, {
+        toValue: 0,
+        delay: DURATION,
+        duration: DURATION,
+        useNativeDriver: false
+      }).start();
     }
   }, [complete]);
 
@@ -143,7 +115,7 @@ const Result: FC<ResultProps> = ({complete, t}) => {
     <Animated.View
       style={{
         opacity: opacity.current,
-        height: height.current,
+        height: complete ? 'auto' : 0,
         zIndex: complete ? 1 : 0
       }}>
       <View>
@@ -159,28 +131,13 @@ const Result: FC<ResultProps> = ({complete, t}) => {
   );
 };
 
-export const QuickCheckIn: React.FC<Props> = ({onDismissed, nextHandler}) => {
+export const QuickCheckIn: React.FC<Props> = ({
+  onDismissed,
+  nextHandler,
+  cardRef
+}) => {
   const {t} = useTranslation();
   const app = useApplication();
-
-  const height = useRef(new Animated.Value(0));
-
-  useEffect(() => {
-    if (!app.completedChecker) {
-      Animated.timing(height.current, {
-        toValue: 206,
-        duration: DURATION,
-        useNativeDriver: false
-      }).start();
-    } else {
-      Animated.timing(height.current, {
-        toValue: 80,
-        duration: DURATION,
-        delay: DURATION,
-        useNativeDriver: false
-      }).start();
-    }
-  }, [app.completedChecker]);
 
   const handleNext = async (value?: string) => {
     if (value !== 'checkIn') {
@@ -202,11 +159,7 @@ export const QuickCheckIn: React.FC<Props> = ({onDismissed, nextHandler}) => {
   };
 
   return (
-    <Animated.View
-      style={{
-        ...styles.container,
-        height: height.current
-      }}>
+    <Animated.View style={styles.container}>
       <View style={styles.dismissed}>
         <TouchableWithoutFeedback
           accessibilityRole="button"
@@ -222,7 +175,12 @@ export const QuickCheckIn: React.FC<Props> = ({onDismissed, nextHandler}) => {
           />
         </TouchableWithoutFeedback>
       </View>
-      <Prompt complete={app.completedChecker} t={t} handleNext={handleNext} />
+      <Prompt
+        cardRef={cardRef}
+        complete={app.completedChecker}
+        t={t}
+        handleNext={handleNext}
+      />
       <Result complete={app.completedChecker} t={t} />
     </Animated.View>
   );

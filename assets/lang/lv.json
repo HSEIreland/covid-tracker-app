@@ -1,0 +1,498 @@
+{
+  "common": {
+    "name": "COVID Tracker Ireland",
+    "url": "https://www.covidtracker.ie/",
+    "message": "Pievienojies COVID Tracker Ireland, lai cīnītos pret COVID-19!",
+    "networkError": "Savienojuma problēma. Lūdzu, pārbaudiet interneta savienojumu un mēģiniet vēlreiz!",
+    "missingDataAction": "Atjauniniet lapu",
+    "missingError": "Ielādes problēma. Dažus datus nevarējām pareizi ielādēt.",
+    "preferNotToSay": "Izvēlos neteikt",
+    "confirmChanges": "Apstipriniet izmaiņas",
+    "changesUpdated": "Izmaiņas atjauninātas",
+    "dismiss": "Noraidīt",
+    "registerError": "Diemžēl tas nenostrādāja. Kļūda: ({{code}}).\nLūdzu, mēģiniet vēlreiz!",
+    "registerTimestampError": "Mēs nevarējām verificēt jūsu ierīci. Lūdzu, pārbaudiet, vai tā ir iestatīta ar pareizo datumu un laiku, un mēģiniet vēlreiz!"
+  },
+  "viewNames": {
+    "age": "Jūsu vecums",
+    "getStarted": "Uzsākt",
+    "casesByCounty": "Gadījumi grāfistēs",
+    "updates": "Jaunumi",
+    "symptomchecker": "COVID pārbaude",
+    "settings": "Iestatījumi",
+    "uploadKeys": "Augšupielādēt Nejaušos atslēgkodus",
+    "closeContact": "Tuvs kontakts",
+    "settingsContactTracing": "Kontaktu izsekošanas iestatījumi",
+    "settingsCheckin": "COVID reģistrācijas iestatījumi",
+    "dataPolicy": "Datu aizsardzība",
+    "terms": "Noteikumi un nosacījumi",
+    "metrics": "Lietotņu metrikas iestatījumi",
+    "leave": "Atstāt COVID Tracker Ireland",
+    "contactTracing": "Kontaktu izsekošana",
+    "requestACallback": "Pieprasīt atzvanīšanu"
+  },
+  "navbar": {
+    "settings": "Iestatījumi",
+    "settingsHint": "Skatīt/mainīt lietotnes iestatījumus",
+    "back": "Atpakaļ",
+    "backHint": "Dodieties atpakaļ uz iepriekšējo ekrānu"
+  },
+  "tabBar": {
+    "updates": "Jaunumi",
+    "symptomCheck": "COVID reģistrācija",
+    "contactTracing": "Kontaktu izsekošana",
+    "shareApp": "Koplietot lietotni",
+    "shareError": "Koplietojot radās kļūda. Lūdzu, mēģiniet vēlreiz vai sazinieties ar mums!"
+  },
+  "onboarding": {
+    "intro": {
+      "title": "Ar COVID Tracker var paveikt 3 lietas, lai palīdzētu cīnīties ar COVID-19:",
+      "view1": {
+        "title": "Kontaktu izsekošana",
+        "text": "Palīdziet izsekot, aizsargājot savu konfidencialitāti."
+      },
+      "view2": {
+        "title": "COVID reģistrācija",
+        "text": "Pārbaudiet simptomus katru dienu."
+      },
+      "view3": {
+        "title": "Jaunumi",
+        "text": "Sekojiet līdzi cīņai pret COVID-19."
+      },
+      "view4": {
+        "text": "Ja pieskaraties Uzsākt, jūs piekrītat",
+        "link": "Noteikumiem un nosacījumiem"
+      },
+      "action": "Uzsākt"
+    },
+    "information": {
+      "title": "Kontaktu izsekošana",
+      "highlight": "Kontaktu izsekošana palīdz novērst COVID-19 izplatīšanos.",
+      "highlight1": "Šī lietotne atbalsta HSE kontaktu izsekošanas grupu darbu, bet šīs grupas var arī sazināties ar jums kā daļu no manuālās kontaktu izsekošanas.",
+      "text": "Lietotne nosūtīs jums Tuva kontakta brīdinājumu, ja esat bijis ciešā kontaktā ar personu, kas pēc pārbaudes ir saņēmusi vīrusa pozitīvu rezultātu.",
+      "text1": "Lai šai lietotnei iespējotu kontaktu izsekošanu, ir jāieslēdz:",
+      "text2": "un, lai saņemtu brīdinājumu, ir jāieslēdz:",
+      "action": "Turpināt",
+      "later": "Varbūt vēlāk",
+      "skip": "Pagaidām izlaist",
+      "bluetooth": "Eksponētības paziņošanas dienests",
+      "notifications": "Paziņojumi",
+      "quote": "Ja pārdomājat, varat jebkurā laikā mainīt savas atļaujas sadaļā Iestatījumi."
+    },
+    "upgrade": {
+      "ios": {
+        "title": "Apple iOS ir jāatjaunina",
+        "text": "Lai iespējotu kontaktu izsekošanu, jālejupielādē jaunākā Apple iOS versija.",
+        "action": "Pārbaudiet, vai ir uzlabojumi"
+      },
+      "android": {
+        "title": "Google Play pakalpojumi ir jāatjaunina",
+        "text": "Lai iespējotu kontaktu izsekošanu, jālejupielādē jaunākā Google Play pakalpojumu versija.",
+        "action": "Pārbaudiet, vai ir uzlabojumi"
+      }
+    }
+  },
+  "dataProtectionPolicy": {
+    "title": "Informācija par datu aizsardzību (IDA)",
+    "link": "Informāciju par datu aizsardzību varat lasīt šeit",
+    "text": "Nevar ielādēt IDA"
+  },
+  "tandcPolicy": {
+    "title": "Noteikumi un nosacījumi",
+    "link": "Noteikumi un nosacījumi",
+    "text": "Noteikumus un nosacījumus nevarēja ielādēt"
+  },
+  "stats": {
+    "last24Hours": {
+      "title": "Pēdējās 24 stundās",
+      "hospital": {
+        "admissions": "Ievietošana slimnīcā",
+        "discharges": "Izrakstīšana no slimnīcas",
+        "confrmed": "Apstiprināti gadījumi slimnīcā"
+      },
+      "icu": {
+        "admissions": "Ievietošana intensīvās terapijas nodaļā",
+        "discharges": "Izrakstīšana no intensīvās terapijas nodaļas",
+        "confrmed": "Apstiprināti gadījumi intensīvās terapijas nodaļā"
+      }
+    },
+    "last7days": {
+      "title": "Pēdējās 7 dienās",
+      "tests": "Pārbaudes veiktas",
+      "rate": "Pozitīvie rādītāji"
+    }
+  },
+  "checker": {
+    "title": "COVID reģistrācija",
+    "resultTitle": "Paldies!",
+    "question1": "** Vai jums ir drudzis – augsta temperatūra virs 38 grādiem pēc Celsija? **\n\ndrudža simptomi var būt arī pietvīkuši vaigi, nogurums un karsta vai auksta miesa.",
+    "question1id": "drudzis",
+    "question1Label": "Augsta t° vai drebuļi",
+    "question2id": "klepus",
+    "question2": "**Vai jums ir jebkāds klepus?**",
+    "question2Label": "Klepus",
+    "question3id": "elpa",
+    "question3": "**Vai jums ir apgrūtināta elpošana?**\n\nTā var būt kā elšana vai sajūta, ka nevarat ievilkt gaisu.",
+    "question3Label": "Apgrūtināta elpošana",
+    "question4id": "gripa",
+    "question4": "**Vai jums ir kāds garšas sajūtas vai smaržas zudums?**\n\nTas var nozīmēt, ka jūs nevarat neko sagaršot vai saost, vai arī garša vai smarža ir citādāka, nekā parasti.",
+    "question4Label": "Garšas vai smaržas sajūtas zudums",
+    "yes": "Jā",
+    "no": "Nē",
+    "virusIsolation": "Šie simptomi atbilst koronavīrusa simptomiem. Atcerieties, ka 8 no 10 cilvēkiem, kuriem ir COVID-19, atveseļojas mājās, atpūšoties un lietojot bezrecepšu medikamentus.n\n## Ko darīt tālāk?\n\nLūdzu, pašizolējieties mājās, lai aizsargātu citus.\n\nZvaniet savam ģimenes ārstam (GP), lai saņemtu konsultāciju, un noskaidrotu, vai jums vajadzētu veikt COVID-19 pārbaudi.",
+    "recovered": "Prieks dzirdēt, ka jūtaties labāk! Esiet veseli, sekojot ieteikumiem no hse.ie.",
+    "linkButton": "Vairāk lasiet šeit",
+    "viewHistory": "Sk. manu vēsturi",
+    "introTitle": "COVID reģistrācija",
+    "introWelcome": "Par jums",
+    "introButton": "Turpināt",
+    "noresults": "Jūs vēl neesat izmēģinājis simptomu pārbaudītāju. Sāciet tūlīt, pieskaroties augstāk esošajai pogai",
+    "noSymptomsWell": {
+      "message": "Esam priecīgi dzirdēt, ka jūtaties labi. Paldies, ka iereģistrējāties! Pat, ja jums joprojām klājas labi, lūdzu, atgriezieties rīt, lai mums paziņotu, kā jums klājas.",
+      "viewHistory": "Sk. manu vēsturi",
+      "advice": "Apmeklējiet hse.ie, lai uzzinātu vairāk par to, kā pasargāt sevi un citus no koronavīrusa.",
+      "protectionAdvice": "Ieteikumi aizsardzībai"
+    },
+    "noSymptomsNotWell": {
+      "message": "Paldies, ka iereģistrējāties! Žēl, ka jūs nejūtaties labi.\n\nJa jums ir tādi simptomi kā iesnas vai sāpošs kakls, jums vajadzētu izturēties tā, it kā jums būtu koronavīruss un jāizolējas 14 dienas, lai aizsargātu citus cilvēkus.\n\nPiezvaniet savam ģimenes ārstam, lai pārrunātu jūsu simptomus un to, vai jums vajadzētu veikt koronavīrusa pārbaudi.",
+      "viewHistory": "Sk. manu vēsturi",
+      "advice": "Apmeklējiet hse.ie, lai uzzinātu vairāk par to, kā pasargāt sevi un citus no koronavīrusa.",
+      "protectionAdvice": "Ieteikumi aizsardzībai"
+    },
+    "riskGroup": {
+      "warning": "Jūsu vecuma dēļ mēs vēlētos, lai jūs būtu piesardzīgāki, sargājot sevi no COVID-19.\n\nVecāka gadagājuma cilvēki un cilvēki, kuriem ir hroniskas slimības, ir vairāk pakļauti nopietnai slimības gaitai, ja viņi saslimst ar COVID-19.",
+      "warningReadMore": "Vairāk par to lasiet šeit",
+      "advice": "Mēs zinām, ka šis nav viegls laiks. Ja nepieciešams atbalsts vai padoms, kā rīkoties mājās, pieskarieties zemāk, lai iegūtu papildinformāciju.",
+      "adviceReadMore": "Papildinformācija"
+    }
+  },
+  "welcome": {
+    "title": "Sveiki! 👋",
+    "text": "COVID reģistrācija ļauj visiem, kas izmanto šo lietotni, pārbaudīt simptomus un saņemt konsultāciju. Tā arī palīdz HSE kartēt un izsekot, kā COVID-19 ietekmē Īriju.\n\nCOVID reģistrācija neatklāj jūsu identitāti. Jūs varat kopīgot savu vecumu, dzimumu un atrašanās vietu, lai padarītu informāciju noderīgāku sabiedrības veselības analīzei.\n\nCOVID reģistrācija arī saglabā jūsu tālrunī ierakstus par visiem simptomiem, lai jebkurā brīdī jūs varētu pārbaudīt un pārskatīt savus ierakstus.",
+    "action": "Jā, es vēlos izmantot COVID reģistrāciju",
+    "letUsKnow": "Vai jums šodien ir \nkādi simptomi?"
+  },
+  "returning": {
+    "title": "Sveiki atkal! 👋",
+    "subtitle": "Kā šodien jūtaties?",
+    "action1": "Labi, simptomu nav.",
+    "action2": "Šodien nejūtos labi",
+    "completeTitle": "Lieliski! 👍",
+    "completeLink": "Skatiet savu vēsturi"
+  },
+  "settings": {
+    "title": "Iestatījumi",
+    "contactTracing": "Kontaktu izsekošana",
+    "contactTracingHint": "Skatīt vai mainīt iestatījumus kontaktu izsekošanai",
+    "checkIn": "COVID reģistrācija",
+    "checkinHint": "Skatīt vai mainīt iestatījumus COVID reģistrācijai",
+    "privacyPolicy": "Informācija par datu aizsardzību (IDA)",
+    "privacyPolicyHint": "Skatīt Informāciju par datu aizsardzību (IDA)",
+    "termsAndConditions": "Noteikumi un nosacījumi",
+    "termsAndConditionsHint": "Sk. Noteikumus un nosacījumus",
+    "metrics": "Lietotnes metrika",
+    "metricsHint": "Skatīt vai mainīt iestatījumus Lietotnes metrikai",
+    "leave": "Iziet",
+    "leaveHint": "Iziet no lietotnes"
+  },
+  "leave": {
+    "title": "Iziet",
+    "info": "Paldies, ka palīdzējāt mums cīnīties ar COVID-19! Mums ļoti žēl, ka jūs aizejat. Kad pieskarsities opcijai “Es vēlos iziet”, mēs no jūsu ierīces noņemsim visus lietotnes saglabātos datus, ieskaitot mobilā tālruņa numuru, ja esat kopīgojis šo numuru, simptomu datus un visus koplietotos demogrāfiskos datus par veselību. Serverī saglabātie neidentificējošie autorizācijas marķieri arī tiks dzēsti.\n\nNejaušie ID, kas izveidoti vai apkopoti ar Eksponētības paziņošanas dienestu, nevar tikt noņemti, izmantojot lietotni COVID Tracker. Ja vēlaties noņemt šos Nejaušos ID, to var izdarīt, izmantojot jūsu ierīces Iestatījumus.",
+    "button": "Es vēlos iziet",
+    "confirmTitle": "Iziet",
+    "confirmText": "Vai patiešām vēlaties iziet?",
+    "cancel": "Atcelt",
+    "confirm": "Protams!",
+    "error": "Notīrot datus, radās kļūda. Lūdzu, mēģiniet vēlreiz vai sazinieties ar mums!"
+  },
+  "checkInSettings": {
+    "title": "COVID reģistrācija",
+    "checkInFirst": "Iestatījumi būs redzami šeit, tiklīdz veiksit pirmo iereģistrēšanos.",
+    "intro": "Jūs kopīgojāt ar mums šādu informāciju:",
+    "gotoCheckIn": "Doties uz COVID reģistrāciju"
+  },
+  "appStats": {
+    "title": "Šodienas cīņa",
+    "appUsers": "Lietotnes izmantotāji kopš tās palaišanas",
+    "dailyCheckIns": "Šodien iereģistrējušies lietotāji",
+    "nationalPicture": "Nacionālā kopaina",
+    "breakdown": "Sadalījums pa grāfistēm"
+  },
+  "contactTracing": {
+    "title": "Kontaktu izsekošana",
+    "active": {
+      "title": "Kontaktu izsekošana ir aktīva",
+      "message": "Jo vairāk cilvēku izmantos šo lietotni, jo efektīvāka kļūs mūsu kontaktu izsekošana. Lietotne jau tagad palīdz samazināt COVID-19 izplatību, informējot tuvos kontaktus par tiem, kuriem pārbaudē ir pozitīvs rezultāts."
+    },
+    "noSupport": {
+      "title": "Kontaktu izsekošana nav pieejama",
+      "message": "Diemžēl šī ierīce neatbalsta kontaktu izsekošanu. Lietotni joprojām var izmantot COVID reģistrācijai un jaunumiem."
+    },
+    "canSupport": {
+      "title": "Kontaktu izsekošana nav pieejama",
+      "message": {
+        "ios": "Lai iespējotu kontaktu izsekošanu, jālejupielādē jaunākā iOS versija (13.5 un jaunāka).",
+        "android": "Lai iespējotu kontaktu izsekošanu, jālejupielādē jaunākā Google Play versija."
+      },
+      "button": "Pārbaudiet, vai ir uzlabojumi"
+    },
+    "notEnabled": {
+      "title": "Kontaktu izsekošana nav iespējota",
+      "message": "Lai iespējotu Kontaktu izsekošanu, jums tā ir jāuzstāda.",
+      "button": "Uzstādīšana"
+    },
+    "notActive": {
+      "title": "Kontaktu izsekošana nav aktīva",
+      "message00": "Iestatījumos jums ir jāiespējo **Eksponētības paziņošanas dienests**",
+      "message10": "Iestatījumos jums ir jāiespējo **Eksponētības paziņošanas dienests**",
+      "message01": "Iestatījumos jums ir jāiespējo **Bluetooth**",
+      "message11": "Iestatījumos jums ir jāiespējo **Eksponētības paziņošanas dienests** un **Bluetooth**",
+      "button": "Doties uz Iestatījumiem",
+      "android": {
+        "button": "Iespējot",
+        "message": "Jums ir jāiespējo **Eksponētības paziņošanas dienests**, lai aktivizētu Kontaktu izsekošanu"
+      }
+    },
+    "registrationsTitle": "Lietotnes reģistrācija",
+    "registrationsSince": "kopš palaišanas",
+    "shareAppText": "Jo vairāk cilvēku izmantos šo lietotni, jo efektīvāka kļūs mūsu kontaktu izsekošana. Kopīgojiet lietotni, lai palīdzētu mums sasniegt mūsu mērķi!",
+    "statsCard": {
+      "uploads": {
+        "text": "COVID Tracker izmantotāji, kam bija pozitīvs rezultāts, augšupielādēja savus Nejaušos ID"
+      },
+      "alerts": {
+        "text": "COVID Tracker izmantotāji, kam tika nosūtīti Tuva kontakta brīdinājums"
+      }
+    },
+    "registrationsCard": {
+      "title": "Aktīvie lietotāji",
+      "registrations": "{{registrations}}",
+      "text": "{{percentage}}% Īrijas iedzīvotāju, kas ir vecāki par 16 gadiem, tagad izmanto COVID Tracker, palīdzot citiem aizsargāties un būt drošībā. Lietotnei tagad ir {{registrations}} lietotāju."
+    },
+    "uploadCard": {
+      "title": "Augšupielādējiet savus Nejaušos ID",
+      "text": "Izmantot tikai tad, ja ar jums sazinās HSE!",
+      "uploads": "**{{uploads}}** lietotāju ir izmantojuši šo lietotni."
+    },
+    "closeContactCard": {
+      "title": "Informācija par Tuvu kontaktu",
+      "text": "Turpmākā rīcība"
+    },
+    "settings": {
+      "status": {
+        "title": "Statuss",
+        "active": "Pakalpojums pašlaik ir aktīvs",
+        "notActive": "Pakalpojums nav aktīvs",
+        "intro": "Lai atjauninātu atļauju iestatījumus, atveriet savas ierīces lietotņu iestatījumus.",
+        "gotoSettings": "Atjauniniet iestatījumus",
+        "android": {
+          "intro": "Pašlaik nav iespējots pakalpojums Eksponētības paziņošanas dienests; noklikšķiniet uz Iespējot, lai sāktu.",
+          "gotoSettings": "Iespējot"
+        }
+      },
+      "clearData": {
+        "title": "Tuvos kontaktus",
+        "intro": "Pieskarieties zemāk esošajai pogai, lai notīrītu visus savus Tuvo kontaktu gadījumus.",
+        "button": "Notīrīt visus",
+        "confirmTitle": "Tuvos kontaktus",
+        "confirmText": "Vai tiešām vēlaties notīrīt visus Tuvos kontaktus?",
+        "cancel": "Atcelt",
+        "confirm": "Protams!",
+        "error": "Notīrot Tuvos kontaktus, radās kļūda. Lūdzu, mēģiniet vēlreiz!"
+      }
+    }
+  },
+  "requestACallback": {
+    "heading": "Pieprasīt atzvanīšanu",
+    "text": "Programma kopīgos jūsu numuru ar mūsu Kontaktu izsekošanas komandu. Kāds no komandas darbiniekiem jums piezvanīs un noorganizēs pārbaudi, ja tā būs nepieciešama.",
+    "buttonLabel": "Atzvaniet man!",
+    "complete": {
+      "title": "Atzvanīšanas pieprasījums tika nosūtīts",
+      "text": "Kāds no komandas darbiniekiem jums piezvanīs un noorganizēs pārbaudi, ja tā būs nepieciešama.",
+      "button": "Doties uz atjauninājumiem"
+    }
+  },
+  "confirmedChart": {
+    "title": "Apstiprinātie gadījumi dienā",
+    "label": "Apstiprinātie gadījumi dienā (diagramma)",
+    "hint": "Diagramma, kurā parādīti dienas apstiprinātie gadījumi laika gaitā",
+    "yesterday": "vakar apstiprinātie gadījumi",
+    "prevCases": "Gadījumi",
+    "prevDeaths": "Mirušie",
+    "prevCase": "Gadījums",
+    "prevDeath": "Miris",
+    "sourceDate": "Gadījumu dati",
+    "ranges": {
+      "default": "Pēdējās 2 nedēļās",
+      "months": "Pēdējos 2 mēnešos",
+      "all": "Visi"
+    }
+  },
+  "statsSource": {
+    "monitor": "COVID-19 Veselības uzraudzība (Īrija)",
+    "lastUpdatedStats": "Apstiprinātie gadījumi pēdējo reizi atjaunināti:",
+    "lastUpdatedProfile": "Gadījumu profilu pēdējā atjaunināšana:"
+  },
+  "symptomsHistory": {
+    "title": "Jūsu simptomu vēsture",
+    "symptom": "Simptoms",
+    "symptoms": "Simptomi",
+    "completed": "Rīt atkal varēsit pārbaudīt simptomus!"
+  },
+  "casesByCounty": {
+    "title": "Gadījumi grāfistēs",
+    "casesDay": "Gadījumi",
+    "casesWeeks": {
+      "first": "Iepriekšējās",
+      "second": "2 nedēļās"
+    }
+  },
+  "yourData": {
+    "title": "Jūsu dati",
+    "info": "Lietotne COVID Tracker aizsargā jūsu konfidencialitāti un nekopīgo personisko informāciju par jums ar citiem lietotnes lietotājiem. **Jūsu identitāte nekad netiks atklāta citiem lietotnes lietotājiem. **\n\nJebkuri jūsu sniegtie personas dati tiks apstrādāti saskaņā ar Vispārīgo datu aizsardzības regulu (GDPR) un datu aizsardzības likumu. Vairāk par to varat lasīt tālāk esošajā Informācijā par datu aizsardzību. **Jūsu dati tiks izmantoti tikai saistībā ar COVID-19 pandēmijas reaģēšanu**, kā norādīts Informācijā par datu aizsardzību.\n\nJa jums pienāks brīdinājums, lietotne to sāks ar drošu paziņojumu pašā lietotnē. Atsevišķi no šīs lietotnes, HSE Kontaktu izsekošanas komanda var jums piezvanīt, ja kāda persona, kam ir COVID-19, identificē jūs kā Tuvu kontaktpersonu. Ja esat veicis COVID-19 testu, HSE sazināsies ar jums, paziņojot tā rezultātus, izmantojot SMS vai piezvanot.\n\nUzmanieties no aizdomīgiem tālruņa zvaniem, e-pasta vēstulēm vai SMS, kuros tiek pieprasīta personiska informācija! **HSE nelūgs jums personisku informāciju, izmantojot SMS vai e-pastu.**",
+    "viewInSettings": "Šo paziņojumu var skatīt jebkurā laikā sadaļā Iestatījumi. Ja nevēlaties turpināt, aizveriet un dzēsiet lietotni. Ja dodat savu piekrišanu to lietot, nospiediet Turpināt.",
+    "continue": "Turpināt"
+  },
+  "sorry": {
+    "title": "Žēl gan!",
+    "info": "Diemžēl vairs nevarēsit izmantot šo lietotni. Jebkurā brīdī varat pievienoties no jauna. Vienkārši pieskarieties pogai Atpakaļ.",
+    "back": "Atpakaļ"
+  },
+  "ageRequirement": {
+    "notice": "Lai izmantotu šo programmu, jums jābūt 16 g.v. vai vecākam",
+    "over": "Esmu ≥16 g.v.",
+    "under": "Esmu ≤16 g.v."
+  },
+  "underAge": {
+    "title": "<16 g.v.",
+    "notice": "Paldies par jūsu interesi, bet diemžēl esat pārāk jauns, lai piedalītos šajā iniciatīvā.\n\nEsi vesels!"
+  },
+  "followUpCall": {
+    "title": "Kontaktu izsekošanas pārbaudes zvans",
+    "shortTitle": "Atzvanīt",
+    "intro": "Ja kāds, ar kuru esat bijis ciešā kontaktā, COVID-19 testā būs pozitīvs, lietotne nosūtīs jums Tuva kontakta brīdinājumu. HSE arī piezvanīs, ja norādīsit savu numuru zemāk.",
+    "note": "HSE var zvanīt arī tad, ja ar manuālās kontaktu izsekošanas palīdzību esat identificēts kā tuvs kontakts. HSE sniegs jums konsultāciju un nosūtīs uz pārbaudi, ja tas būs nepieciešams.\n\nLietotne jūsu tālruņa numuru koplieto ar HSE tikai tad, ja saņemat tuva kontakta brīdinājumu. Savu numuru varat ievadīt zemāk vai pievienot vēlāk sadaļā Iestatījumi.",
+    "noteAlt": "Ja kāds, ar kuru esat bijis tuvā kontaktā, COVID-19 testā būs pozitīvs, lietotne nosūtīs jums Tuva kontakta brīdinājumu. HSE arī piezvanīs, ja norādīsit savu numuru zemāk.\n\nHSE var zvanīt arī tad, ja ar manuālās kontaktu izsekošanas palīdzību esat identificēts kā tuvs kontakts. HSE sniegs jums konsultāciju un nosūtīs uz pārbaudi, ja tas būs nepieciešams.\n\nLietotne jūsu tālruņa numuru koplieto ar HSE tikai tad, ja saņemat Tuva kontakta brīdinājumu. Savu numuru varat ievadīt zemāk.",
+    "noteSettings": "Ja vēlaties, pēc eksponētības paziņojuma saņemšanas mēs jums varam piezvanīt, lai sniegtu papildu palīdzību.\n\nJūsu tālruņa numurs tiks koplietots ar HSE tikai tad, ja saņemsit paziņojumu par eksponētību.",
+    "optIn": "Jā, es vēlos!",
+    "noThanks": "Nē, paldies!"
+  },
+  "closeContactNotification": {
+    "title": "Tuva kontakta brīdinājums",
+    "description": "Lūdzu, tūlīt pārbaudiet lietotni COVID Tracker!"
+  },
+  "closeContactWarn": {
+    "title": "Tuva kontakta brīdinājums",
+    "notice": "Lietotne ir konstatējusi, ka esat bijis ciešā kontaktā ar personu, kam ir pozitīvs COVID-19 tests."
+  },
+  "closeContact": {
+    "title": "Tuvs kontakts",
+    "text": "Vienkāršākais veids, kā to izdarīt, ir pieprasīt atzvanīšanu no Kontaktu izsekošanas komandas tad, kad saņemat brīdinājumu. Var arī sazināties ar **HSELive 1850 24 1850** un viņi noorganizēs atzvanīšanu.",
+    "titleInfo": "Informācija par Tuvu kontaktu",
+    "introInfo": "Ja esat saņēmis paziņojumu no lietotnes vai zvanu no mūsu kontaktpersonu izsekošanas komandas, kurā teikts, ka esat bijis ciešā kontaktā ar personu, kam koronavīrusa pārbaude ir devusi pozitīvu rezultātu, iespējams, arī jums būs jāveic pārbaude.",
+    "text2Info": "**Piezvaniet savam GP, ja jums attīstās simptomi.**\n\nUzziniet vairāk par to, kas jums jādara, vietnē hse.ie.",
+    "titleAlert": "Tuva kontakta brīdinājums",
+    "introAlert": "Lietotne COVID Tracker ir konstatējusi, ka esat bijis tuvā kontaktā ar kādu personu, kurai ir noteikta COVID-19 diagnoze. Uzziniet, ko vajadzētu darīt, lai palīdzētu sev un aizsargātu citus.",
+    "text2Alert": "**Piezvaniet savam GP, ja jums attīstās simptomi.**\n\nUzziniet vairāk par to, kas jums jādara, vietnē hse.ie.",
+    "todo": "1. Palieciet mājās.\n\n2. Neejiet uz darbu.\n\n3. Neizmantojiet sabiedrisko transportu.\n\n4. Neuzņemiet savās mājās apmeklētājus.\n\n5. Neapmeklējiet citus, pat, ja parasti rūpējaties par tiem.\n\n6. Neapmeklējiet veikalus vai aptieku, ja vien tas nav absolūti nepieciešams - ja iespējams, pasūtiet savus iepirkumus tiešsaistē vai palūdziet, lai kāds radinieks vai draugs tos jums atved.\n\n7. Turieties tālāk no gados vecākiem cilvēkiem, visiem, kam ir hroniskas saslimšanas un grūtniecēm.",
+    "gotoHSE": "Doties uz HSE.ie",
+    "requestCallback": {
+      "title": "Pieprasiet atzvanīt",
+      "text": "Runājiet ar mūsu Kontaktu izsekošanas komandas darbinieku"
+    }
+  },
+  "uploadKeys": {
+    "title": "Augšupielādējiet savus Nejaušos ID",
+    "code": {
+      "intro": "Kontaktu izsekošanas komandas darbinieks var lūgt, lai jūs kopīgotu tālruņa ģenerētos Nejaušos ID iepriekšējo 14 dienu laikā.\n\nTādā gadījumā jūs saņemsit unikālu 6 ciparu kodu īsziņā, lai aktivizētu augšupielādes funkcionalitāti.",
+      "expiredError": "Kodam ir beidzies derīguma termiņš. Sazinieties ar HSE, lai pieprasītu citu.",
+      "invalidError": "Nederīgs kods. Lūdzu, mēģiniet vēlreiz!",
+      "error": "Pārbaudot kodu, radās kļūda. Lūdzu, mēģiniet vēlreiz!"
+    },
+    "upload": {
+      "intro": "Lai palīdzētu mums izsekot jūsu nesenos kontaktus pēdējo 14 dienu laikā, lūdzam jūs kopīgot savus anonīmos Nejaušos ID, ko ģenerējis tālrunis, ar HSE.",
+      "button": "Augšupielādējiet savus Nejaušos ID uz HSE"
+    },
+    "permissionError": "Mēs neesam augšupielādējuši jūsu atslēgkodus, jo jūs nesniedzāt atļauju.",
+    "uploadError": "Mēģinot augšupielādēt, radās kļūda",
+    "uploadSuccess": {
+      "toast": "Augšupielāde pabeigta",
+      "thanks": "Paldies, ka augšupielādējāt savus Nejaušos ID. Tas palīdzēs mūsu kontaktu meklēšanas komandai palēnināt COVID-19 izplatīšanos un aizsargāt citus.",
+      "updates": "Atgriezties pie atjauninājumiem"
+    }
+  },
+  "sex": {
+    "label": "Jūsu dzimums (pēc izvēles)",
+    "female": "Sieviete",
+    "male": "Vīrietis"
+  },
+  "ageRange": {
+    "label": "Jūsu vecuma diapazons (pēc izvēles)",
+    "placeholder": "Izvēlieties sava vecuma diapazonu"
+  },
+  "phoneNumber": {
+    "code": {
+      "label": "Jūsu valsts kods",
+      "placeholder": "Valsts",
+      "searchPlaceholder": "Meklēt valsti",
+      "noResults": "Šai meklēšanai nav atrasti rezultāti.\nMēģiniet ar ko citu.",
+      "error": {
+        "required": "Ir jānorāda jūsu valsts kods."
+      }
+    },
+    "number": {
+      "label": "Jūsu tālruņa numurs (pēc izvēles)",
+      "placeholder": "Jūsu numurs",
+      "error": {
+        "invalid": "Jūsu numurs nav derīgs. Lūdzu, norādiet pilnu tālruņa numuru!",
+        "short": "Jūsu numurs ir nepilnīgs. Lūdzu, norādiet pilnu tālruņa numuru!",
+        "required": "Jūsu numurs ir nepieciešams."
+      }
+    }
+  },
+  "county": {
+    "label": "Jūsu grāfiste (pēc izvēles)",
+    "placeholder": "Izvēlieties savu grāfisti",
+    "searchPlaceholder": "Meklēt",
+    "noResults": "Šai meklēšanai nav atrasti rezultāti.\nMēģiniet kaut ko citu."
+  },
+  "locality": {
+    "label": "Jūsu atrašanās vieta (pēc izvēles)",
+    "placeholder": "Izvēlieties savu atrašanās vietu",
+    "searchPlaceholder": "Meklēt",
+    "noResults": "Šai meklēšanai nav atrasti rezultāti.\nMēģiniet kaut ko citu."
+  },
+  "appUsage": {
+    "title": "Lietotnes metrika",
+    "info": "HSE vēlas saprast, kā jūs izmantojat lietotni, lai uzlabotu to.\n\nLietotne apkopos anonīmu metriku par to, kā izmantojat lietotni un Kontaktu izsekošanas kārtības efektivitāti.\n\nŠo informāciju HSE apkopo tieši un metrikas apkopošanai netiek izmantota neviena trešā puse. **Šī informācija tiek apkopota tikai ar jūsu piekrišanu, un to nevar izmantot, lai jūs identificētu.**",
+    "settingsInfo": "Ja pārdomājat, jebkurā laikā varat mainīt šīs atļaujas sadaļā Iestatījumi.",
+    "yesButton": "Jā, es piekrītu!",
+    "noThanks": "Nē, paldies!"
+  },
+  "metrics": {
+    "title": "Lietotnes metrika",
+    "info": "HSE vēlas saprast, kā jūs izmantojat lietotni, lai uzlabotu to.\n\nLietotne apkopos anonīmu metriku par to, kā izmantojat lietotni un Kontaktu izsekošanas kārtības efektivitāti.\n\nŠo informāciju HSE apkopo tieši un metrikas apkopošanai netiek izmantota neviena trešā puse. **Šī informācija tiek apkopota tikai ar jūsu piekrišanu, un to nevar izmantot, lai jūs identificētu.**",
+    "share": "Koplietot lietotnes lietojuma statistiku"
+  },
+  "tracingAvailable": {
+    "title": "Tagad jums ir pieejama Kontaktu izsekošana",
+    "text": "Iegūt iestatīšanu tūlīt"
+  },
+  "codeInput": {
+    "accessibilityLabel": "Koda cipars {{number}}",
+    "accessibilityHint": "Ievadiet {{count}} ciparu kodu"
+  },
+  "policyUpdates": {
+    "title": "Sveiki!",
+    "tandcOnly": "Mēs esam atjauninājuši lietotnes noteikumus un nosacījumus.",
+    "dpinOnly": "Mēs esam atjauninājuši paziņojumu par datu aizsardzības informāciju.",
+    "info": "Mēs esam atjauninājuši paziņojumu par lietotnes noteikumiem un nosacījumiem un datu aizsardzības informāciju.",
+    "dpinLink": "Informāciju par datu aizsardzību varat lasīt šeit",
+    "tandcLink": "Noteikumus un nosacījumus varat skatīt šeit"
+  },
+  "newVersionAvailable": {
+    "title_ios": "Lietotņu veikalā App Store ir pieejama jauna Covid Tracker versija",
+    "title_android": "Lietotņu veikalā Play Store ir pieejama jauna Covid Tracker versija",
+    "text": "Atjaunināt tagad"
+  }
+}

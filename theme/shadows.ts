@@ -17,9 +17,9 @@ export default {
     borderColor: 'rgba(0,0,0,0.05)',
     borderRadius: 3,
     shadowColor: 'rgb(178, 178, 178)',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 1,
-    shadowRadius: 0,
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
     elevation: 3
   }
 };

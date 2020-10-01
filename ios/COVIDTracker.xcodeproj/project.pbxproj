@@ -44,7 +44,13 @@
 		28D77FD7243F5B48001A4277 /* COVIDTracker Ireland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "COVIDTracker Ireland.entitlements"; path = "COVIDTracker/COVIDTracker Ireland.entitlements"; sourceTree = "<group>"; };
 		28D77FD8243F60D8001A4277 /* COVIDTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "COVIDTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		386DF3CD6F7A3FA73AB92391 /* Pods-COVIDTracker-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDTracker-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-COVIDTracker-tvOSTests/Pods-COVIDTracker-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		4112511324EFC7A700F87722 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = COVIDTracker/en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4112511424EFC7EF00F87722 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "COVIDTracker/pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		413AFFC1249366F9001D3D6E /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
+		41A7AC0C24FD00BB00E89C48 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = COVIDTracker/fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		41A7AC0D24FD00D000E89C48 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = COVIDTracker/pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		41A7AC0E24FD00F100E89C48 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = COVIDTracker/lt.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		41A7AC0F24FD010500E89C48 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = COVIDTracker/lv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		41C3C226249C94E300634DB9 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ga; path = COVIDTracker/ga.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		92C06203447D9F151FCDD577 /* Pods-COVIDTracker-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDTracker-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-COVIDTracker-tvOS/Pods-COVIDTracker-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A710E9F14177EE11B5A22121 /* libPods-COVIDTracker-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-COVIDTracker-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,6 +232,11 @@
 				en,
 				Base,
 				ga,
+				"pt-PT",
+				fr,
+				pl,
+				lt,
+				lv,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -272,7 +283,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "cd $PROJECT_DIR/..\nexport NODE_BINARY=node\nnode_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		34872707D5E1419486A03A0C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -463,6 +474,12 @@
 			children = (
 				2836A7902449D2B1006215C7 /* Base */,
 				41C3C226249C94E300634DB9 /* ga */,
+				4112511324EFC7A700F87722 /* en */,
+				4112511424EFC7EF00F87722 /* pt-PT */,
+				41A7AC0C24FD00BB00E89C48 /* fr */,
+				41A7AC0D24FD00D000E89C48 /* pl */,
+				41A7AC0E24FD00F100E89C48 /* lt */,
+				41A7AC0F24FD010500E89C48 /* lv */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -522,7 +539,7 @@
 				CODE_SIGN_ENTITLEMENTS = "COVIDTracker/COVIDTracker Ireland.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 46CH29TAYZ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -532,7 +549,7 @@
 				INFOPLIST_FILE = COVIDTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -557,12 +574,12 @@
 				CODE_SIGN_ENTITLEMENTS = "COVIDTracker/COVIDTracker Ireland.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 46CH29TAYZ;
 				INFOPLIST_FILE = COVIDTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

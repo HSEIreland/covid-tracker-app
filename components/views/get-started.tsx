@@ -49,7 +49,10 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
     if (firstEl.current) {
       const tag = findNodeHandle(firstEl.current);
       if (tag) {
-        setTimeout(() => AccessibilityInfo.setAccessibilityFocus(tag), 250);
+        setTimeout(
+          () => firstEl.current && AccessibilityInfo.setAccessibilityFocus(tag),
+          250
+        );
       }
     }
   }, []);

@@ -3,19 +3,21 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.covidtracker.hse"
 >
+
   <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
   <uses-feature android:name="android.hardware.bluetooth" />
   <uses-permission android:name="android.permission.BLUETOOTH" />
   <uses-permission android:name="android.permission.INTERNET" />
-
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- crashed without this -->
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
   <!-- permissions remove list (merged from sub modules)-->
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:node="remove" />
   <uses-permission android:name="android.permission.VIBRATE" tools:node="remove" />
   <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="remove"  />
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" tools:node="remove" />
+
   <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
@@ -23,7 +25,6 @@
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:node="remove" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove" />
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" tools:node="remove" />
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" tools:node="remove" /> 
   <uses-permission android:name="com.sec.android.provider.badge.permission.READ" tools:node="remove"/>
   <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" tools:node="remove" /> 
   <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" tools:node="remove" />

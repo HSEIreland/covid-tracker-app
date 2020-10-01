@@ -7,11 +7,12 @@ import {
   Alert,
   StyleSheet
 } from 'react-native';
-import ExposureNotification from 'react-native-exposure-notification-service';
 import {format} from 'date-fns';
+import ExposureNotification, {
+  useExposure
+} from 'react-native-exposure-notification-service';
 
 import {Button} from '../../atoms/button';
-import {useExposure} from '../../../providers/exposure';
 
 import Layouts from '../../../theme/layouts';
 
@@ -24,7 +25,7 @@ export const Debug = ({navigation}) => {
   const [logData, setLogData] = useState(null);
 
   const loadData = useCallback(async () => {
-    const contacts = await await exposure.getCloseContacts();
+    const contacts = await exposure.getCloseContacts();
 
     const logData = await exposure.getLogData();
     console.log('logdata is', logData);
@@ -87,6 +88,10 @@ export const Debug = ({navigation}) => {
       }
     };
   }, []);
+
+  const simulateExposure = async () => {
+    exposure.simulateExposure(5);
+  };
 
   const deleteAllData = async () => {
     Alert.alert('Delete Data', 'Are you asure you want to delete all data.', [
@@ -170,6 +175,9 @@ export const Debug = ({navigation}) => {
       <Button type="major" onPress={checkExposure}>
         Check Exposure
       </Button>
+      <Button type="major" onPress={simulateExposure}>
+        Simulate Exposure
+      </Button>      
       <Button type="major" onPress={deleteAllData}>
         Delete All Data
       </Button>

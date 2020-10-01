@@ -10,6 +10,8 @@ import {Link} from '../atoms/link';
 import {Markdown} from '../atoms/markdown';
 import {Quote} from '../molecules/quote';
 
+import {useApplication} from '../../providers/context';
+
 import Layouts from '../../theme/layouts';
 
 interface AppUsageProps {
@@ -18,10 +20,11 @@ interface AppUsageProps {
 
 export const AppUsage: FC<AppUsageProps> = ({navigation}) => {
   const {t} = useTranslation();
+  const {setContext} = useApplication();
 
   const handleNext = async (consent: boolean) => {
     try {
-      SecureStore.setItemAsync('analyticsConsent', String(consent), {});
+      await setContext({analyticsConsent: consent});
     } catch (e) {
       console.log('Error storing "analyticsConsent" securely', e);
     }

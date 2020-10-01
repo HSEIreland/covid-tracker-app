@@ -132,9 +132,9 @@ android {
         applicationId "com.covidtracker.hse"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 61
-        versionName "1.0.1.44"
-        resConfigs "en", "ga"
+        versionCode 75
+        versionName "1.0.3.60"
+        resConfigs "en", "ga", "pt", "fr", "lt", "lv", "pl"
     }
 
     splits {
@@ -219,6 +219,7 @@ dependencies {
     addUnimodulesDependencies()
 
     implementation project(':react-native-permissions')
+
     // debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
     //   exclude group:'com.facebook.fbjni'
     // }

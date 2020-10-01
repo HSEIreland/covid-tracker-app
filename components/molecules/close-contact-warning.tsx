@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, forwardRef} from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -15,40 +15,43 @@ import {colors} from '../../constants/colors';
 
 import {shadows, text} from '../../theme';
 
-export const CloseContactWarning: FC = () => {
-  const {t} = useTranslation();
-  const navigation = useNavigation();
+export const CloseContactWarning = forwardRef<TouchableWithoutFeedback>(
+  (props, ref) => {
+    const {t} = useTranslation();
+    const navigation = useNavigation();
 
-  return (
-    <TouchableWithoutFeedback
-      onPress={() => navigation.navigate('closeContact')}>
-      <View style={styles.card}>
-        <View style={styles.icon}>
-          <Image
-            accessibilityIgnoresInvertColors
-            style={styles.imageSize}
-            width={styles.imageSize.width}
-            height={styles.imageSize.height}
-            source={require('../../assets/images/exposure-alert/exposure-alert.png')}
-          />
+    return (
+      <TouchableWithoutFeedback
+        ref={ref}
+        onPress={() => navigation.navigate('closeContact')}>
+        <View style={styles.card}>
+          <View style={styles.icon}>
+            <Image
+              accessibilityIgnoresInvertColors
+              style={styles.imageSize}
+              width={styles.imageSize.width}
+              height={styles.imageSize.height}
+              source={require('../../assets/images/exposure-alert/exposure-alert.png')}
+            />
+          </View>
+          <View style={styles.content}>
+            <Text style={styles.title}>{t('closeContactWarn:title')}</Text>
+            <Text style={styles.notice}>{t('closeContactWarn:notice')}</Text>
+          </View>
+          <SingleRow>
+            <Image
+              accessibilityIgnoresInvertColors
+              style={styles.iconSize}
+              width={styles.iconSize.width}
+              height={styles.iconSize.height}
+              source={require('../../assets/images/arrow-right/white.png')}
+            />
+          </SingleRow>
         </View>
-        <View style={styles.content}>
-          <Text style={styles.title}>{t('closeContactWarn:title')}</Text>
-          <Text style={styles.notice}>{t('closeContactWarn:notice')}</Text>
-        </View>
-        <SingleRow>
-          <Image
-            accessibilityIgnoresInvertColors
-            style={styles.iconSize}
-            width={styles.iconSize.width}
-            height={styles.iconSize.height}
-            source={require('../../assets/images/arrow-right/white.png')}
-          />
-        </SingleRow>
-      </View>
-    </TouchableWithoutFeedback>
-  );
-};
+      </TouchableWithoutFeedback>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   card: {

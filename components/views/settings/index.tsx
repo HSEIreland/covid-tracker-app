@@ -13,7 +13,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
-import {BUILD_VERSION, HIDE_DEBUG} from 'react-native-dotenv';
+import {HIDE_DEBUG} from '@env';
+import {getVersion, Version} from 'react-native-exposure-notification-service';
 
 import {colors} from '../../../constants/colors';
 import {text, shadows} from '../../../theme';
@@ -41,6 +42,7 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
   const {t} = useTranslation();
   const [pressCount, setPressCount] = useState<number>(0);
   const [showDebug, setShowDebug] = useState<boolean>(false);
+  const [version, setVersion] = useState<Version>();
 
   const versionPressHandler = async () => {
     setPressCount(pressCount + 1);
@@ -49,6 +51,14 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
       setShowDebug(true);
     }
   };
+
+  useEffect(() => {
+    const getVer = async () => {
+      const ver = await getVersion()
+      setVersion(ver)
+    }
+    getVer();
+  }, [getVersion]);
 
   useEffect(() => {
     const init = async () => {
@@ -92,7 +102,7 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
       label: t('settings:termsAndConditions'),
       hint: t('settings:termsAndConditionsHint'),
       screen: 'settings.terms'
-    },    
+    },
     {
       id: 'metrics',
       title: t('settings:metrics'),
@@ -154,9 +164,11 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
         keyExtractor={({id}) => id}
       />
       <View style={styles.flex} />
-      <Text style={text.default} onPress={versionPressHandler}>
-        App version {Platform.OS === 'ios' ? 'iOS' : 'Android'} {BUILD_VERSION}
-      </Text>
+      {version && (
+        <Text style={text.default} onPress={versionPressHandler}>
+            App version {Platform.OS === 'ios' ? 'iOS' : 'Android'} {version.display}
+        </Text>
+      )}
     </Layouts.Basic>
   );
 };

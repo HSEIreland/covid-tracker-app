@@ -8,6 +8,8 @@ export const colors = {
   mildYellow: '#fff16f',
   darkerYellow: '#FFDA1A', // review & merge to yellow
   orange: '#FF8248', // review as used only in toast
+  green: '#3A7B7F', // review as used only in trend-arrow
+  darkRed: '#F04B00', // review as used only in trend-arrow
   white,
   red,
   teal,
@@ -17,6 +19,7 @@ export const colors = {
   selectedDot: '#2E2E2E',
   success: '#00CF68', // only 1 usage?
   text: '#2E2E2E',
+  lighterText: '#585858',
   buttons: {
     default: {
       text: white,

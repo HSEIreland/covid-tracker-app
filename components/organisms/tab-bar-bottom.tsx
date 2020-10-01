@@ -11,18 +11,19 @@ import {
 import {TFunction} from 'i18next';
 import {useTranslation} from 'react-i18next';
 import Constants from 'expo-constants';
+import {
+  useExposure,
+  StatusState
+} from 'react-native-exposure-notification-service';
 
 import {colors} from '../../constants/colors';
 import {text} from '../../theme';
-import {useExposure, StatusState} from '../../providers/exposure';
 
 export const shareApp = async (t: TFunction) => {
   try {
     await Share.share(
       {
-        title: t('common:message'),
-        message:
-          Platform.OS === 'android' ? t('common:url') : t('common:message'),
+        message: Platform.OS === 'android' ? t('common:url') : undefined,
         url: t('common:url')
       },
       {
@@ -54,7 +55,7 @@ const shareIcon = require('../../assets/images/share/share.png');
  */
 export const TabBarBottom: FC<any> = ({navigation, state}) => {
   const {t} = useTranslation();
-  const {status, enabled} = useExposure();
+  const {initialised, status, enabled} = useExposure();
 
   const tabItems = [
     {
@@ -77,11 +78,11 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
         w: 30,
         h: 24,
         inactive:
-          status.initial || (enabled && status.state === StatusState.active)
+          !initialised || (enabled && status.state === StatusState.active)
             ? ctOnUnselected
             : ctOffUnselected,
         active:
-          status.initial || (enabled && status.state === StatusState.active)
+          !initialised || (enabled && status.state === StatusState.active)
             ? ctOnSelected
             : ctOffSelected
       }
@@ -101,7 +102,7 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
               onPress={() => navigation.navigate(routeName)}>
               <View style={[styles.tab]}>
                 <Image
-                  accessibilityIgnoresInvertColors={false}
+                  accessibilityIgnoresInvertColors
                   style={{width: tab.image.w || 24, height: tab.image.h || 24}}
                   width={tab.image.w || 24}
                   height={tab.image.h || 24}

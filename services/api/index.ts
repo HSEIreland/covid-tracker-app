@@ -4,15 +4,14 @@ import {format} from 'date-fns';
 // To enable certificate pinning uncomment line below, add your cert files and reference them in request method below
 // import {fetch} from 'react-native-ssl-pinning';
 import NetInfo from '@react-native-community/netinfo';
-import {SAFETYNET_KEY} from 'react-native-dotenv';
-import {BUILD_VERSION, ENV, TEST_TOKEN} from 'react-native-dotenv';
+import {ENV, TEST_TOKEN, SAFETYNET_KEY} from '@env';
 import RNGoogleSafetyNet from 'react-native-google-safetynet';
 import RNIOS11DeviceCheck from 'react-native-ios11-devicecheck';
-
 import {urls} from '../../constants/urls';
 import {Check, UserLocation} from '../../providers/context';
-
 import {isMountedRef, navigationRef} from '../../navigation';
+import AsyncStorage from '@react-native-community/async-storage';
+import { getVersion } from 'react-native-exposure-notification-service';
 
 interface CheckIn {
   sex: string;
@@ -21,7 +20,14 @@ interface CheckIn {
   ok: boolean;
 }
 
-export const verify = async (nonce: string) => {
+interface DeviceCheckData {
+  platform: string;
+  deviceVerificationPayload: string;
+}
+
+export const getDeviceCheckData = async (
+  nonce: string
+): Promise<DeviceCheckData> => {
   if (Platform.OS === 'android') {
     return {
       platform: 'android',
@@ -150,40 +156,78 @@ async function createToken(): Promise<string> {
   }
 }
 
+export class RegisterError extends Error {
+  constructor(message: string, code: number) {
+    super(message);
+    this.name = 'RegisterError';
+    // @ts-ignore
+    this.code = code;
+  }
+}
+
 export async function register(): Promise<{
   token: string;
   refreshToken: string;
 }> {
-  const registerResponse = await request(`${urls.api}/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({})
-  });
+  let nonce;
+  try {
+    const registerResponse = await request(`${urls.api}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    });
 
-  if (!registerResponse) {
-    throw new Error('Invalid response');
+    if (!registerResponse) {
+      throw new Error('Invalid register response');
+    }
+    const registerResult = await registerResponse.json();
+
+    nonce = registerResult.nonce;
+  } catch (err) {
+    console.log('Register error: ', err);
+    if (err.json) {
+      const errBody = await err.json();
+      throw new RegisterError(errBody.message, errBody.code || 1001);
+    }
+    throw new RegisterError(err.message, 1002);
   }
-  const {nonce} = await registerResponse.json();
 
-  const verifyResponse = await request(`${urls.api}/register`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({nonce, ...(await verify(nonce))})
-  });
-  if (!verifyResponse) {
-    throw new Error('Invalid response');
+  let deviceCheckData;
+  try {
+    deviceCheckData = await getDeviceCheckData(nonce);
+  } catch (err) {
+    console.log('Device check error: ', err);
+    throw new RegisterError(err.message, 1003);
   }
 
-  const resp = await verifyResponse.json();
+  try {
+    const verifyResponse = await request(`${urls.api}/register`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nonce, ...deviceCheckData})
+    });
 
-  return resp as {
-    token: string;
-    refreshToken: string;
-  };
+    if (!verifyResponse) {
+      throw new Error('Invalid verify response');
+    }
+    const verifyResult = await verifyResponse.json();
+
+    return {
+      token: verifyResult.token,
+      refreshToken: verifyResult.refreshToken
+    };
+  } catch (err) {
+    console.log('Register (verify) error:', err);
+    if (err.json) {
+      const errBody = await err.json();
+      throw new RegisterError(errBody.message, errBody.code || 1004);
+    }
+    throw new RegisterError(err.message, 1005);
+  }
 }
 
 export async function forget(): Promise<boolean> {
@@ -231,6 +275,9 @@ export async function checkIn(checks: Check[], checkInData: CheckIn) {
     saveMetric({event: METRIC_TYPES.CHECK_IN});
   } catch (err) {
     console.log('Error checking-in:', err);
+    if (err.status !== 401) {
+      saveMetric({event: METRIC_TYPES.LOG_ERROR, payload: JSON.stringify({where: 'checkIn', error: JSON.stringify(err)})});
+    }
   }
 }
 
@@ -249,8 +296,7 @@ export async function loadSettings() {
     const resp = await req.json();
     return resp;
   } catch (err) {
-    console.log('Error loading settings data');
-    console.log(err);
+    console.log('Error loading settings data', err);
     throw err;
   }
 }
@@ -260,7 +306,7 @@ export interface CheckIns {
   ok: number;
 }
 
-export type ConfirmedCasesData = [Date, number][];
+export type DataByDate = [Date, number][];
 
 export interface CovidStatistics {
   confirmed: number;
@@ -280,11 +326,32 @@ export interface CovidStatistics {
 }
 
 export interface StatsData {
+  generatedAt: Date;
   checkIns: CheckIns;
   statistics: CovidStatistics;
-  chart: ConfirmedCasesData;
+  chart: DataByDate;
+  currentCases: DataByDate;
+  currentDeaths: DataByDate;
   installs: [Date, number][];
-  counties: {cases: number; county: string}[];
+  notifications: number;
+  installPercentage: string;
+  uploads: number;
+  activeUsers: string;
+  counties: {cases: number; county: string; dailyCases: DataByDate}[];
+  hospital: {
+    admissions: number;
+    discharges: number;
+    confirmed: number;
+  };
+  icu: {
+    admissions: number;
+    discharges: number;
+    confirmed: number;
+  };
+  tests: {
+    completed: number;
+    positive: number;
+  };
 }
 
 export async function loadData(): Promise<StatsData> {
@@ -296,7 +363,6 @@ export async function loadData(): Promise<StatsData> {
         'Content-Type': 'application/json'
       }
     });
-
     if (!req) {
       throw new Error('Invalid response');
     }
@@ -304,6 +370,12 @@ export async function loadData(): Promise<StatsData> {
     return res as StatsData;
   } catch (err) {
     console.log('Error loading stats data: ', err);
+    if (err.status !== 401) {
+      saveMetric({
+        event: METRIC_TYPES.LOG_ERROR,
+        payload: JSON.stringify({where: 'loadStats', error: JSON.stringify(err)})
+      });
+    }
     throw err;
   }
 }
@@ -322,56 +394,48 @@ export async function uploadContacts(contacts: any) {
       throw new Error('Invalid response');
     }
     console.log('Contacts Uploaded');
-    saveMetric({event: METRIC_TYPES.CONTACT_UPLOAD});
     return true;
   } catch (err) {
-    console.log('Error uploading contacts');
-    console.log(err);
-    throw err;
-  }
-}
-
-export async function loadNotifications() {
-  try {
-    const req = await request(`${urls.api}/register`, {
-      authorizationHeaders: true,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!req) {
-      throw new Error('Invalid response');
+    console.log('Error uploading contacts', err);
+    if (err.status !== 401) {
+      saveMetric({
+        event: METRIC_TYPES.LOG_ERROR,
+        payload: JSON.stringify({where: 'uploadContacts', error: JSON.stringify(err)})
+      });
     }
-
-    console.log('Loaded record');
-    const data = await req.json();
-    return data;
-  } catch (err) {
-    console.log('Error loading record');
-    console.log(err);
     throw err;
   }
 }
 
 export enum METRIC_TYPES {
-  CONTACT_UPLOAD = 'CONTACT_UPLOAD',
   CHECK_IN = 'CHECK_IN',
   FORGET = 'FORGET',
   TOKEN_RENEWAL = 'TOKEN_RENEWAL',
-  CALLBACK_OPTIN = 'CALLBACK_OPTIN'
+  CALLBACK_OPTIN = 'CALLBACK_OPTIN',
+  LOG_ERROR = 'LOG_ERROR'
 }
 
-// 1.2 downloads, 2,7, 2.6
-
-export async function saveMetric({event = ''}) {
+export async function saveMetric({event = '', payload = ''}) {
   try {
-    const analyticsOptin = await SecureStore.getItemAsync('analyticsConsent');
-    if (!analyticsOptin || (analyticsOptin && analyticsOptin !== 'true')) {
+    const analyticsOptinSecure = await SecureStore.getItemAsync(
+      'analyticsConsent'
+    );
+    const analyticsOptin = await AsyncStorage.getItem('analyticsConsent');
+    const consent =
+      analyticsOptinSecure === 'true' || analyticsOptin === 'true';
+
+    console.log('Request to saveMetric', consent, event, payload);
+    if (!consent) {
       return false;
     }
+
+    let bearerToken = await SecureStore.getItemAsync('token');
+    if (!bearerToken) {
+      return false;
+    }
+
+    const version = await getVersion();
     const os = Platform.OS;
-    const version = BUILD_VERSION;
     const req = await request(`${urls.api}/metrics`, {
       authorizationHeaders: true,
       method: 'POST',
@@ -380,14 +444,47 @@ export async function saveMetric({event = ''}) {
       },
       body: JSON.stringify({
         os,
-        version,
-        event
+        version: version.display,
+        event,
+        payload
       })
     });
 
     return req && req.status === 204;
   } catch (err) {
-    console.log(err);
+    console.log('saveMetric Failed', err);
     return false;
+  }
+}
+
+export async function requestCallback(mobile: string, exposureDate: string, payload: any) {
+  try {
+    const req = await request(`${urls.api}/callback`, {
+      authorizationHeaders: true,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        closeContactDate: exposureDate,
+        mobile,
+        payload
+      })
+    });
+    if (!req) {
+      throw new Error('Invalid response');
+    }
+    console.log('Callback Requested');
+    saveMetric({event: METRIC_TYPES.CALLBACK_OPTIN});
+    return true;
+  } catch (err) {
+    console.log('Error requesting callback', err);
+    if (err.status !== 401) {
+      saveMetric({
+        event: METRIC_TYPES.LOG_ERROR,
+        payload: JSON.stringify({where: 'requestCallback', error: JSON.stringify(err)})
+      });
+    }
+    throw err;
   }
 }

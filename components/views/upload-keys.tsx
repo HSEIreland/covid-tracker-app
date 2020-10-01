@@ -2,9 +2,10 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Text, StyleSheet} from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import {useTranslation} from 'react-i18next';
+import {useExposure} from 'react-native-exposure-notification-service';
 
 import {useApplication} from '../../providers/context';
-import {useExposure} from '../../providers/exposure';
+import {saveMetric, METRIC_TYPES} from '../../services/api';
 
 import {
   validateCode,
@@ -121,6 +122,10 @@ export const UploadKeys = ({navigation}) => {
       setStatus('success');
     } catch (err) {
       console.log('error uploading exposure keys:', err);
+      saveMetric({
+        event: METRIC_TYPES.LOG_ERROR,
+        payload: JSON.stringify({where: 'uploadExposureKeys', error: JSON.stringify(err)})
+      });
       hideActivityIndicator();
 
       setStatus('error');

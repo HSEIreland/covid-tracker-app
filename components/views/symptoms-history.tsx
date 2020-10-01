@@ -3,6 +3,7 @@ import {StyleSheet, View, Image, Text, ViewStyle} from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {format} from 'date-fns';
+import {useExposure} from 'react-native-exposure-notification-service';
 
 import {useApplication} from '../../providers/context';
 import {useAppState} from '../../hooks/app-state';
@@ -16,7 +17,6 @@ import {CheckInCard} from '../molecules/check-in-card';
 import {colors} from '../../constants/colors';
 import Layouts from '../../theme/layouts';
 import {text} from '../../theme';
-import {usePermissions} from '../../providers/permissions';
 
 const symptomsHistoryIcons = {
   '1': require('../../assets/images/symptoms-history/1_temp.png'),
@@ -30,7 +30,7 @@ export const SymptomsHistory = ({navigation}) => {
   const {completedChecker, checks, verifyCheckerStatus} = useApplication();
   const [appState] = useAppState();
   const isFocused = useIsFocused();
-  const {readPermissions} = usePermissions();
+  const {readPermissions} = useExposure();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -109,17 +109,23 @@ export const SymptomsHistory = ({navigation}) => {
                       styles.iconDimensions,
                       hasSymptoms && styles.iconPink
                     ]}>
-                    <Image
-                      accessibilityIgnoresInvertColors
-                      style={styles.iconDimensions}
-                      width={20}
-                      height={20}
-                      source={
-                        !hasSymptoms
-                          ? require('../../assets/images/checkin-blue/checkin.png')
-                          : require('../../assets/images/covid-red/covid.png')
-                      }
-                    />
+                    {hasSymptoms ? (
+                      <Image
+                        accessibilityIgnoresInvertColors
+                        style={styles.symptomsIcon}
+                        width={18}
+                        height={18}
+                        source={require('../../assets/images/covid-red/covid.png')}
+                      />
+                    ) : (
+                      <Image
+                        accessibilityIgnoresInvertColors
+                        style={styles.noSymptomsIcon}
+                        width={16}
+                        height={20}
+                        source={require('../../assets/images/checkin-green/image.png')}
+                      />
+                    )}
                   </View>
                   <Text style={text.xlargeBlack}>{symptoms.length}</Text>
                   <Text>&nbsp;</Text>
@@ -148,7 +154,7 @@ export const SymptomsHistory = ({navigation}) => {
                           source={symptomsHistoryIcons[index.toString()]}
                         />
                       </View>
-                      <Text style={text.xsmallBoldOpacity70}>{label}</Text>
+                      <Text style={styles.symptom}>{label}</Text>
                     </View>
                   );
                 })}
@@ -161,9 +167,9 @@ export const SymptomsHistory = ({navigation}) => {
 };
 
 const rowStyle: ViewStyle = {
-  height: 44,
   flexDirection: 'row',
-  alignItems: 'center'
+  alignItems: 'center',
+  paddingVertical: 4
 };
 
 const styles = StyleSheet.create({
@@ -186,8 +192,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 12
   },
+  symptomsIcon: {
+    width: 18,
+    height: 18
+  },
+  noSymptomsIcon: {
+    width: 16,
+    height: 20
+  },
   iconPink: {
     backgroundColor: 'rgb(254, 215, 226)',
     borderRadius: 16
+  },
+  symptom: {
+    ...text.xsmallBoldOpacity70,
+    flex: 1
   }
 });

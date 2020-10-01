@@ -84,9 +84,6 @@ const localMarkdownStyles = StyleSheet.create({
     ...text.defaultBold,
     color: colors.teal
   },
-  list: {
-    marginBottom: -12
-  },
   listItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',

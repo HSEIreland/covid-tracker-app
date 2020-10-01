@@ -121,7 +121,7 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
       setState((s) => ({
         ...s,
         result: null,
-        feelingWell: true,
+        feelingWell: !skipQuickCheckIn,
         answers: {
           fever: 0,
           cough: 0,

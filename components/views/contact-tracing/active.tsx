@@ -8,6 +8,8 @@ import {ResponsiveImage} from '../../atoms/responsive-image';
 
 import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
+import {Button} from '../../atoms/button';
+import {shareApp} from '../../organisms/tab-bar-bottom';
 
 export const Active: FC = () => {
   const {t} = useTranslation();
@@ -19,7 +21,7 @@ export const Active: FC = () => {
   });
 
   return (
-    <Card padding={{v: 12}}>
+    <Card padding={{h: 12, r: 12}}>
       <ResponsiveImage
         h={150}
         source={require('../../../assets/images/phone/active.png')}
@@ -28,6 +30,7 @@ export const Active: FC = () => {
       <View style={styles.row}>
         <View style={styles.traceIcon}>
           <Animated.Image
+            accessibilityIgnoresInvertColors
             style={[styles.image, {transform: [{rotate: spin}]}]}
             resizeMode="contain"
             source={require('../../../assets/images/contact-tracing/contact-tracing-spin.png')}

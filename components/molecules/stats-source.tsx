@@ -20,15 +20,12 @@ export const StatsSource: FC<StatsSourceProps> = ({style, lastUpdated}) => {
     <View style={[styles.container, style]}>
       <Text style={text.xsmallBold}>{t('statsSource:monitor')}</Text>
       <Text style={text.xsmallBold}>
-        {t('statsSource:communityTransmissions')}
-      </Text>
-      <Text style={text.xsmallBold}>
         {t('statsSource:lastUpdatedStats')}&nbsp;
-        {format(lastUpdated.stats, 'ha dd/MM/yyyy')}
+        {format(lastUpdated.stats, 'dd/MM/yyyy')}
       </Text>
       <Text style={text.xsmallBold}>
         {t('statsSource:lastUpdatedProfile')}&nbsp;
-        {format(lastUpdated.profile, 'ha dd/MM/yyyy')}
+        {format(lastUpdated.profile, 'dd/MM/yyyy')}
       </Text>
     </View>
   );

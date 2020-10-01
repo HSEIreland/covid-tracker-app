@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {enableScreens} from 'react-native-screens';
 import {
   Platform,
@@ -22,20 +22,26 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import Spinner from 'react-native-loading-spinner-overlay';
 import NetInfo from '@react-native-community/netinfo';
 import {useTranslation} from 'react-i18next';
+import {
+  ExposureProvider,
+  TraceConfiguration,
+  KeyServerType
+} from 'react-native-exposure-notification-service';
 
 import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
+import * as SecureStore from 'expo-secure-store';
 
 import './services/i18n';
 
 import {ApplicationProvider, useApplication} from './providers/context';
-import {ExposureProvider} from './providers/exposure';
-import {PermissionsProvider} from './providers/permissions';
 import {
   SettingsProvider,
   SettingsContext,
-  TraceConfiguration
+  useSettings
 } from './providers/settings';
+
+import {urls} from './constants/urls';
 
 import {Base} from './components/templates/base';
 import {NavBar} from './components/atoms/navbar';
@@ -60,7 +66,10 @@ import {SymptomChecker} from './components/views/symptom-checker';
 import {SymptomsHistory} from './components/views/symptoms-history';
 import {ContactTracing} from './components/views/contact-tracing';
 import {CountyBreakdown} from './components/views/county-breakdown';
+import {CountyChart} from './components/views/chart-by-county';
 import {CloseContact} from './components/views/close-contact';
+import {CloseContactInfo} from './components/views/close-contact-info';
+import {RequestACallback} from './components/views/request-a-callback';
 import {UploadKeys} from './components/views/upload-keys';
 
 import {Settings} from './components/views/settings';
@@ -208,7 +217,7 @@ function Navigation({
       ref={(e) => {
         navigationRef.current = e;
       }}>
-      <Spinner animation="fade" visible={app.loading} />
+      <Spinner animation="fade" visible={!!app.loading} />
       <Stack.Navigator
         screenOptions={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -259,10 +268,10 @@ function Navigation({
           component={FollowUpCall}
           options={{title: t('followUpCall:contactTracing')}}
         />
-
         <Stack.Screen
           name="main"
           component={MainStack}
+          // @ts-ignore
           options={{showSettings: true}}
         />
         <Stack.Screen
@@ -270,17 +279,27 @@ function Navigation({
           component={CountyBreakdown}
           options={{title: t('viewNames:casesByCounty')}}
         />
+        <Stack.Screen name="chartByCounty" component={CountyChart} />
         <Stack.Screen
           name="closeContact"
           component={CloseContact}
           options={{title: t('viewNames:closeContact')}}
         />
         <Stack.Screen
+          name="closeContactInfo"
+          component={CloseContactInfo}
+          options={{title: t('viewNames:closeContact')}}
+        />
+        <Stack.Screen
+          name="requestACallback"
+          component={RequestACallback}
+          options={{title: t('viewNames:requestACallback')}}
+        />
+        <Stack.Screen
           name="uploadKeys"
           component={UploadKeys}
           options={{title: t('viewNames:uploadKeys')}}
         />
-
         <Stack.Screen
           name="settings"
           component={Settings}
@@ -334,6 +353,67 @@ function Navigation({
   );
 }
 
+const ExposureApp: React.FC = ({children}) => {
+  const {t} = useTranslation();
+  const [authToken, setAuthToken] = useState<string>('');
+  const [refreshToken, setRefreshToken] = useState<string>('');
+
+  const settings = useSettings();
+  const app = useApplication();
+
+  useEffect(() => {
+    async function getTokens() {
+      try {
+        const storedAuthToken = (await SecureStore.getItemAsync('token')) || '';
+        const storedRefreshToken =
+          (await SecureStore.getItemAsync('refreshToken')) || '';
+
+        if (storedAuthToken !== authToken) {
+          setAuthToken(storedAuthToken);
+        }
+        if (storedRefreshToken !== refreshToken) {
+          setRefreshToken(storedRefreshToken);
+        }
+      } catch (err) {
+        console.log('error getting tokens', err);
+      }
+    }
+
+    getTokens();
+  }, [app.user]);
+
+  const mobile =
+    (app.callBackData && app.callBackData.mobile) ||
+    (app.callBackData &&
+      `${app.callBackData.code}${app.callBackData.number.replace(
+        /^0+/,
+        ''
+      )}`) ||
+    '';
+
+  return (
+    <ExposureProvider
+      isReady={Boolean(
+        app.user?.valid &&
+          app.completedExposureOnboarding &&
+          authToken &&
+          refreshToken
+      )}
+      traceConfiguration={settings.traceConfiguration}
+      serverUrl={urls.api}
+      keyServerUrl={urls.api}
+      keyServerType={KeyServerType.nearform}
+      authToken={authToken}
+      refreshToken={refreshToken}
+      notificationTitle={t('closeContactNotification:title')}
+      notificationDescription={t('closeContactNotification:description')}
+      analyticsOptin={app.analyticsConsent}
+      callbackNumber={mobile}>
+      {children}
+    </ExposureProvider>
+  );
+};
+
 interface State {
   loading: boolean;
   token?: {os: string; token: string};
@@ -377,7 +457,7 @@ export default function App(props: {
       } catch (e) {
         console.warn(e);
       } finally {
-        setState({...state, loading: false});
+        setState((s) => ({...s, loading: false}));
       }
     }
 
@@ -407,7 +487,7 @@ export default function App(props: {
           setTimeout(() => setState((s) => ({...s, notification})), 500);
         }
       },
-      senderID: '1087125483031',
+      // senderID: '1087125483031',
       permissions: {
         alert: true,
         badge: true,
@@ -431,22 +511,26 @@ export default function App(props: {
               }
               return (
                 <ApplicationProvider
+                  appConfig={settingsValue.appConfig}
                   user={settingsValue.user}
                   consent={settingsValue.consent}
-                  appConfig={settingsValue.appConfig}>
-                  <PermissionsProvider user={settingsValue.user}>
-                    <ExposureProvider>
-                      <StatusBar barStyle="default" />
-                      <Navigation
-                        traceConfiguration={settingsValue.traceConfiguration}
-                        notification={state.notification}
-                        exposureNotificationClicked={
-                          state.exposureNotificationClicked
-                        }
-                        setState={setState}
-                      />
-                    </ExposureProvider>
-                  </PermissionsProvider>
+                  analyticsConsent={settingsValue.analyticsConsent}
+                  completedExposureOnboarding={
+                    settingsValue.completedExposureOnboarding
+                  }
+                  dpinDate={settingsValue.dpinDate}
+                  tandcDate={settingsValue.tandcDate}>
+                  <ExposureApp>
+                    <StatusBar barStyle="default" />
+                    <Navigation
+                      traceConfiguration={settingsValue.traceConfiguration}
+                      notification={state.notification}
+                      exposureNotificationClicked={
+                        state.exposureNotificationClicked
+                      }
+                      setState={setState}
+                    />
+                  </ExposureApp>
                 </ApplicationProvider>
               );
             }}
@@ -456,10 +540,3 @@ export default function App(props: {
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  spinner: {
-    flex: 1,
-    backgroundColor: colors.yellow
-  }
-});

@@ -4,7 +4,7 @@ import {
   CryptoEncoding
 } from 'expo-crypto';
 
-import {request, verify} from '.';
+import {request, getDeviceCheckData} from '.';
 
 import {urls} from '../../constants/urls';
 
@@ -88,7 +88,7 @@ export const uploadExposureKeys = async (
     body: JSON.stringify({
       token: uploadToken,
       exposures,
-      ...(await verify(uploadToken))
+      ...(await getDeviceCheckData(uploadToken))
     })
   });
 

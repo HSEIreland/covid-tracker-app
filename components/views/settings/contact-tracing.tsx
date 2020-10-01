@@ -3,15 +3,17 @@ import {Platform, ScrollView, Text, Linking, Alert} from 'react-native';
 import * as IntentLauncher from 'expo-intent-launcher';
 import {useTranslation} from 'react-i18next';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import {
+  useExposure,
+  StatusState
+} from 'react-native-exposure-notification-service';
 
-import {useExposure, StatusState} from '../../../providers/exposure';
-import {usePermissions} from '../../../providers/permissions';
 import {useAppState} from '../../../hooks/app-state';
 
 import {Spacing, Separator} from '../../atoms/layout';
 import {Button} from '../../atoms/button';
 import {Markdown} from '../../atoms/markdown';
-import {PhoneNumber} from '../..//organisms/phone-number';
+import {PhoneNumber} from '../../organisms/phone-number';
 import {Toast} from '../../atoms/toast';
 
 import Layouts from '../../../theme/layouts';
@@ -22,7 +24,6 @@ export const ContactTracingSettings = () => {
   const {t} = useTranslation();
   const [appState] = useAppState();
   const isFocused = useIsFocused();
-  const {readPermissions} = usePermissions();
   const {
     supported,
     status,
@@ -31,7 +32,9 @@ export const ContactTracingSettings = () => {
     contacts,
     deleteExposureData,
     configure,
-    authoriseExposure
+    authoriseExposure,
+    readPermissions,
+    initialised
   } = useExposure();
 
   const [confirmedChanges, setConfirmedChanges] = useState<boolean>(false);
@@ -124,7 +127,9 @@ export const ContactTracingSettings = () => {
       </Text>
       <Spacing s={12} />
       <Text style={text.largeBold}>
-        {t(`contactTracing:settings:status:${serviceStatus}`)}
+        {initialised && (
+          <>{t(`contactTracing:settings:status:${serviceStatus}`)}</>
+        )}
       </Text>
       <Spacing s={12} />
       <Text style={text.default}>

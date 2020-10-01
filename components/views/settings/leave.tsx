@@ -2,12 +2,12 @@ import React from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import * as Haptics from 'expo-haptics';
+import {useExposure} from 'react-native-exposure-notification-service';
 
 import {Button} from '../../atoms/button';
 import {Markdown} from '../../atoms/markdown';
 
 import {useApplication} from '../../../providers/context';
-import {useExposure} from '../../../providers/exposure';
 import {forget} from '../../../services/api';
 
 import Layouts from '../../../theme/layouts';

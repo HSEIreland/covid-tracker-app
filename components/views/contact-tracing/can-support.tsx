@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {Platform, Text, Linking} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {useExposure} from 'react-native-exposure-notification-service';
 
 import {Spacing} from '../../atoms/layout';
 import {Card} from '../../atoms/card';
@@ -10,7 +11,6 @@ import {Button} from '../../atoms/button';
 
 import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
-import {useExposure} from '../../../providers/exposure';
 
 export const CanSupport: FC = () => {
   const {t} = useTranslation();

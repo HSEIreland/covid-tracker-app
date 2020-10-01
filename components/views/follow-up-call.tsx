@@ -1,6 +1,7 @@
 import React, {FC, useRef} from 'react';
 import {Text, ScrollView, View, Image, StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {useExposure} from 'react-native-exposure-notification-service';
 
 import {styles as OStyles} from './get-started';
 
@@ -13,7 +14,6 @@ import {PhoneNumber} from '../organisms/phone-number';
 import {text} from '../../theme';
 import Layouts from '../../theme/layouts';
 import {saveMetric, METRIC_TYPES} from '../../services/api';
-import {useExposure} from '../../providers/exposure';
 
 const CallbackImage = require('../../assets/images/callback/image.png');
 

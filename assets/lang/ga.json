@@ -9,7 +9,9 @@
     "preferNotToSay": "B'fhearr liom gan a rá",
     "confirmChanges": "Deimhnigh na hathruithe",
     "changesUpdated": "Athruithe uasdátaithe",
-    "dismiss": "Dífhostú"
+    "dismiss": "Dífhostú",
+    "registerError": "Tá brón orm, níor oibrigh sé sin i gceart. Cód earráide: ({{code}}). \\ N Bain triail eile as.",
+    "registerTimestampError": "Ní fhéadfaimis do fón a fhíorú. Seiceáil go bhfuil sé socraithe go bhfuil an dáta agus an t-am cruinn ceart, agus bain triail eile as."
   },
   "viewNames": {
     "age": "Deimhnigh d’aois",
@@ -26,7 +28,8 @@
     "terms": "Téarmaí agus Coinníollacha",
     "metrics": "Socruithe do Mhéadraigh na h-Aipe",
     "leave": "Fágáil Rianaire COVID Éireann",
-    "contactTracing": "Rianú Teagmhála"
+    "contactTracing": "Rianú Teagmhála",
+    "requestACallback": "Iarr glaoch ar ais"
   },
   "navbar": {
     "settings": "Socruithe",
@@ -100,11 +103,24 @@
     "text": "Nil na Téarmaí agus Coinníollacha in ann a luchtú"
   },
   "stats": {
-    "title": "An uasdátú is úire",
-    "totalConfirmed": "Líon iomlán na gcásanna\ndeimhnithe",
-    "totalDeaths": "Líon iomlán na mbásanna",
-    "totalHospitalised": "Líon san ospidéal",
-    "requiredICU": "ICU ag teastáil"
+    "last24Hours": {
+      "title": "Le 24 uair anuas",
+      "hospital": {
+        "admissions": "Líon san ospidéal",
+        "discharges": "Scaoileadh ospidéil",
+        "confrmed": "Cásanna deimhnithe san ospidéal"
+      },
+      "icu": {
+        "admissions": "Líon san ICU",
+        "discharges": "Scaoileadh ón ICU",
+        "confrmed": "Cásanna deimhnithe san ICU"
+      }
+    },
+    "last7days": {
+      "title": "Sa 7 lá seo caite",
+      "tests": "Tastálacha críochnaithe",
+      "rate": "Ráta dearfach"
+    }
   },
   "checker": {
     "title": "Seiceáil-Isteach COVID",
@@ -119,7 +135,7 @@
     "question3": "**An bhfuil deacrachtaí agat ag análú?**\n\nAn bhfuil tú ag análú go trom nó ag aireachtáil nach féidir leat do scamhóga a líonadh?",
     "question3Label": "Deacrachtaí análaithe",
     "question4id": "fliú",
-    "question4": "**An bhfuil tú ábalta boladh nó blaiseadh de rudaí faoi mar a bhíodh tú i gcónaí?**\n\nB'fhéidir nach bhfuil tú ábalta aon rud a bhlaiseadh nó a bholadh, nó tá blas nó boladh difriúil ar rudaí seachas mar a bhíodh de ghnáth.",
+    "question4": "**An bhfuil do chumas bolaidh nó blaiseadh caillte agat?**\n\nB'fhéidir nach bhfuil tú ábalta aon rud a bhlaiseadh nó a bholadh, nó tá blas nó boladh difriúil ar rudaí seachas mar a bhíodh de ghnáth.",
     "question4Label": "Ábalta rudaí a bholadh nó a bhlaiseadh\nmar a bhíodh",
     "yes": "Tá",
     "no": "Níl",
@@ -197,16 +213,16 @@
   },
   "appStats": {
     "title": "Troid an lae inniu",
-    "totalCheckins": "Iomlán a sheiceáil isteach inniu",
-    "noSymptoms": "Ag aireachtáil go\nmaith",
-    "someSymptoms": "Roinnt comharthaí\ntinnis",
+    "appUsers": "Úsáideoirí aipeanna ó tús",
+    "dailyCheckIns": "Seiceáil isteach COVID inniu",
     "nationalPicture": "An scéal ar fud na tíre",
     "breakdown": "Brúigh chun eolas a fháil de réir contae"
   },
   "contactTracing": {
     "title": "Rianú Teagmhála",
     "active": {
-      "title": "Rianú Teagmhála gníomhach"
+      "title": "Rianú Teagmhála gníomhach",
+      "message": "Dá mhéad daoine a bhainfidh úsáid as an aip seo, is amhlaidh is éifeachtaí a bheidh ár n-iarrachtaí Rianú Teagmhála. Tá an aip ag cuidiú cheana féin le scaipeadh COVID-19 a laghdú trí fhógairt a thabhairt do dhlúth-theagmhálacha leo siúd a thástáil dearfach don víreas."
     },
     "noSupport": {
       "title": "Níl an Rianú Teagmhála ar fáil",
@@ -240,9 +256,23 @@
     "registrationsTitle": "Clárúcháin aip",
     "registrationsSince": "ó seoladh é",
     "shareAppText": "Más mó daoine a bhaineann úsáid as an aip seo is ea is fearr a oibreoidh ár n-iarrachtaí le teagmhálaithe a rianú. Roinn an aip seo le daoine eile agus bainfidh muid amach ár sprioc.",
+    "statsCard": {
+      "uploads": {
+        "text": "Uaslódáil ({{number}}) COVID Trackers a rinne tástáil dhearfach a n-IDanna randamacha"
+      },
+      "alerts": {
+        "text": "Fuair ({{number}}) foláireamh maidir le Dlúth-theagmháil"
+      }
+    },
+    "registrationsCard": {
+      "title": "Úsáideoirí gníomhacha",
+      "registrations": "{{registrations}}",
+      "text": "Tá {{percentage}}% de dhaoine os cionn 16 bliana d’aois in Éirinn ina COVID Trackers anois, ag coinneáil daoine eile sábháilte agus cosanta. Tá {{registrations}} clárúcháin ag an aip"
+    },
     "uploadCard": {
       "title": "Uaslódáil d'Aitheantas Randamach",
-      "text": "Ná húsáid é seo ach amháin má dhéanann FnaSS teagmháil leat."
+      "text": "Ná húsáid é seo ach amháin má dhéanann FnaSS teagmháil leat.",
+      "uploads": "**{{uploads}}** ADD TEXT"
     },
     "closeContactCard": {
       "title": "Eolas faoi dhlúth-theagmháil",
@@ -272,23 +302,36 @@
       }
     }
   },
+  "requestACallback": {
+    "heading": "Iarr glaoch ar ais",
+    "text": "Roinnfidh an aip d’uimhir lenár bhfoireann Rianú Teagmhála. Cuirfidh ball den fhoireann glaoch ort agus socróidh sé tástáil más cuí.",
+    "buttonLabel": "Chur glaoch orm",
+    "complete": {
+      "title": "Iarratas ghlao ar ais seolta",
+      "text": "Beidh ball dár bhfoireann Rianú Teagmhála i dteagmháil leat chun comhairle a sholáthar agus tástáil a shocrú más cuí.",
+      "button": "Téigh chuig nuashonruithe"
+    }
+  },
   "confirmedChart": {
     "title": "Cásanna deimhnithe go laethúil",
     "label": "Graf cásanna deimhnithe",
     "hint": "Graf cásanna deimhnithe le himeacht ama",
-    "yesterday": "Cásanna deimhnithe inné"
-  },
-  "transmissionChart": {
-    "title": "Conas mar atá COVID-19 ag scaipeadh",
-    "community": "Tras-seoladh sa phobal",
-    "contact": "Teagmháil dlúth",
-    "travel": "Taisteal thar lear"
+    "yesterday": "Cásanna deimhnithe inné",
+    "prevCases": "Cásanna",
+    "prevDeaths": "Básanna",
+    "prevCase": "Cás",
+    "prevDeath": "Bás",
+    "sourceDate": "Cásanna ó",
+    "ranges": {
+      "default": "Coicís deirigh",
+      "months": "Dhá mhí deirigh",
+      "all": "Ó thús"
+    }
   },
   "statsSource": {
     "monitor": "Monatóir um Fhaireachais Sláinte COVID-19 (Éire)",
-    "communityTransmissions": "Tras-seoladh sa phobal, gan aon dlúth theagmháil ar eolas",
-    "lastUpdatedStats": "An uasdátú is úire faoi na cásanna deimhnithe: ",
-    "lastUpdatedProfile": "An uasdátú is úire faoi shonraí na gcásanna: "
+    "lastUpdatedStats": "An uasdátú is úire faoi na cásanna deimhnithe:",
+    "lastUpdatedProfile": "An uasdátú is úire faoi shonraí na gcásanna:"
   },
   "symptomsHistory": {
     "title": "Stair do chomharthaí tinnis",
@@ -297,7 +340,12 @@
     "completed": "Beidh tú ábalta do chomharthaí tinnis a sheiceáil arís amárach"
   },
   "casesByCounty": {
-    "title": "Cásanna de réir contae"
+    "title": "Cásanna de réir contae",
+    "casesDay": "Cásanna ó",
+    "casesWeeks": {
+      "first": "Roimhe seo",
+      "second": "Coicís"
+    }
   },
   "yourData": {
     "title": "Do shonraí",
@@ -338,21 +386,19 @@
     "notice": "Tá an aip tar éis a fháil amach go raibh tú i ndluth-theagmháil le duine a fuair toradh dearfach do COVID-19."
   },
   "closeContact": {
-    "title": "Foláireamh maidir le Dlúth-theagmháil",
-    "infoTitle": "Eolas faoi Dhlúth-theagmháil",
-    "intro": "Má fuair tú fógra ón aip, nó glaoch ón bhfoireann um Rianú Teagmhála, ag insint duit go raibh tú i ndlúth theagmháil le duine a fuair toradh dearfach don choróinvíreas, b'fhéidir go gcaithfeá an tástáil  a dhéanamh.",
-    "alertintro": "Tá an Aip Rianaire COVID tar éis a fháil amach go raibh tú i dteagmháil le duine a fuair toradh dearfach don choróinvíreas. B'fhéidir go gcaithfeá an tástáil a dhéanamh.",
-    "callBack": "Glaoigh ar ais",
-    "callBackQueue": "Cuirfidh Rianú Teagmhála FnaSS glaoch ort chomh luath agus is féidir.",
-    "todo": {
-      "title": "Tá rudaí áirithe a ba chóir duit a dhéanamh chun daoine eile a chosaint.",
-      "selfIsolationDetails": "Tá eolas faoi conas féin-aonrú ar fáil ar [https://www2.hse.ie/conditions/coronavirus/self-isolation-and-limited-social-interaction.html#close-contact](https://www2.hse.ie/conditions/coronavirus/self-isolation-and-limited-social-interaction.html#close-contact)",
-      "list": "1. Fan sa bháile.\n\n2. Ná téigh ag obair.\n\n3. Ná húsáid iompar poiblí.\n\n4. Ná bíodh cuairteoirí i do theach.\n\n5. Ná tabhair cuairt ar dhaoine eile, fiú más tú a  thugann aire dóibh.\n\n6. Ná téigh go dtí siopaí nó cógaslann mura bhfuil gá leis - ordaigh d'earraí grósaera ar líne, más féidir, nó abair le gaol nó cara leat iad a bhailiú.\n\n7. Fan amach ó dhaoine aosta, ó dhaoine a bhfuil tinneas fadthéarmach orthu agus ó mhná torracha."
-    },
-    "symptoms": {
-      "title": "Má tá comharthaí ort nó comharthaí ag teacht chun cinn, cuir glaoch ar do dhochtúir teaghlaigh.",
-      "intro": "Faigh tuilleadh eolais ar hse.ie.",
-      "callHSE": "Téigh chuig hse.ie"
+    "title": "Dlúth-theagmháil",
+    "text": "The easiest way to check what to do next is to request a call back from the Contact Tracing Team. They will check if your close contact alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.",
+    "titleInfo": "Eolas faoi Dhlúth-theagmháil",
+    "introInfo": "Má fuair tú fógra ón aip, nó glaoch ón bhfoireann um Rianú Teagmhála, ag insint duit go raibh tú i ndlúth theagmháil le duine a fuair toradh dearfach don choróinvíreas, b'fhéidir go gcaithfeá an tástáil  a dhéanamh.",
+    "text2Info": "**Má tá comharthaí ort nó comharthaí ag teacht chun cinn, cuir glaoch ar do dhochtúir teaghlaigh.**\n\nFaigh tuilleadh eolais ar hse.ie.",
+    "titleAlert": "Foláireamh maidir le Dlúth-theagmháil",
+    "introAlert": "Cuir d’uimhir theileafóin i socruithe an aip agus cuirfimid glaoch ort má fhaigheann tú fógra dlúth teagmháil chun tástáil a shocrú. Féadfaidh tú glaoch ar **HSELive freisin ar 1850 24 1850** chun tástáil a shocrú má fhaigheann tú fógra.",
+    "text2Alert": "**Má tá comharthaí ort nó comharthaí ag teacht chun cinn, cuir glaoch ar do dhochtúir teaghlaigh.**\n\nFaigh tuilleadh eolais ar hse.ie.",
+    "todo": "1. Fan sa bháile.\n\n2. Ná téigh ag obair.\n\n3. Ná húsáid iompar poiblí.\n\n4. Ná bíodh cuairteoirí i do theach.\n\n5. Ná tabhair cuairt ar dhaoine eile, fiú más tú a  thugann aire dóibh.\n\n6. Ná téigh go dtí siopaí nó cógaslann mura bhfuil gá leis - ordaigh d'earraí grósaera ar líne, más féidir, nó abair le gaol nó cara leat iad a bhailiú.\n\n7. Fan amach ó dhaoine aosta, ó dhaoine a bhfuil tinneas fadthéarmach orthu agus ó mhná torracha.",
+    "gotoHSE": "Téigh chuig hse.ie",
+    "requestCallback": {
+      "title": "Iarr glaoch ar ais",
+      "text": "Labhair le ball dár bhfoireann Rianú Teagmhála"
     }
   },
   "uploadKeys": {
@@ -433,7 +479,20 @@
     "text": "Feidhmigh anois"
   },
   "codeInput": {
-    "accessibilityLabel": "Cód dhigit {{uimhir}}",
-    "accessibilityHint": "Cuir isteach {{comhaireamh}} cód dhigit"
+    "accessibilityLabel": "Cód dhigit {{number}}",
+    "accessibilityHint": "Cuir isteach {{count}} cód dhigit"
+  },
+  "policyUpdates": {
+    "title": "Dia dhuit,",
+    "tandcOnly": "Tá uasdátú déanta againn do na Téarmaí agus Coinníollacha.",
+    "dpinOnly": "Tá uasdátú déanta againn do na  Fógra Eolais um Chosaint Sonraí.",
+    "info": "Tá uasdátú déanta againn do na Téarmaí agus Coinníollacha agus Fógra Eolais um Chosaint Sonraí.",
+    "dpinLink": "Is féidir an Fógra Eolais um Chosaint Sonraí a léamh anseo",
+    "tandcLink": "Is féidir na Téarmaí agus Coinníollacha a léamh anseo"
+  },
+  "newVersionAvailable": {
+    "title_ios": "Tá leagan nua de COVID Tracker ar fáil ar an App Store",
+    "title_android": "Tá leagan nua de COVID Tracker ar fáil ar an Play Store",
+    "text": "Uasdátú anois"
   }
 }

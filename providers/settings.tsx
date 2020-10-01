@@ -9,6 +9,8 @@ import React, {
 import AsyncStorage from '@react-native-community/async-storage';
 import i18n, {TFunction} from 'i18next';
 import {useTranslation} from 'react-i18next';
+import {TraceConfiguration} from 'react-native-exposure-notification-service';
+import * as SecureStore from 'expo-secure-store';
 
 import * as api from '../services/api';
 import {isObject} from 'formik';
@@ -23,13 +25,7 @@ export interface AppConfig {
   checkInMaxAge: number;
   riskGroupMinAge: number;
   hsePhoneNumber: string;
-}
-
-export interface TraceConfiguration {
-  exposureCheckInterval: number;
-  storeExposuresFor: number;
-  fileLimit: number;
-  fileLimitiOS: number;
+  latestVersion: string | null;
 }
 
 interface AgeOption extends BasicItem {
@@ -50,11 +46,17 @@ interface SettingsContextValue {
   traceConfiguration: TraceConfiguration;
   user: string | null;
   consent: string | null;
+  completedExposureOnboarding: string | null;
+  analyticsConsent: string | null;
   sexOptions: BasicItem[];
   ageRangeOptions: AgeOption[];
-  exposedTodo: string;
+  closeContactInfo: string;
+  closeContactAlert: string;
+  closeContactTodo: string;
   dpinText: string;
+  dpinDate: string | null;
   tandcText: string;
+  tandcDate: string | null;
   checkerThankYouText: CheckerThankYouText;
 }
 
@@ -66,10 +68,13 @@ const defaultValue: SettingsContextValue = {
   loaded: false,
   user: null,
   consent: null,
+  analyticsConsent: null,
+  completedExposureOnboarding: null,
   appConfig: {
     checkInMaxAge: 28,
     riskGroupMinAge: 60,
-    hsePhoneNumber: 'XXXX-XXXXXX'
+    hsePhoneNumber: 'XXXX-XXXXXX',
+    latestVersion: null
   },
   traceConfiguration: {
     exposureCheckInterval: 120,
@@ -79,9 +84,13 @@ const defaultValue: SettingsContextValue = {
   },
   sexOptions: [],
   ageRangeOptions: [],
-  exposedTodo: '',
+  closeContactInfo: '',
+  closeContactAlert: '',
+  closeContactTodo: '',
   dpinText: '',
+  dpinDate: null,
   tandcText: '',
+  tandcDate: null,
   checkerThankYouText: {}
 };
 
@@ -114,11 +123,20 @@ export const SettingsProvider: FC<SettingsProviderProps> = ({children}) => {
 
   useEffect(() => {
     const loadSettingsAsync = async () => {
-      const [user, consent] = await AsyncStorage.multiGet([
+      const [
+        user,
+        consent,
+        completedExposureOnboarding,
+        analyticsConsent
+      ] = await AsyncStorage.multiGet([
         'cti.user',
-        'cti.checkInConsent'
+        'cti.checkInConsent',
+        'cti.completedExposureOnboarding',
+        'analyticsConsent'
       ]);
-
+      const analyticsConsentSecure = await SecureStore.getItemAsync(
+        'analyticsConsent'
+      );
       let apiSettings: Record<any, string>;
       try {
         apiSettings = await api.loadSettings();
@@ -137,6 +155,9 @@ export const SettingsProvider: FC<SettingsProviderProps> = ({children}) => {
       if (apiSettings.hsePhoneNumber) {
         appConfig.hsePhoneNumber = apiSettings.hsePhoneNumber;
       }
+      if (apiSettings.latestAppVersion) {
+        appConfig.latestVersion = apiSettings.latestAppVersion;
+      }
 
       const tc: TraceConfiguration = {
         ...defaultValue.traceConfiguration
@@ -154,15 +175,22 @@ export const SettingsProvider: FC<SettingsProviderProps> = ({children}) => {
         tc.fileLimitiOS = Number(apiSettings.fileLimitiOS);
       }
 
-      const exposedTodo =
-        getDbText(apiSettings, 'exposedTodoListv1') ||
-        t('closeContact:todo:list');
+      const closeContactInfo =
+        getDbText(apiSettings, 'closeContactInfo2') ||
+        t('closeContact:introInfo');
+      const closeContactAlert =
+        getDbText(apiSettings, 'closeContactAlert2') ||
+        t('closeContact:introAlert');
+      const closeContactTodo =
+        getDbText(apiSettings, 'closeContactTodo2') || t('closeContact:todo');
 
       const dpinText =
         getDbText(apiSettings, 'dpinText') || t('dataProtectionPolicy:text');
+      const dpinDate = apiSettings.dpinDate || null;
 
       const tandcText =
         getDbText(apiSettings, 'tandcText') || t('tandcPolicy:text');
+      const tandcDate = apiSettings.tandcDate || null;
 
       const checkerThankYouText: CheckerThankYouText = Object.assign(
         {
@@ -179,13 +207,22 @@ export const SettingsProvider: FC<SettingsProviderProps> = ({children}) => {
         loaded: true,
         user: user[1],
         consent: consent[1],
+        analyticsConsent:
+          analyticsConsent[1] === 'true' || analyticsConsentSecure === 'true'
+            ? 'true'
+            : 'false',
+        completedExposureOnboarding: completedExposureOnboarding[1],
         appConfig,
         traceConfiguration: tc,
         sexOptions: getSexOptions(t),
         ageRangeOptions: getAgeRangeOptions(t),
-        exposedTodo,
+        closeContactInfo,
+        closeContactAlert,
+        closeContactTodo,
         dpinText,
+        dpinDate,
         tandcText,
+        tandcDate,
         checkerThankYouText
       });
     };

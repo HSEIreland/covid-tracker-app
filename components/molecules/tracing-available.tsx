@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {forwardRef} from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -17,38 +17,42 @@ import {shadows, text} from '../../theme';
 
 const TracingImage = require('../../assets/images/information/alt.png');
 
-export const TracingAvailable: FC = () => {
-  const {t} = useTranslation();
-  const navigation = useNavigation();
+export const TracingAvailable = forwardRef<TouchableWithoutFeedback>(
+  (props, ref) => {
+    const {t} = useTranslation();
+    const navigation = useNavigation();
 
-  return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('tracing')}>
-      <View style={styles.card}>
-        <Image
-          accessibilityIgnoresInvertColors
-          width={106}
-          height={100}
-          resizeMode="contain"
-          source={TracingImage}
-        />
-        <View style={styles.content}>
-          <Text style={styles.title}>{t('tracingAvailable:title')}</Text>
-          <Text style={[text.smallBold, {color: colors.teal}]}>
-            {t('tracingAvailable:text')}
-          </Text>
-        </View>
-        <SingleRow>
+    return (
+      <TouchableWithoutFeedback
+        ref={ref}
+        onPress={() => navigation.navigate('tracing')}>
+        <View style={styles.card}>
           <Image
             accessibilityIgnoresInvertColors
-            style={styles.iconSize}
-            {...styles.iconSize}
-            source={require('../../assets/images/arrow-right/teal.png')}
+            width={106}
+            height={100}
+            resizeMode="contain"
+            source={TracingImage}
           />
-        </SingleRow>
-      </View>
-    </TouchableWithoutFeedback>
-  );
-};
+          <View style={styles.content}>
+            <Text style={styles.title}>{t('tracingAvailable:title')}</Text>
+            <Text style={[text.smallBold, {color: colors.teal}]}>
+              {t('tracingAvailable:text')}
+            </Text>
+          </View>
+          <SingleRow>
+            <Image
+              accessibilityIgnoresInvertColors
+              style={styles.iconSize}
+              {...styles.iconSize}
+              source={require('../../assets/images/arrow-right/teal.png')}
+            />
+          </SingleRow>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   card: {
