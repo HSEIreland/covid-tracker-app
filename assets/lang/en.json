@@ -400,7 +400,7 @@
     "introAlert": "The COVID Tracker app has detected that you have been in close contact with someone that has tested positive for coronavirus. You may need to be tested.",
     "text1Alert": "**The Contact Tracing team will be in touch with you shortly. They will check if your Close Contact Alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.**\n\nThere are some things that you should do to protect others.",
     "text2Alert": "**Phone your GP if you develop symptoms.**\n\nFind out more about what you need to do on hse.ie",
-    "todo": "1. Stay at home.\n\n2. Do not go to work.\n\n3. Do not use public transport.\n\n4. Do not have visitors at your home.\n\n5. Do not visit others, even if you usually care for them.\n\n6. Do not go to the shops or pharmacy unless it''s absolutely necessary - where possible, order your groceries online or have some family or friends drop them off.\n\n7. Keep away from older people, anyone with long-term medical conditions and pregnant women.",
+    "todo": "1. Stay at home.\n\n2. Do not go to work.\n\n3. Do not use public transport.\n\n4. Do not have visitors at your home.\n\n5. Do not visit others, even if you usually care for them.\n\n6. Do not go to the shops or pharmacy unless it's absolutely necessary - where possible, order your groceries online or have some family or friends drop them off.\n\n7. Keep away from older people, anyone with long-term medical conditions and pregnant women.",
     "gotoHSE": "Go to HSE.ie",
     "requestCallback": {
       "title": "Request a call-back",
