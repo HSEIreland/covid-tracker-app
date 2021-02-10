@@ -131,7 +131,6 @@ export const DropdownModal: React.FC<DropdownModalProps> = ({
               accessibilityLabel={`Close ${title}`}
               onPress={onClose}>
               <Image
-                accessibilityIgnoresInvertColors
                 style={styles.closeIcon}
                 {...styles.closeIcon}
                 source={require('../../../assets/images/close/close.png')}
@@ -166,7 +165,6 @@ export const DropdownModal: React.FC<DropdownModalProps> = ({
 
 const IconSelected = () => (
   <Image
-    accessibilityIgnoresInvertColors
     style={styles.selectedIconSize}
     {...styles.selectedIconSize}
     source={require('../../../assets/images/check-mark/check-mark.png')}

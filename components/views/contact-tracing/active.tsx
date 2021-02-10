@@ -1,5 +1,5 @@
-import React, {FC, useRef} from 'react';
-import {StyleSheet, View, Text, Animated} from 'react-native';
+import React, {FC} from 'react';
+import {StyleSheet, View, Text, Image} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {Spacing} from '../../atoms/layout';
@@ -8,17 +8,9 @@ import {ResponsiveImage} from '../../atoms/responsive-image';
 
 import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
-import {Button} from '../../atoms/button';
-import {shareApp} from '../../organisms/tab-bar-bottom';
 
 export const Active: FC = () => {
   const {t} = useTranslation();
-  const spinValue = useRef(new Animated.Value(0));
-
-  const spin = spinValue.current.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg']
-  });
 
   return (
     <Card padding={{h: 12, r: 12}}>
@@ -29,9 +21,9 @@ export const Active: FC = () => {
       <Spacing s={4} />
       <View style={styles.row}>
         <View style={styles.traceIcon}>
-          <Animated.Image
+          <Image
             accessibilityIgnoresInvertColors
-            style={[styles.image, {transform: [{rotate: spin}]}]}
+            style={styles.image}
             resizeMode="contain"
             source={require('../../../assets/images/contact-tracing/contact-tracing-spin.png')}
           />

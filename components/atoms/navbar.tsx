@@ -1,17 +1,19 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TouchableWithoutFeedback,
-  Dimensions
+  ImageStyle
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useNavigationState, useRoute} from '@react-navigation/native';
 
-import {text} from '../../theme';
-import {useApplication} from '../../providers/context';
+import {ArrowIcon} from './arrow-icon';
+
+import {baseStyles, text} from '../../theme';
 
 interface NavBarProps {
   navigation: any;
@@ -21,38 +23,14 @@ interface NavBarProps {
 
 export const NavBar: FC<NavBarProps> = ({navigation, scene, placeholder}) => {
   const {t} = useTranslation();
-  const insets = useSafeArea();
-  const {user} = useApplication();
+  const insets = useSafeAreaInsets();
+  const {key: routeKey} = useRoute();
+  const routes = useNavigationState((state) => state.routes);
 
-  const [state, setState] = useState({back: false});
+  const index = routes.findIndex((route) => route.key === routeKey);
+  const hasHistory = !placeholder && index > 0;
+
   const showSettings = scene.descriptor.options.showSettings === true;
-
-  useEffect(() => {
-    let unsubscribeStart: (() => any) | null = null;
-    let unsubscribeEnd: (() => any) | null = null;
-    if (!placeholder) {
-      unsubscribeStart = navigation.addListener('transitionStart', () => {
-        const {index} = navigation.dangerouslyGetState();
-        setState((s) => ({
-          ...s,
-          back: index !== 0
-        }));
-      });
-
-      unsubscribeEnd = navigation.addListener('transitionEnd', () => {
-        const {index} = navigation.dangerouslyGetState();
-        setState((s) => ({
-          ...s,
-          back: index > 0
-        }));
-      });
-    }
-
-    return () => {
-      unsubscribeStart && unsubscribeStart();
-      unsubscribeEnd && unsubscribeEnd();
-    };
-  }, [user, navigation, placeholder]);
 
   return (
     <View style={[styles.wrapper, {paddingTop: insets.top + 2}]}>
@@ -65,19 +43,16 @@ export const NavBar: FC<NavBarProps> = ({navigation, scene, placeholder}) => {
         ]}
         resizeMode="cover"
         source={require('../../assets/headerbg.png')}
-        accessibilityIgnoresInvertColors={false}
       />
       <View style={styles.container}>
         <View style={[styles.col, styles.left]}>
-          {state.back && (
+          {hasHistory && (
             <TouchableWithoutFeedback
               accessibilityRole="button"
               accessibilityHint={t('navbar:backHint')}
               onPress={() => navigation.goBack()}>
               <View style={styles.back}>
-                <Image
-                  accessibilityIgnoresInvertColors={false}
-                  style={styles.iconSize}
+                <ArrowIcon
                   source={require('../../assets/images/back/back.png')}
                 />
                 <Text allowFontScaling={false} style={styles.backText}>
@@ -94,7 +69,6 @@ export const NavBar: FC<NavBarProps> = ({navigation, scene, placeholder}) => {
           accessibilityRole="text"
           style={[styles.col, styles.center]}>
           <Image
-            accessibilityIgnoresInvertColors={false}
             style={styles.logoSize}
             {...styles.logoSize}
             source={require('../../assets/images/logo/logo.png')}
@@ -107,8 +81,7 @@ export const NavBar: FC<NavBarProps> = ({navigation, scene, placeholder}) => {
               onPress={() => navigation.navigate('settings')}>
               <View style={styles.settings}>
                 <Image
-                  accessibilityIgnoresInvertColors={false}
-                  style={styles.iconSize}
+                  style={baseStyles.iconSize as ImageStyle}
                   source={require('../../assets/images/settings/settings.png')}
                 />
                 <Text allowFontScaling={false} style={text.xsmallBold}>
@@ -175,10 +148,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center'
-  },
-  iconSize: {
-    width: 24,
-    height: 24
   },
   logoSize: {
     width: 92,

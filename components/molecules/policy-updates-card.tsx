@@ -16,7 +16,7 @@ import {Card} from '../atoms/card';
 import {Link} from '../atoms/link';
 import {Spacing} from '../atoms/spacing';
 
-import {text} from '../../theme';
+import {baseStyles, text} from '../../theme';
 
 interface PolicyUpdateCardProps {
   tandc: boolean;
@@ -56,8 +56,7 @@ export const PolicyUpdateCard = forwardRef<
           accessibilityLabel={t('common:dismiss')}
           onPress={onDismiss}>
           <Image
-            accessibilityIgnoresInvertColors
-            style={{width: 24, height: 24}}
+            style={baseStyles.iconSize}
             width={24}
             height={24}
             source={require('../../assets/images/dismiss/dismiss.png')}
@@ -95,14 +94,9 @@ export const PolicyUpdateCard = forwardRef<
 export const styles = StyleSheet.create({
   dismissed: {
     position: 'absolute',
-    width: 24,
-    height: 24,
     top: 0,
     right: 0,
-    zIndex: 99
-  },
-  iconSize: {
-    width: 24,
-    height: 24
+    zIndex: 99,
+    ...baseStyles.iconSize
   }
 });

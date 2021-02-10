@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import * as WebBrowser from 'expo-web-browser';
 
-import {useSettings} from '../../providers/settings';
+import {useDbText} from '../../providers/settings';
 
 import {Button} from '../atoms/button';
 import {Markdown} from '../atoms/markdown';
@@ -14,29 +14,25 @@ import {colors} from '../../constants/colors';
 import {text} from '../../theme';
 
 const urlsMap = {
-  noSymptomsWell:
-    'https://www2.hse.ie/app/in-app-good',
-  noSymptomsNotWell:
-    'https://www2.hse.ie/app/in-app-good',
-  riskGroupCocooning:
-    'https://www2.hse.ie/app/in-app-at-risk-cocooning',
+  noSymptomsWell: 'https://www2.hse.ie/app/in-app-good',
+  noSymptomsNotWell: 'https://www2.hse.ie/app/in-app-good',
+  riskGroupCocooning: 'https://www2.hse.ie/app/in-app-at-risk-cocooning',
   riskGroup: 'https://www2.hse.ie/app/in-app-at-risk',
   recovered: 'https://www2.hse.ie/app/in-app-at-risk-recovered',
-  virusIsolation:
-    'https://www2.hse.ie/app/in-app-symptoms'
+  virusIsolation: 'https://www2.hse.ie/app/in-app-symptoms'
 };
 
-type Result =
+export type ResultType =
   | 'noSymptomsWell'
   | 'noSymptomsNotWell'
   | 'riskGroup'
   | 'recovered'
   | 'virusIsolation';
 
-const Result: React.FC<{result: Result}> = ({result}) => {
+export const Result: React.FC<{result: ResultType | ''}> = ({result}) => {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const {checkerThankYouText} = useSettings();
+  const {checkerThankYouText} = useDbText();
 
   const link = (url: string) => {
     WebBrowser.openBrowserAsync(url, {
@@ -100,11 +96,16 @@ const Result: React.FC<{result: Result}> = ({result}) => {
 
   return (
     <View style={styles.card}>
-      <Markdown style={{}}>{checkerThankYouText[result]}</Markdown>
+      <Markdown style={{}}>
+        {result ? checkerThankYouText[result] : ''}
+      </Markdown>
 
       <Spacing s={16} />
 
-      <Button width="100%" type="empty" onPress={() => link(urlsMap[result])}>
+      <Button
+        width="100%"
+        type="empty"
+        onPress={() => result && link(urlsMap[result])}>
         {t('checker:linkButton')}
       </Button>
       <Spacing s={12} />
@@ -135,5 +136,3 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   }
 });
-
-export {Result};

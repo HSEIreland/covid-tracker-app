@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   text: {
     ...textStyles.default,
     color: 'rgb(105, 105, 105)',
-    paddingLeft: 20,
+    paddingStart: 20,
     paddingVertical: 8
   }
 });

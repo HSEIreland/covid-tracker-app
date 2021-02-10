@@ -16,7 +16,7 @@ export const TabButtons: FC<TabButtonsProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.wrapper}>
+      <View accessibilityRole="tablist" style={styles.wrapper}>
         {tabLabels.map((labelText, index) => (
           <View
             style={[
@@ -25,7 +25,9 @@ export const TabButtons: FC<TabButtonsProps> = ({
             ]}
             key={`tab-button-${index}`}>
             <TouchableOpacity
-              accessibilityRole="button"
+              accessibilityRole="tab"
+              accessibilityLabel={labelText}
+              accessibilityState={{selected: selectedIndex === index}}
               importantForAccessibility="yes"
               activeOpacity={0.6}
               onPress={() => onChange(index)}>

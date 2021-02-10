@@ -11,7 +11,7 @@ import {
 import {useTranslation} from 'react-i18next';
 
 import {colors} from '../../constants/colors';
-import {text} from '../../theme';
+import {scale} from '../../theme';
 
 interface CodeInputProps {
   style?: ViewStyle;
@@ -54,7 +54,7 @@ export const CodeInput: FC<CodeInputProps> = ({
 
   const onChangeTextHandler = (index: number, value: string) => {
     const normalisedValue = value.substring(0, count);
-    let newValues = [...values];
+    const newValues = [...values];
 
     // If the length is > 1, that means it's an OTP from the keyboard's autocomplete
     // Or it's been pasted from the clipboard
@@ -86,6 +86,7 @@ export const CodeInput: FC<CodeInputProps> = ({
           <TextInput
             key={`i_${index}`}
             ref={refs[index]}
+            maxFontSizeMultiplier={1}
             selectTextOnFocus
             style={[
               styles.block,
@@ -117,13 +118,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   block: {
-    height: 64,
     flex: 1,
-    ...text.xxlargeBlack,
+    fontSize: scale(32),
     color: colors.teal,
     textAlign: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 16,
+    paddingHorizontal: 0,
+    paddingVertical: 12,
+    backgroundColor: colors.gray,
     borderWidth: 1,
     borderColor: colors.dot,
     borderRadius: 3,

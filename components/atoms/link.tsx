@@ -15,6 +15,7 @@ interface LinkProps {
   Icon?: any;
   text?: string;
   align?: 'left' | 'right' | 'center';
+  role?: 'link' | 'button';
   large?: boolean;
   onPress: () => void;
   ref?: any;
@@ -22,7 +23,16 @@ interface LinkProps {
 
 export const Link: React.FC<LinkProps> = React.forwardRef(
   (
-    {style, Icon, text, align = 'left', large = false, onPress, children},
+    {
+      style,
+      Icon,
+      text,
+      align = 'left',
+      large = false,
+      onPress,
+      children,
+      role = 'button'
+    },
     ref: any
   ) => {
     const linkText = text || children;
@@ -31,7 +41,7 @@ export const Link: React.FC<LinkProps> = React.forwardRef(
         {Icon && <Icon />}
         <TouchableWithoutFeedback
           ref={ref}
-          accessibilityRole="link"
+          accessibilityRole={role}
           importantForAccessibility="yes"
           onPress={onPress}>
           <Text

@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Image
-} from 'react-native';
+import React, {forwardRef, useState} from 'react';
+import {Text, View, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+
+import {alignWithLanguage} from '../../../services/i18n/common';
 
 import {DropdownModal} from './modal';
-import {colors} from '../../../constants/colors';
+import {ArrowIcon} from '../arrow-icon';
 import {Spacing} from '../spacing';
+
+import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
 
 interface DropdownProps {
@@ -19,6 +17,7 @@ interface DropdownProps {
   items: any[];
   value: any;
   onValueChange: (value: any) => void;
+  onClose?: () => void;
   search?: {
     placeholder: string;
     term: string;
@@ -31,80 +30,86 @@ interface DropdownProps {
   instructions?: () => React.ReactNode;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
-  label,
-  placeholder,
-  title,
-  items,
-  value,
-  onValueChange,
-  search,
-  itemRenderer,
-  display,
-  forceDisplay,
-  instructions
-}) => {
-  const [isModalVisible, setModalVisible] = useState(false);
+export const Dropdown = forwardRef<TouchableWithoutFeedback, DropdownProps>(
+  (
+    {
+      label,
+      placeholder,
+      title,
+      items,
+      value,
+      onValueChange,
+      onClose,
+      search,
+      itemRenderer,
+      display,
+      forceDisplay,
+      instructions
+    },
+    ref
+  ) => {
+    const [isModalVisible, setModalVisible] = useState(false);
 
-  const onItemSelected = (newValue: any) => {
-    setModalVisible(false);
-    if (newValue !== value) {
-      onValueChange(newValue);
+    const onItemSelected = (newValue: any) => {
+      setModalVisible(false);
+      if (newValue !== value) {
+        onValueChange(newValue);
+      }
+    };
+
+    const selectedItem =
+      (value && items.find((i) => i.value === value)) || null;
+
+    let displayValue = placeholder;
+    if (forceDisplay) {
+      displayValue = forceDisplay();
+    } else if (selectedItem) {
+      displayValue = (display && display(selectedItem)) || selectedItem.label;
     }
-  };
 
-  const selectedItem = (value && items.find((i) => i.value === value)) || null;
-
-  let displayValue = placeholder;
-  if (forceDisplay) {
-    displayValue = forceDisplay();
-  } else if (selectedItem) {
-    displayValue = (display && display(selectedItem)) || selectedItem.label;
-  }
-
-  return (
-    <>
-      <TouchableWithoutFeedback
-        accessibilityTraits={['button']}
-        accessibilityComponentType="button"
-        onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
-          <View style={styles.content}>
-            {label && (
-              <>
-                <Text style={[text.smallBold, {color: colors.text}]}>
-                  {label}
-                </Text>
-                <Spacing s={8} />
-              </>
-            )}
-            <Text numberOfLines={1} style={styles.displayValue}>
-              {displayValue}
-            </Text>
+    return (
+      <>
+        <TouchableWithoutFeedback
+          ref={ref}
+          accessibilityTraits={['button']}
+          accessibilityComponentType="button"
+          onPress={() => setModalVisible(true)}>
+          <View style={styles.container}>
+            <View style={styles.content}>
+              {label && (
+                <>
+                  <Text style={[text.smallBold, {color: colors.text}]}>
+                    {label}
+                  </Text>
+                  <Spacing s={8} />
+                </>
+              )}
+              <Text numberOfLines={1} style={styles.displayValue}>
+                {alignWithLanguage(displayValue)}
+              </Text>
+            </View>
+            <ArrowIcon />
           </View>
-          <Image
-            accessibilityIgnoresInvertColors
-            style={styles.arrowSize}
-            {...styles.arrowSize}
-            source={require('../../../assets/images/arrow-right/teal.png')}
+        </TouchableWithoutFeedback>
+        {isModalVisible && (
+          <DropdownModal
+            title={title || placeholder}
+            items={items}
+            selectedValue={value}
+            onSelect={onItemSelected}
+            onClose={() => {
+              setModalVisible(false);
+              onClose && onClose();
+            }}
+            search={search}
+            itemRenderer={itemRenderer}
+            instructions={instructions}
           />
-        </View>
-      </TouchableWithoutFeedback>
-      {isModalVisible && (
-        <DropdownModal
-          title={title || placeholder}
-          items={items}
-          selectedValue={value}
-          onSelect={onItemSelected}
-          onClose={() => setModalVisible(false)}
-          search={search}
-          itemRenderer={itemRenderer}
-          instructions={instructions}
-        />
-      )}
-    </>
-  );
-};
+        )}
+      </>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -117,9 +122,5 @@ const styles = StyleSheet.create({
   displayValue: {
     ...text.largeBold,
     color: colors.teal
-  },
-  arrowSize: {
-    width: 24,
-    height: 24
   }
 });

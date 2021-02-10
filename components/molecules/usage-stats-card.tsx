@@ -2,18 +2,18 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
+import {StatsData} from '../../services/api';
+
 import {Card} from '../atoms/card';
-import {text} from '../../theme';
+
+import {baseStyles, text} from '../../theme';
 import {colors} from '../../constants/colors';
 
 interface UsageStatsProps {
-  data: {
-    uploads: number;
-    notifications: number;
-  };
+  data: StatsData;
 }
 
-// Fix these from either side so text flow is uniform but image scales from center
+// Pin widths from either side so text flow is uniform but image scales from center
 const textWidth = 134;
 
 // Images aren't perfectly symmetrical
@@ -22,7 +22,12 @@ const offsetRight = 41;
 
 export const UsageStatsCard: FC<UsageStatsProps> = ({data}) => {
   const {t} = useTranslation();
-  return (
+
+  const hasData =
+    typeof data?.uploads === 'number' &&
+    typeof data?.notifications === 'number';
+
+  return hasData ? (
     <Card padding={{v: 24}}>
       <View style={styles.appIcon}>
         <Image
@@ -35,7 +40,7 @@ export const UsageStatsCard: FC<UsageStatsProps> = ({data}) => {
       <View style={styles.container}>
         <View style={[styles.half, styles.left]}>
           <View style={styles.phoneImage}>
-            <View style={styles.imageLeft}>
+            <View style={[styles.imageLeft, baseStyles.flipIfRtl]}>
               <Image
                 accessibilityIgnoresInvertColors
                 style={styles.uploadIconSize}
@@ -47,7 +52,9 @@ export const UsageStatsCard: FC<UsageStatsProps> = ({data}) => {
           <View
             style={[styles.statText, styles.statTextLeft]}
             accessible={true}>
-            <Text style={styles.statFigure}>{new Intl.NumberFormat('en-IE').format(data.uploads)}</Text>
+            <Text style={styles.statFigure}>
+              {new Intl.NumberFormat('en-IE').format(data?.uploads!)}
+            </Text>
             <Text style={styles.statLabel}>
               {t('contactTracing:statsCard:uploads:text')}
             </Text>
@@ -55,7 +62,7 @@ export const UsageStatsCard: FC<UsageStatsProps> = ({data}) => {
         </View>
         <View style={[styles.half, styles.right]}>
           <View style={styles.phoneImage}>
-            <View style={styles.imageRight}>
+            <View style={[styles.imageRight, baseStyles.flipIfRtl]}>
               <Image
                 accessibilityIgnoresInvertColors
                 style={styles.notificationsIconSize}
@@ -67,7 +74,9 @@ export const UsageStatsCard: FC<UsageStatsProps> = ({data}) => {
           <View
             style={[styles.statText, styles.statTextRight]}
             accessible={true}>
-            <Text style={styles.statFigure}>{new Intl.NumberFormat('en-IE').format(data.notifications)}</Text>
+            <Text style={styles.statFigure}>
+              {new Intl.NumberFormat('en-IE').format(data?.notifications!)}
+            </Text>
             <Text style={styles.statLabel}>
               {t('contactTracing:statsCard:alerts:text')}
             </Text>
@@ -75,7 +84,7 @@ export const UsageStatsCard: FC<UsageStatsProps> = ({data}) => {
         </View>
       </View>
     </Card>
-  );
+  ) : null;
 };
 const styles = StyleSheet.create({
   appIcon: {

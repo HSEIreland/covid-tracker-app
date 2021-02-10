@@ -1,13 +1,15 @@
-import React, {FC, useState} from 'react';
+import React, {FC, MutableRefObject, useState} from 'react';
+import {TouchableWithoutFeedback} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {TFunction} from 'i18next';
 
-import {localities} from '../../assets/localities';
-
+import {setAccessibilityFocusRef} from '../../hooks/accessibility';
 import {UserLocation} from '../../providers/context';
 
-import {Separator} from '../atoms/layout';
 import {Dropdown} from '../atoms/dropdown';
-import {TFunction} from 'i18next';
+import {Separator} from '../atoms/layout';
+
+import {localities} from '../../assets/localities';
 
 interface CountyOption {
   label: string;
@@ -37,6 +39,8 @@ const localityOptions: LocalityOption[] = localities.map((l) => ({
 }));
 
 interface LocationDropdownProps {
+  countyRef: MutableRefObject<TouchableWithoutFeedback>;
+  localityRef: MutableRefObject<TouchableWithoutFeedback>;
   value: UserLocation;
   onValueChange: (value: UserLocation) => void;
 }
@@ -49,6 +53,8 @@ const normalizeString = (s: string): string =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 export const LocationDropdown: FC<LocationDropdownProps> = ({
+  countyRef,
+  localityRef,
   value,
   onValueChange
 }) => {
@@ -119,11 +125,13 @@ export const LocationDropdown: FC<LocationDropdownProps> = ({
   return (
     <>
       <Dropdown
+        ref={countyRef}
         label={t('county:label')}
         placeholder={t('county:placeholder')}
         items={countyItems}
         value={value.county}
         onValueChange={onCountySelected}
+        onClose={() => setAccessibilityFocusRef(countyRef)}
         search={{
           placeholder: t('county:searchPlaceholder'),
           term: countySearch,
@@ -135,11 +143,13 @@ export const LocationDropdown: FC<LocationDropdownProps> = ({
         <>
           <Separator />
           <Dropdown
+            ref={localityRef}
             label={t('locality:label')}
             placeholder={t('locality:placeholder')}
             items={localityItems}
             value={value.locality}
             onValueChange={onLocalitySelected}
+            onClose={() => setAccessibilityFocusRef(localityRef)}
             search={{
               placeholder: t('locality:searchPlaceholder'),
               term: localitySearch,

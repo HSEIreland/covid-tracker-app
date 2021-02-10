@@ -11,9 +11,9 @@ import {Link} from '../atoms/link';
 import {Markdown} from '../atoms/markdown';
 import {PhoneNumber} from '../organisms/phone-number';
 
-import {text} from '../../theme';
+import {baseStyles, text} from '../../theme';
 import Layouts from '../../theme/layouts';
-import {saveMetric, METRIC_TYPES} from '../../services/api';
+import {saveMetric, METRIC_TYPES} from '../../services/api/utils';
 
 const CallbackImage = require('../../assets/images/callback/image.png');
 
@@ -45,12 +45,10 @@ export const FollowUpCall: FC<FollowUpCallProps> = ({navigation, route}) => {
   return (
     <Layouts.KeyboardScrollable scrollViewRef={scrollViewRef}>
       <View style={OStyles.row}>
-        <View style={OStyles.image}>
-          <Image
-            accessibilityIgnoresInvertColors
-            source={CallbackImage}
-            style={styles.image}
-          />
+        <View style={[OStyles.image]}>
+          <View style={[styles.image, baseStyles.flipIfRtl]}>
+            <Image accessibilityIgnoresInvertColors source={CallbackImage} />
+          </View>
         </View>
         <View style={styles.titleView}>
           <Heading
@@ -81,7 +79,7 @@ export const FollowUpCall: FC<FollowUpCallProps> = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
   image: {
-    marginRight: -OStyles.container.paddingRight,
+    marginEnd: -OStyles.container.paddingEnd,
     alignSelf: 'flex-end'
   },
   titleView: {

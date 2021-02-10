@@ -4,30 +4,41 @@ import {
   TouchableWithoutFeedback,
   View,
   Image,
-  ImageRequireSource
+  ImageRequireSource,
+  ViewStyle
 } from 'react-native';
+
+import {ArrowIcon} from './arrow-icon';
 
 import {colors} from '../../constants/colors';
 import {shadows} from '../../theme';
 
-interface CountyBreakdownCardProps {
+export type CardRef =
+  | ((instance: TouchableWithoutFeedback | null) => void)
+  | MutableRefObject<TouchableWithoutFeedback | null>
+  | null
+  | undefined;
+
+interface CardProps {
   type?: 'warning';
   padding?: {
     h?: number;
     v?: number;
     r?: number;
   };
+  style?: ViewStyle;
   icon?: {
     w: number;
     h: number;
     source: ImageRequireSource;
   };
   onPress?: () => void;
-  cardRef?: MutableRefObject<TouchableWithoutFeedback>;
+  cardRef?: CardRef;
 }
-export const Card: FC<CountyBreakdownCardProps> = ({
+export const Card: FC<CardProps> = ({
   type,
   padding: {h = 16, v = 16, r = 16} = {},
+  style,
   icon,
   onPress,
   cardRef,
@@ -39,7 +50,8 @@ export const Card: FC<CountyBreakdownCardProps> = ({
         style={[
           styles.card,
           type === 'warning' && styles.cardWarning,
-          {paddingHorizontal: h, paddingVertical: v, paddingRight: r}
+          {paddingHorizontal: h, paddingVertical: v, paddingRight: r},
+          style
         ]}>
         {icon && (
           <View style={styles.icon}>
@@ -55,12 +67,7 @@ export const Card: FC<CountyBreakdownCardProps> = ({
         <View style={styles.childrenView}>{children}</View>
         {onPress && (
           <View style={styles.row}>
-            <Image
-              accessibilityIgnoresInvertColors
-              style={styles.arrowIcon}
-              {...styles.arrowIcon}
-              source={require('../../assets/images/arrow-right/teal.png')}
-            />
+            <ArrowIcon />
           </View>
         )}
       </View>
@@ -92,12 +99,7 @@ export const Card: FC<CountyBreakdownCardProps> = ({
         <View style={styles.childrenView}>{children}</View>
         {onPress && (
           <View style={styles.row}>
-            <Image
-              accessibilityIgnoresInvertColors
-              style={styles.arrowIcon}
-              {...styles.arrowIcon}
-              source={require('../../assets/images/arrow-right/teal.png')}
-            />
+            <ArrowIcon />
           </View>
         )}
       </View>
@@ -127,10 +129,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center'
-  },
-  arrowIcon: {
-    width: 24,
-    height: 24
   },
   childrenView: {
     flex: 1

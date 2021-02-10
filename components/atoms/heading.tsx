@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {RefObject, useEffect, useRef} from 'react';
 import {
   Text,
   StyleSheet,
@@ -17,15 +17,18 @@ interface HeadingProps {
   lineWidth?: number;
   accessibilityFocus?: boolean;
   accessibilityRefocus?: boolean;
+  headingRef?: RefObject<Text>;
 }
 
 export const Heading: React.FC<HeadingProps> = ({
   text,
   lineWidth,
   accessibilityFocus = false,
-  accessibilityRefocus = false
+  accessibilityRefocus = false,
+  headingRef
 }) => {
-  const ref = useRef<any>();
+  const ownRef = useRef<Text>(null);
+  const ref = headingRef || ownRef;
   const isFocused = useIsFocused();
   useEffect(() => {
     if (ref.current && accessibilityFocus) {
@@ -34,7 +37,7 @@ export const Heading: React.FC<HeadingProps> = ({
         setTimeout(
           () => ref.current && AccessibilityInfo.setAccessibilityFocus(tag),
           200
-        );        
+        );
       }
     }
   }, []);
@@ -53,7 +56,11 @@ export const Heading: React.FC<HeadingProps> = ({
 
   return (
     <>
-      <Text importantForAccessibility="yes" ref={ref} style={styles.heading}>
+      <Text
+        accessibilityRole="header"
+        importantForAccessibility="yes"
+        ref={ref}
+        style={styles.heading}>
         {text}
       </Text>
       <View style={[styles.line, !!lineWidth && {width: lineWidth}]}>

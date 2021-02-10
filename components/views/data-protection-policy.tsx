@@ -3,7 +3,7 @@ import {Image, StyleSheet} from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useTranslation} from 'react-i18next';
 
-import {useSettings} from '../../providers/settings';
+import {useDbText} from '../../providers/settings';
 import {Markdown} from '../atoms/markdown';
 import {Link} from '../atoms/link';
 import {useNavigation} from '@react-navigation/native';
@@ -13,7 +13,6 @@ import Layouts from '../../theme/layouts';
 
 const PrivacyIcon = () => (
   <Image
-    accessibilityIgnoresInvertColors
     style={styles.privacy}
     source={require('../../assets/images/privacy/privacy.png')}
   />
@@ -42,7 +41,7 @@ export const DataProtectionLink = () => {
 };
 
 export const DataProtectionPolicy = () => {
-  const {dpinText} = useSettings();
+  const {dpinText} = useDbText();
   const {t} = useTranslation();
 
   const [initialRender, setInitialRender] = useState(true);
@@ -61,7 +60,9 @@ export const DataProtectionPolicy = () => {
   return (
     <Layouts.Scrollable heading={t('dataProtectionPolicy:title')}>
       {!loading && (
-        <Markdown markdownStyles={markDownStyles}>{dpinText}</Markdown>
+        <Markdown markdownStyles={markDownStyles} forceLTR>
+          {dpinText}
+        </Markdown>
       )}
       {loading && (
         <Spinner animation="fade" visible overlayColor={'rgba(0, 0, 0, 0.5)'} />
@@ -71,7 +72,7 @@ export const DataProtectionPolicy = () => {
 };
 
 export const TermsAndConditions = () => {
-  const {tandcText} = useSettings();
+  const {tandcText} = useDbText();
   const {t} = useTranslation();
 
   const [initialRender, setInitialRender] = useState(true);
@@ -90,7 +91,9 @@ export const TermsAndConditions = () => {
   return (
     <Layouts.Scrollable heading={t('tandcPolicy:title')}>
       {!loading && (
-        <Markdown markdownStyles={markDownStyles}>{tandcText}</Markdown>
+        <Markdown markdownStyles={markDownStyles} forceLTR>
+          {tandcText}
+        </Markdown>
       )}
       {loading && (
         <Spinner animation="fade" visible overlayColor={'rgba(0, 0, 0, 0.5)'} />
@@ -106,7 +109,30 @@ const markDownStyles = StyleSheet.create({
     paddingRight: 16
   },
   listItemContent: {
+    ...text.default,
+    flex: 1,
     paddingTop: 2,
     paddingRight: 32
+  },
+  listItemBullet: {
+    width: 8,
+    height: 8,
+    backgroundColor: colors.darkGray,
+    borderRadius: 4,
+    marginLeft: 6,
+    marginTop: 10,
+    marginRight: 12
+  },
+  block: {
+    ...text.default,
+    marginBottom: 20
+  },
+  h1: {
+    ...text.xlargeBold,
+    marginVertical: 10
+  },
+  h2: {
+    ...text.largeBold,
+    marginVertical: 10
   }
 });

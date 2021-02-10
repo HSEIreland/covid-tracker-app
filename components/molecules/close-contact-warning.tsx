@@ -1,4 +1,4 @@
-import React, {FC, forwardRef} from 'react';
+import React, {forwardRef} from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -10,10 +10,16 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 
 import {SingleRow} from '../atoms/layout';
+import {ArrowIcon} from '../atoms/arrow-icon';
 
 import {colors} from '../../constants/colors';
 
-import {shadows, text} from '../../theme';
+import {baseStyles, shadows, text} from '../../theme';
+
+const imageSize = {
+  width: 107,
+  height: 137
+};
 
 export const CloseContactWarning = forwardRef<TouchableWithoutFeedback>(
   (props, ref) => {
@@ -23,14 +29,13 @@ export const CloseContactWarning = forwardRef<TouchableWithoutFeedback>(
     return (
       <TouchableWithoutFeedback
         ref={ref}
-        onPress={() => navigation.navigate('closeContact')}>
+        onPress={() => navigation.navigate('closeContactAlert')}>
         <View style={styles.card}>
-          <View style={styles.icon}>
+          <View style={[styles.icon, baseStyles.flipIfRtl]}>
             <Image
               accessibilityIgnoresInvertColors
               style={styles.imageSize}
-              width={styles.imageSize.width}
-              height={styles.imageSize.height}
+              {...imageSize}
               source={require('../../assets/images/exposure-alert/exposure-alert.png')}
             />
           </View>
@@ -39,11 +44,7 @@ export const CloseContactWarning = forwardRef<TouchableWithoutFeedback>(
             <Text style={styles.notice}>{t('closeContactWarn:notice')}</Text>
           </View>
           <SingleRow>
-            <Image
-              accessibilityIgnoresInvertColors
-              style={styles.iconSize}
-              width={styles.iconSize.width}
-              height={styles.iconSize.height}
+            <ArrowIcon
               source={require('../../assets/images/arrow-right/white.png')}
             />
           </SingleRow>
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    minHeight: imageSize.height + 8,
     paddingVertical: 16
   },
   icon: {
@@ -82,12 +84,5 @@ const styles = StyleSheet.create({
     color: colors.white,
     lineHeight: 21
   },
-  iconSize: {
-    width: 24,
-    height: 24
-  },
-  imageSize: {
-    width: 107,
-    height: 137
-  }
+  imageSize
 });

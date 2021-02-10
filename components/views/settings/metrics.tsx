@@ -32,8 +32,14 @@ export const Metrics = () => {
       <DataProtectionLink />
       <Spacing s={32} />
       <View style={styles.row}>
-        <Text style={styles.label}>{t('metrics:share')}</Text>
+        <View
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants">
+          <Text style={styles.label}>{t('metrics:share')}</Text>
+        </View>
         <Switch
+          accessibilityRole="switch"
+          accessibilityHint={t('metrics:share')}
           trackColor={{
             false: colors.darkGray,
             true: colors.teal
@@ -51,7 +57,8 @@ export const Metrics = () => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   label: {
     ...text.largeBold,

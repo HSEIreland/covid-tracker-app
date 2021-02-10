@@ -10,8 +10,11 @@
     "confirmChanges": "Confirmar alterações",
     "changesUpdated": "Alteraç. atualizadas",
     "dismiss": "Ignorar",
-    "registerError": "Lamentamos, não funcionou devidamente. Código de erro: ({{code}}).\nTente novamente.",
-    "registerTimestampError": "Não foi possível verificar o seu dispositivo, Verifique se estão definidas a data e hora corretas, e tente novamente."
+    "registerError": "Lamentamos, não funcionou devidamente. Código de erro: {{code}}\nTente novamente.",
+    "registerTimestampError": "Não foi possível verificar o seu dispositivo. Verifique se estão definidas a data e hora corretas, e tente novamente.",
+    "millions": "milhão",
+    "thousands": "milhares",
+    "continue": "Continuar"
   },
   "viewNames": {
     "age": "Confirme idade",
@@ -29,7 +32,7 @@
     "metrics": "Definiç. Métrica App",
     "leave": "Sair COVID Tracker Ireland",
     "contactTracing": "Local. Contacto",
-    "requestACallback": "Solicitar chamada de retorno"
+    "requestACallback": "Peça uma chamada de retorno"
   },
   "navbar": {
     "settings": "Definiç.",
@@ -42,7 +45,7 @@
     "symptomCheck": "Registo COVID",
     "contactTracing": "Local. Contacto",
     "shareApp": "Partilh. app",
-    "shareError": "Erro na partilha. Tente novamente ou contacte-nos."
+    "shareError": "Ocorreu um erro na partilha. Tente novamente ou contacte-nos."
   },
   "onboarding": {
     "intro": {
@@ -111,9 +114,9 @@
         "confrmed": "Casos confirmados no hospital"
       },
       "icu": {
-        "admissions": "Admissões na Unidade de Cuidados Intensivos",
-        "discharges": "Altas da Unidade de Cuidados Intensivos",
-        "confrmed": "Casos confirmados na Unidade de Cuidados Intensivos"
+        "admissions": "Admissões nas UCI",
+        "discharges": "Altas das UCI",
+        "confrmed": "Casos confirmados nas UCI"
       }
     },
     "last7days": {
@@ -125,59 +128,59 @@
   "checker": {
     "title": "Registo COVID",
     "resultTitle": "Obrigado",
-    "question1": "**Tem febre – temperatura superior a 38 graus Celsius?**\n\nSintomas de febre podem incluir faces ruborizadas, cansaço e estar quente ao toque.",
+    "question1": "**Tem febre - ou uma temperatura superior a 38 graus Celsius?**\n\nOs sintomas de febre podem incluir faces ruborizadas, fadiga ou sentir-se quente ou estar quente ao toque.",
     "question1id": "febre",
     "question1Label": "Temperat. alta ou arrepios",
     "question2id": "tosse",
     "question2": "**Tem algum tipo de tosse?**",
     "question2Label": "Tosse",
     "question3id": "resp.",
-    "question3": "**Tem alguma dificuldade respiratória?**\n\nIsto pode ser como desmaiar ou sentir que não consegue encher os seus pulmões.",
+    "question3": "**Tem alguma dificuldade respiratória?**\n\nPode ser a sensação de estar ofegante ou sentir que não consegue encher os seus pulmões.",
     "question3Label": "Dific. respiratória",
     "question4id": "gripe",
-    "question4": "**Sente perda de paladar ou olfato?**\n\nIsto poderá significar que não consegue saborear ou cheirar nada, ou que as coisas sabem ou cheiram diferente do normal.",
-    "question4Label": "Perda de paladar ou olfato",
+    "question4": "**Sentiu alguma alteração ou perda de paladar ou olfato?**\n\nIsto pode significar que não consegue saborear ou sentir o cheiro de nada, ou sentir um cheiro ou sabor diferente do normal.",
+    "question4Label": "Perda ou alteração de paladar ou olfato",
     "yes": "Sim",
     "no": "Não",
-    "virusIsolation": "Estes sintomas correspondem aos sintomas do coronavírus. Lembre-se 8 em cada 10 pessoas com COVID-19 recuperam em cada com descanso e medicamentos de venda livre.\n\n## O que fazer de seguida\n\nIsole-se em casa para proteger os outros.\n\nContacte o seu médico de família para obter aconselhamento e verificar se deve ser testado à COVID-19.",
-    "recovered": "É bom saber que se está a sentir melhor. Mantenha-se bem seguindo o aconselhamento em hse.ie.",
+    "virusIsolation": "Estes sintomas coincidem com os sintomas de coronavírus. Lembre-se que 8 em cada 10 pessoas com COVID-19 recuperam em casa com descanso e medicação de venda livre.\n\n## O que fazer a seguir\n\nIsole-se em casa para proteger os outros.\n\nTelefone ao seu médico de família para obter aconselhamento e ver se deve ser testado à COVID-19.",
+    "recovered": "Ainda bem que se está a sentir melhor. Fique bem seguindo os conselhos em hse.ie",
     "linkButton": "Leia + inform. aqui",
-    "viewHistory": "Ver meu histórico",
+    "viewHistory": "Ver o meu histórico",
     "introTitle": "Registo COVID",
     "introWelcome": "Sobre si",
     "introButton": "Continuar",
     "noresults": "Ainda não experimentou o verificador de sintomas. Comece agora tocando no botão acima",
     "noSymptomsWell": {
-      "message": "Estamos felizes por saber que se está a sentir bem. Obrigado por verificar. Mesmo se se está a sentir bem, volte novamente amanhã e diga-nos como se está a sentir.",
-      "viewHistory": "Ver meu histórico",
+      "message": "Ficamos felizes por saber que está a sentir bem. Obrigado por se ter registado. Mesmo que se esteja a sentir bem, volte amanhã para nos informar sobre o seu estado.",
+      "viewHistory": "Ver o meu histórico",
       "advice": "Visite hse.ie para ler mais sobre como se proteger e aos outros do coronavírus.",
       "protectionAdvice": "Cons. sobre proteção"
     },
     "noSymptomsNotWell": {
-      "message": "Obrigado por verificar. Lamentamos que não se esteja a sentir bem.\n\nCaso tenha sintomas como nariz congestionado ou dores de garganta, deve comportar-se como se tivesse coronavírus e isolar-se durante 14 dias para proteger as outras pessoas.\n\nTelefone ao seu médico de família para falar sobre os seus sintomas e se é necessário fazer o teste para o coronavírus.",
-      "viewHistory": "Ver meu histórico",
+      "message": "Obrigado por se ter registado. Lamentamos que não se esteja a sentir bem.\n\nCaso desenvolva quaisquer sintomas de COVID-19, isole-se e telefone imediatamente ao seu médico de família.",
+      "viewHistory": "Ver o meu histórico",
       "advice": "Visite hse.ie para ler mais sobre como se proteger e aos outros do coronavírus.",
       "protectionAdvice": "Cons. sobre proteção"
     },
     "riskGroup": {
-      "warning": "Devido à sua idade, gostaríamos que tomasse um cuidado extra para se proteger da COVID-19.\n\nAs pessoas mais idosas e que tenham problemas de saúde de longa duração estão mais em risco de doença grave caso tenham COVID-19.",
+      "warning": "Devido à sua idade, gostaríamos que tomasse um cuidado extra para se proteger da COVID-19.\n\nAs pessoas mais velhas e as pessoas com problemas de saúde prolongados estão mais em risco de doença grave, caso apanhem COVID-19.",
       "warningReadMore": "Leia mais sobre isto aqui",
       "advice": "Sabemos que não são tempos fáceis. Caso necessite de apoio ou aconselhamento sobre a gestão em casa, toque na opção em baixo para mais informações.",
       "adviceReadMore": "Obter mais informaç."
     }
   },
   "welcome": {
-    "title": "Olá",
-    "text": "O Registo COVID permite que todas as pessoas utilizem a app para verificar sintomas e obter aconselhamento. Também ajuda o HSE a mapear e rastrear a forma como a COVID-19 está a afetar a Irlanda.\n\nO Registo COVID não revela a sua identidade. Pode partilhar a sua idade, sexo e localidade para ajudar a tornar a informação mais útil para análise de saúde pública.\n\nO Registo COVID também mantém um registo no seu telefone de quaisquer sintomas que tenha tido, para que possa voltar a verificar e analisar a qualquer altura.",
+    "title": "Olá 👋",
+    "text": "O Registo COVID permite que todos utilizem a app para verificar sintomas e obter aconselhamento. Também ajuda a HSE a mapear e acompanhar a forma como a COVID-19 está a afetar a Irlanda.\n\nO Registo COVID não revela a sua identidade. Pode partilhar a sua idade, sexo e localidade para ajudar a tornar a informação mais útil para análises de saúde pública.\n\nO Registo COVID também guardar um histórico no seu telefone de quaisquer sintomas que tenha, para que possa voltar a verificar e rever e qualquer altura.",
     "action": "Sim, gostaria de utilizar o Registo COVID",
     "letUsKnow": "Informe-nos se teve\nsintomas hoje"
   },
   "returning": {
-    "title": "Olá de novo",
+    "title": "Olá de novo 👋",
     "subtitle": "Como se sente hoje?",
     "action1": "Bem, sem sintomas",
     "action2": "Não me sinto bem hoje",
-    "completeTitle": "É bom saber disso",
+    "completeTitle": "É bom saber disso 👍",
     "completeLink": "Ver o meu histórico"
   },
   "settings": {
@@ -192,18 +195,20 @@
     "termsAndConditionsHint": "Visualizar Termos e Condições",
     "metrics": "Métrica de App",
     "metricsHint": "Visualizar ou alterar definições para Métrica de App",
+    "language": "Idioma da App",
+    "languageHint": "Visualizar ou alterar definições para o Idioma da App",
     "leave": "Sair",
     "leaveHint": "Sair da aplicação"
   },
   "leave": {
     "title": "Sair",
-    "info": "Obrigado por nos ajudar a combater a COVID-19. Lamentamos saber que nos vai deixar. Quando tocar em 'Quero sair' vamos remover todos os dados armazenados pela app do seu dispositivo incluindo um número de telemóvel, caso tenha partilhado um, dados de sintomas e quaisquer dados de saúde demográficos que possa ter partilhado. Tokens de autorização não identificados armazenados no servidor também serão eliminados.\n\nIDs aleatórios criados ou recolhidos pelos Serviços de Notificação de Exposição não podem ser removidos pela app COVID Tracker. Caso deseje remover estes IDs Aleatórios pode fazê-lo através das Definições do seu dispositivo.",
+    "info": "Obrigado por nos ajudar a combater a COVID-19. Lamentamos que nos deixe. Quando tocar em 'Quero sair', removeremos todos os dados armazenados na app do seu dispositivo incluindo um número de telemóvel, caso tenha partilhado um, dados de sintomas e quaisquer dados de saúde demográfica que possa ter partilhado. Tokens de autorização não identificativos armazenados no servidor também serão eliminados.\n\nID aleatórios criados ou recolhidos pelos Serviços de Notificação de Exposição não podem ser removidos pela app COVID Tracker. Se desejar remover estes ID Aleatórios pode fazê-lo através das Definições do seu dispositivo.",
     "button": "Quero sair",
     "confirmTitle": "Sair",
     "confirmText": "Tem a certeza de que quer sair?",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
-    "error": "Ocorreu um erro na liberação dos seus dados. Tente novamente ou contacte-nos."
+    "error": "Ocorreu um erro na libertação dos seus dados. Tente novamente ou contacte-nos."
   },
   "checkInSettings": {
     "title": "Registo COVID",
@@ -218,15 +223,19 @@
     "nationalPicture": "O contexto nacional",
     "breakdown": "Toque para inf municipal"
   },
+  "languageSettings": {
+    "title": "Idioma da App",
+    "intro": "Escolha o seu idioma:"
+  },
   "contactTracing": {
     "title": "Local. Contacto",
     "active": {
       "title": "Local. Contacto ativa",
-      "message": "Quanto mais pessoas utilizarem esta app, mais eficaz serão os nossos esforços de Localização de Contactos. A app já está a ajudar a reduzir a propagação da COVID-19 ao notificar contactos próximos dos que testam positivo para o vírus."
+      "message": "Quanto mais pessoas utilizarem esta app, mais eficientes serão os nossos esforços para Localização de Contactos. A app está já a ajudar a reduzir a propagação da COVID-19 notificando os contactos próximos das pessoas que testam positivo para o vírus."
     },
     "noSupport": {
       "title": "Local. Contacto indisponível",
-      "message": "Infelizmente, este dispositivo não suporta a Local. Contacto. Pode continuar a utilizar a app para o Registo e Atualizações COVID."
+      "message": "Infelizmente, este dispositivo não suporta os Serviços de Notificação de Exposição e não o podem alertar se tiver sido um contacto próximo de alguém que tenha testado positivo para a COVID-19."
     },
     "canSupport": {
       "title": "Local. Contacto indisponível",
@@ -238,39 +247,46 @@
     },
     "notEnabled": {
       "title": "Local. Contacto não ativado",
-      "message": "Para permitir a Localização de Contacto tem de a configurar.",
-      "button": "Config."
+      "message": "É necessário ativar Serviços de Notificação de Exposição para ativar a Localização de Contacto.",
+      "button": "Ativar"
     },
     "notActive": {
       "title": "Local. Contacto não ativo",
-      "message00": "É necessário ativar **Serviço de notificação de exposição** nas suas definições",
-      "message10": "É necessário ativar **Serviço de notificação de exposição** nas suas definições",
-      "message01": "É necessário ativar **Bluetooth** nas suas definições",
-      "message11": "É necessário ativar **Serviço de notificação de exposição** e **Bluetooth** nas suas definições",
-      "button": "Ir para definições",
+      "message00": "É necessário aceitar Serviços de Notificação de Exposição nas suas definições",
+      "message10": "É necessário aceitar Serviços de Notificação de Exposição nas suas definições",
+      "message01": "É necessário ativar Bluetooth nas suas definições.",
+      "message11": "É necessário aceitar Serviços de Notificação de Exposição e ativar o Bluetooth nas suas definições.",
+      "button": "Ir para definições do dispositivo",
       "android": {
         "button": "Ativar",
-        "message": "É necessário ativar *Serviço de notificação de exposição** para ativar a Localização de Contacto"
+        "message": "É necessário ativar Serviços de Notificação de Exposição para ativar a Localização de Contacto."
+      }
+    },
+    "pause": {
+      "text": "Pausar a Localização de Contactos",
+      "paused": "Em pausa - lembrete definido para {{time}}",
+      "reactivate": {
+        "label": "Reativar alertas de exposição"
       }
     },
     "registrationsTitle": "Registos de app",
     "registrationsSince": "desde lanç.",
-    "shareAppText": "Quanto mais pessoas conseguirmos que utilizem a app mais eficaz se vai tornar o nosso esforço de Localização de Contacto. Partilhe a app para nos ajudar a alcançar o nosso objetivo.",
+    "shareAppText": "Quanto mais pessoas conseguirmos que utilizem esta app, mais eficientes serão os nossos esforços para Localização de Contactos. Partilhe a app para nos ajudar a alcançar o nosso objetivo.",
     "statsCard": {
       "uploads": {
-        "text": "Os COVID Trackers que testaram positivo atualizaram as suas Ids Aleatórias"
+        "text": "COVID\n Trackers que testaram positivo atualizaram as suas ID Aleatórias"
       },
       "alerts": {
-        "text": "Foi enviado um Alerta de Contacto Próximo aos COVID Trackers"
+        "text": "COVID\n Trackers receberam um Alerta de Contacto Próximo"
       }
     },
     "registrationsCard": {
       "title": "Utilizadores ativos",
       "registrations": "{{registrations}}",
-      "text": "{{percentage}}% com mais de 16 na Irlanda são agora COVID Trackers, mantenho as outras pessoas seguras e protegidas. A app tem {{registrations}} registos da app."
+      "text": "{{percentage}}% com mais de 16 anos na Irlanda são agora COVID Trackers, mantendo as outras pessoas seguras e protegidas. A app tem {{registrations}} registos de app."
     },
     "uploadCard": {
-      "title": "Carregar IDs Aleat.",
+      "title": "Carregar ID Aleat.",
       "text": "Para utilização apenas se a HSE o/a contactar.",
       "uploads": "**{{uploads}}** ADD TEXT"
     },
@@ -283,6 +299,7 @@
         "title": "Estado",
         "active": "O serviço está ativo agora",
         "notActive": "O serv. está inativo",
+        "paused": "O serviço está atualmente em pausa",
         "intro": "Para atualizar as suas definições, vá às definições da app no seu dispositivo.",
         "gotoSettings": "Atualizar definições",
         "android": {
@@ -298,14 +315,14 @@
         "confirmText": "Tem a certeza de que quer limpar todos os seus Contactos Próximos?",
         "cancel": "Cancelar",
         "confirm": "Confirmar",
-        "error": "Ocorreu um erro a limpar os seus Contactos Próximos. Tente novamente."
+        "error": "Ocorreu um erro na libertação dos seus Contactos Próximos. Tente novamente."
       }
     }
   },
   "requestACallback": {
-    "heading": "Solicitar uma chamada de retorno",
-    "text": "A app vai parilhar o seu número com a nossa equipa de Localização de Contactos. Um membro da equipa vai contactá-lo(a) por telefone e preparar a testagem, se necessário.",
-    "buttonLabel": "Ligue-me de volta",
+    "heading": "Peça uma chamada de retorno",
+    "text": "A app vai partilhar o seu número com a nossa equipa de Localização de Contactos. Um membro da equipa vai telefonar-lhe e providenciar o teste, se necessário.",
+    "buttonLabel": "Telefone-me",
     "complete": {
       "title": "Pedido de chamada de retorno enviada",
       "text": "Um membro da nossa equipa de Localização de Contactos vai estar em contacto convosco para facultar aconselhamento e providenciar o teste, se adequado.",
@@ -314,9 +331,12 @@
   },
   "confirmedChart": {
     "title": "Casos conf. diariam.",
-    "label": "Gráfico casos conf. diariam",
+    "label": {
+      "default": "{{total}} total de casos confirmados nas últimas 2 semanas",
+      "months": "{{total}} total de casos confirmados nos últimos 2 meses",
+      "all": "{{total}} total de casos confirmados"
+    },
     "hint": "Gráfico a mostrar casos confirmados diariamente ao longo do tempo",
-    "yesterday": "casos confirmados ontem",
     "prevCases": "Casos",
     "prevDeaths": "Óbitos",
     "prevCase": "Caso",
@@ -325,7 +345,7 @@
     "ranges": {
       "default": "Últimas 2 semanas",
       "months": "Últimos 2 meses",
-      "all": "Tudo"
+      "all": "Todos"
     }
   },
   "statsSource": {
@@ -345,17 +365,19 @@
     "casesWeeks": {
       "first": "Anteriores",
       "second": "2 semanas"
-    }
+    },
+    "summary": "{{county}}: {{lastStat}} casos em {{date}}, {{twoWeeksStat}} nas suas semanas anteriores",
+    "summaryHint": "Toque para ver detalhes de {{county}}"
   },
   "yourData": {
     "title": "Seus dados",
-    "info": "A app COVID Tracker protege a sua privacidade e não partilha informação pessoal sobre si com outros utilizadores da app. **A sua identidade nunca será revelada a outros utilizadores da app.**\n\nQuaisquer dados pessoais que facultar será processados em linha com o RGPD e a legislação de proteção de dados. Pode ler mais sobre este assunto na Nota Informativa de Proteção de Dados abaixo. **Os seus dados apenas serão utilizados relativamente à resposta à pandemia da COVID-19** conforme definido na Nota Informativa da Proteção de Dados.\n\nCaso necessite de ser alertado, a app vai iniciar o processo com uma notificação segura in-app. Para além da utilização desta app, a equipa de localização de contactos da HSE pode telefonar-lhe se alguém com COVID-19 o/a identifique como contacto próximo. Caso tenha um teste de COVID-19, a HSE vai contactá-lo(a) por mensagem ou por telefone com os resultados.\n\nPreste atenção a quaisquer chamadas suspeitas, emails ou mensagens a solicitarem informação pessoal. **A HSE não lhe vai solicitar informação pessoal por mensagem ou email.**",
-    "viewInSettings": "Pode visualizar esta informação a qualquer altura nas Definições. Se não deseja continuar, encerre e elimine a app. Se consentir, escolha Continuar para avançar.",
+    "info": "A app COVID Tracker protege a sua privacidade e não partilha informação pessoal sobre si com outros utilizadores da app. **A sua identidade nunca será revelada a outros utilizadores da app.**\n\nQuaisquer dados pessoais que facultar serão processados em conformidade com o RGPD e a lei de proteção de dados. Pode ler mais sobre este assunto na Nota Informativa de Proteção de Dados abaixo. **Os seus dados apenas serão utilizados relativamente à resposta à pandemia da COVID-19** conforme definido na Nota Informativa da Proteção de Dados.\n\nCaso seja necessário alertá-lo, a app vai iniciar este processo com uma notificação segura na app. Para além da utilização desta app, a equipa de Localização de Contactos da HSE pode telefonar-lhe se alguém com COVID-19 o/a identificar como contacto próximo. Caso faça um teste COVID-19, a HSE vai entrar em contacto consigo através de mensagem ou por telefone com os resultados.\n\nEsteja atento a quaisquer chamadas telefónicas suspeitas, emails ou mensagens a solicitar-lhe informação pessoal. **A HSE não lhe vai solicitar qualquer informação pessoal por mensagem ou email.**",
+    "viewInSettings": "Pode visualizar esta informação a qualquer altura nas Definições. Caso não pretenda continuar, encerre e elimine a app. Caso consinta, toque em Continuar para avançar.",
     "continue": "Continuar"
   },
   "sorry": {
     "title": "Lamentamos saber",
-    "info": "Infelizmente não poderá continuar a utilizar a app. Pode voltar a juntar-se a nós a qualquer altura. Basta tocar no botão abaixo.",
+    "info": "Infelizmente, não poderá continuar a utilizar a app. Pode voltar a qualquer altura. Basta tocar no botão voltar.",
     "back": "Voltar"
   },
   "ageRequirement": {
@@ -365,15 +387,15 @@
   },
   "underAge": {
     "title": "Menos 16",
-    "notice": "Agradecemos o seu interesse mas infelizmente é demasiado jovem para participar nesta iniciativa.\n\nMantenha-se em segurança."
+    "notice": "Agradecemos o seu interesse mas infelizmente é demasiado jovem para participar nesta iniciativa.\n\nMantenha-se em segurança.\n\nVisite hse.ie para ler mais sobre como se proteger e aos outros do coronavírus.",
+    "protectionAdvice": "Cons. sobre proteção"
   },
   "followUpCall": {
     "title": "Chamada de acompanhamento de Localização de Contacto",
     "shortTitle": "Retornar cham.",
-    "intro": "Se alguém com quem esteve em contacto próximo testar positivo para a COVID-19, a app vai enviar-lhe um Alerta de Contacto Próximo. A HSE vai também telefonar-lhe caso se facultar o seu número abaixo.",
-    "note": "A HSE também pode ligar-lhe se for identificado como contacto próximo por localização de contacto manual. A HSE vai aconselhá-lo(a) e encaminhá-lo(a) para teste se adequado. \n\nA app só vai partilhar o seu número de telefone com a HSE se receber um Alerta de Contacto Próximo. Pode inserir o seu número abaixo, ou adicioná-lo posteriormente nas Definições.",
-    "noteAlt": "Se alguém com quem tenha estado em contacto próximo testar positivo para a COVID-19, a app vai enviar-lhe um Alerta de Contacto Próximo. A HSE também lhe vai telefonar se facultar o seu número de telefone abaixo.\n\nA HSE também lhe pode telefonar se for identificado(a) como contacto próximo através da localização de contacto manual. A HSE vai aconselhá-lo(a) e encaminhá-lo(a) para teste, se adequado.\n\nA app vai apenas partilhar o seu número de telefone com a HSE caso receba um Alerta de Contacto Próximo. Pode inserir o seu número abaixo.",
-    "noteSettings": "Se desejar, podemos tentar ligar-lhe para lhe prestar mais assistência após receber uma notificação de exposição.\n\nO seu número de telefone só será partilhado com a HSE se receber uma notificação de exposição.",
+    "intro": "Se alguém com quem esteve em contacto próximo testar positivo para a COVID-19, a app vai enviar-lhe um Alerta de Contacto Próximo.  A HSE vai telefonar-lhe caso nos faculte o seu número abaixo.",
+    "note": "A HSE vai facultar-lhe informação e encaminhá-lo(a) para teste se adequado.\n\nA app só vai partilhar o seu número de telefone com a HSE se receber um Alerta de Contacto Próximo. Pode inserir o seu número abaixo, ou adicioná-lo posteriormente.",
+    "noteAlt": "A app vai enviar-lhe um Alerta de Contacto Próximo caso alguém com quem tenha estado em contacto próximo teste positivo para a COVID-19.\n\nA HSE também lhe poderá telefonar para isto acontece para o/a aconselhar sobre o que fazer.\n\nPode inserir o seu número de telefone abaixo ou adicioná-lo nas Definições posteriormente. O seu número de telefone só será partilhado com a HSE caso receba um Alerta de Contacto Próximo.",
     "optIn": "Sim, quero incluir-me",
     "noThanks": "Não, obrigado"
   },
@@ -385,27 +407,21 @@
     "title": "Alerta de Contacto Próximo",
     "notice": "A app detetou que esteve em contacto próximo com alguém que testou positivo para a COVID-19."
   },
-  "closeContact": {
-    "title": "Contacto próx.",
-    "text": "A forma mais fácil de o fazer é solicitar o retorno de uma chamada da Equipa de Localização de Contacto quando receber o alerta. Também pode contactar **HSELive através do 1850 24 1850** e eles vão tratar de retornar a chamada.",
-    "titleInfo": "Inform. contacto próximo",
-    "introInfo": "Caso tenha recebido uma notificação da app, ou uma chamada da nossa equipa de Localização de Contacto, a informá-lo(a) de que esteve em contacto próximo com alguém que testou positivo para o coronavírus, é necessário ser testado(a).",
-    "text2Info": "**Telefone ao seu médico de família caso desenvolva sintomas.**\n\nSaiba mais sobre o que precisa fazer em hse.ie.",
-    "titleAlert": "Alerta de Contacto Próximo.",
-    "introAlert": "A App COVID Tracker detetou que esteve em contacto próximo com alguém que foi diagnosticado para a COVID-19. Saiba o que deve fazer seguidamente para sua proteção e dos outros.",
-    "text2Alert": "**Telefone ao seu médico de família caso desenvolva sintomas.**\n\nSaiba mais sobre o que precisa fazer em hse.ie.",
-    "todo": "1. Fique em casa.\n\n2. Não vá trabalhar.\n\n3. Não utilize os transportes públicos.\n\n4. Não receba visitas em sua casa.\n\n5. Não vá visitar outras pessoas, mesmo se geralmente trata dessas pessoas.\n\n6. Não se desloque a lojas ou farmácias salvo se for absolutamente necessário - sempre que possível, faça as suas compras online ou peça a familiares ou amigos para lhe entregarem as compras.\n\n7. Mantenha-se afastado(a) de pessoas idosas, de todas as pessoas com doenças de longa duração e grávidas.",
-    "gotoHSE": "Go to HSE.ie",
-    "requestCallback": {
-      "title": "Request a call-back",
-      "text": "Speak with a member of our Contact Tracing team"
-    }
+  "closeContactInfo": {
+    "title": "Inform. contacto próximo",
+    "content": "**Caso tenha estado em contacto próximo com alguém que testou positivo para a COVID-19, vai ver uma caixa vermelha a dizer 'Alerta de Contacto Próximo' na app.**\n\nCaso tenha partilhado o seu número de telefone, a nossa equipa de localização de contacto vai ligar-lhe no prazo de 48 horas. Vão dizer-lhe o que precisa fazer e providenciar um teste, se necessário.\n\nHá locais onde estão a ser tomadas precauções especiais tais como escolas e unidades de saúde. Caso se encontre num destes locais, vamos facultar-lhe informação sobre o que é necessário fazer se receber um alerta de contacto próximo."
+  },
+  "closeContactAlert": {
+    "title": "Alerta de Contacto Próximo",
+    "content": "**Recebeu um alerta porque esteve em contacto próximo de alguém que testou positivo para o coronavírus a [[closeContactDate]]**.\n\n<<CALL-BACK>>\n\n#Agora deve restringir os seus movimentos\n\n* Fique em casa\n\n* Não vá trabalhar, à escola ou universidade  nem utilize transportes públicos\n\n* Não receba visitas em sua casa e não visite outras pessoas\n\n* Não vá a lojas ou à farmácia, salvo se for absolutamente necessário.\n\nCaso desenvolva quaisquer sintomas de COVID-19, isole-se e telefone imediatamente ao seu médico de família.\n\n# Alertas de Contactos Próximos nas escolas\n\nSe existir um caso confirmado na escola, o departamento de saúde pública local vai informar o diretor sobre que ação é necessário tomar.\n\nSe esteve na escola a [[closeContactDate]] deve:\n\n* Informar a escola de que recebeu um alerta.\n\n* Seguir a informação que a saúde pública facultou à escola.\n\n* Informar a equipa de Localização de Contactos de que existe um caso confirmado na sua escola quando for contactado(a) por eles.\n\n# Alerta de contacto próximo em ambientes de cuidados de saúde\n\nDeve falar com a sua equipa de Saúde no Trabalho local sobre o seu alerta de contacto próximo. Quando falar com a sua equipa de localização de contacto, informe-os de que é trabalhador da área da saúde.\n\nSaiba mais sobre o que é necessário fazer em [HSE.ie](https://www.hse.ie).",
+    "call-back": "Insira o seu número de telefone abaixo para que possa receber uma chamada da sua equipa de localização de contactos no prazo de 48 horas. Vão dizer-lhe o que precisa fazer e providenciar um teste, se necessário.\n\n<<PHONE-NUMBER>>\n\nEnquanto aguarda pelo contacto, certifique-se de que usa máscara, lave as mãos com frequência e mantenha uma distância de dois metros das outras pessoas. \n\nTambém pode contactar a HSELive através do número 1850 24 1850 para solicitar uma chamada por parte da nossa equipa de localização de contactos.",
+    "callback-queued": "O seu número de telefone [[phone_number]] foi enviado para a nossa equipa de localização de contactos. Vão entrar em contacto consigo nas próximas 48 horas para providenciar um teste.\n\nEnquanto aguarda pelo contacto, certifique-se de que usa máscara, lave as mãos com frequência e mantenha uma distância de dois metros das outras pessoas."
   },
   "uploadKeys": {
-    "title": "Carregar IDs Aleat.",
+    "title": "Carregar ID Aleat.",
     "code": {
-      "intro": "Um membro da equipa de Local. Contactos pode pedir-lhe que partilhe as IDs Aleatórias geradas pelo seu telefone ao longo dos 14 dias anteriores.\n\nNesse caso, vai receber um código único de 6 dígitos por mensagem de texto para ativar a funcionalidade de carregamento.",
-      "expiredError": "O código expirou. Contacte a HSE para solicitar um outro.",
+      "intro": "Um membro da equipa de Localização de Contactos pode solicitar-lhe que partilhe os ID Aleatórios gerados pelo seu telefone durante os 14 dias prévios.\n\nNesse caso, vai receber um código único de 6 dígitos por mensagem de texto para ativar a funcionalidade de carregamento. Insira o seu códido nas caixas abaixo.",
+      "expiredError": "O código expirou. Contacte a HSE para solicitar outro.",
       "invalidError": "Código inválido. Tente novamente.",
       "error": "Ocorreu um erro a validar o código. Tente novamente."
     },
@@ -417,7 +433,7 @@
     "uploadError": "Ocorreu um erro a tentar o carregamento",
     "uploadSuccess": {
       "toast": "Carregamento completo",
-      "thanks": "Obrigada por carregar as suas IDs Aleatórias. Isto vai ajudar a nossa equipa de acompanhamento a abrandar a propagação da COVID-19 e a proteger outras pessoas.",
+      "thanks": "Obrigado por carregar as suas ID Aleatórias. Isto vai ajudar a nossa equipa de Localização de Contactos a abrandar a propagação da COVID-19 e a proteger outras pessoas.",
       "updates": "Voltar a Atualizaç."
     }
   },
@@ -435,17 +451,17 @@
       "label": "Seu código país",
       "placeholder": "País",
       "searchPlaceholder": "Pesquisar país",
-      "noResults": "Sem resultados encontrados pela esta pesquisa.\nFaça outra tentativa.",
+      "noResults": "Não foram encontrados resultados para esta pesquisa.\nTente com outra opção.",
       "error": {
         "required": "É necessário o seu código de país."
       }
     },
     "number": {
-      "label": "O seu núm. de telefone (opc)",
+      "label": "O seu número de telefone",
       "placeholder": "Seu número",
       "error": {
-        "invalid": "O seu número número não é válido. Faculte-nos o seu número de telefone completo.",
-        "short": "O seu número está incompleto. Faculte-nos o seu número de telefone completo.",
+        "invalid": "O seu número não é válido. Faculte o seu número de telefone completo.",
+        "short": "O seu número encontra-se incompleto. Faculte o seu número de telefone completo.",
         "required": "O seu núm. é necessário."
       }
     }
@@ -454,24 +470,24 @@
     "label": "O seu município (opc)",
     "placeholder": "Escolha o município",
     "searchPlaceholder": "Pesquisar",
-    "noResults": "Sem resultados encontrados pela esta pesquisa.\nFaça outra tentativa."
+    "noResults": "Não foram encontrados resultados para esta pesquisa.\nTente com outra opção."
   },
   "locality": {
     "label": "A sua localidade (opc.)",
     "placeholder": "Escolha a sua local.",
     "searchPlaceholder": "Pesquisar",
-    "noResults": "Sem resultados encontrados pela esta pesquisa.\nFaça outra tentativa."
+    "noResults": "Não foram encontrados resultados para esta pesquisa.\nTente com outra opção."
   },
   "appUsage": {
     "title": "Métrica de App",
-    "info": "A HSE gostaria de compreender a sua utilização da App para a melhorar.\n\nA app vai recolher métrica anónima sobre como utiliza a app e a eficiência dos processos de Localização de Contacto.\n\nEsta informação é reunida pela HSE diretamente e não é utilizada por terceiros e não utiliza quaisquer terceiros para reunir métrica. **Esta informação é apenas reunida com o seu consentimento e não pode ser utilizada para o/a identificar.**",
+    "info": "A HSE gostaria de compreender a sua utilização da app com a finalidade de a melhorar.\n\nA app vai recolher métrica anónima sobre como utiliza a app e a eficiência dos processos de Localização de Contactos.\n\nEsta informação é reunida pela HSE diretamente e não utiliza quaisquer partes terceiras para reunir a métrica. **Esta informação é reunida apenas com o seu consentimento e não pode ser utilizada para o/a identificar.**",
     "settingsInfo": "Caso mude de opinião, pode alterar estas permissões nas Definições a qualquer altura.",
     "yesButton": "Sim, consinto",
     "noThanks": "Não, obrigado"
   },
   "metrics": {
     "title": "Métrica de App",
-    "info": "A HSE gostaria de compreender a sua utilização da App para a melhorar.\n\nA app vai recolher métrica anónima sobre como utiliza a app e a eficiência dos processos de Localização de Contacto.\n\nEsta informação é reunida pela HSE diretamente e não é utilizada por terceiros e não utiliza quaisquer terceiros para reunir métrica. **Esta informação é apenas reunida com o seu consentimento e não pode ser utilizada para o/a identificar.**",
+    "info": "A HSE gostaria de compreender a sua utilização da app com a finalidade de a melhorar.\n\nA app vai recolher métrica anónima sobre como utiliza a app e a eficiência dos processos de Localização de Contactos.\n\nEsta informação é reunida pela HSE diretamente e não utiliza quaisquer partes terceiras para reunir a métrica. **Esta informação é reunida apenas com o seu consentimento e não pode ser utilizada para o/a identificar.**",
     "share": "Partilhe estat. util. app"
   },
   "tracingAvailable": {
@@ -494,5 +510,48 @@
     "title_ios": "Encontra-se disponível uma nova versão da Covid Tracker na App Store",
     "title_android": "Encontra-se disponível uma nova versão da Covid Tracker na Play Store",
     "text": "Atualizar agora"
+  },
+  "pause": {
+    "title": "Pausar a Localização de Contactos",
+    "introduction": "Quando estiver em pausa, é necessário reativar no ecrã de Localização de Contactos. Podemos enviar-lhe um lembrete a recordá-lo deste passo.",
+    "dropdown": {
+      "label": "Definir lembrete para reativar em:",
+      "placeholder": "Definir hora"
+    },
+    "alternativeTime": "ou dentro de:",
+    "button": {
+      "label": "Pausar"
+    },
+    "modalHeader": "Definir hora do lembrete",
+    "intervals": {
+      "4": {
+        "label": "+4 hrs"
+      },
+      "8": {
+        "label": "+8 hrs"
+      },
+      "12": {
+        "label": "+12 hrs"
+      },
+      "label": "Definir lembrete para reativar dentro de {{hours}} horas, às {{time}}"
+    },
+    "reminder": {
+      "title": "LEMBRETE: Reativar localização de contactos",
+      "message": "Está na hora de reativar a localização de contactos agora."
+    }
+  },
+  "incidenceRate": {
+    "title": "Taxa nacional de incidência a 14 dias",
+    "perPopulation": "Por População de 100.000",
+    "dateInterval": "{{from}} a {{to}}",
+    "a11yLabel": "De {{from}} a {{to}}, taxa de {{rate}} por população de 100.000"
+  },
+  "lea": {
+    "council": "{{name}} ({{areasCount}})",
+    "county": "Município {{name}} ({{areasCount}})",
+    "lea": "Área Eleitoral Local",
+    "cases": "Casos confirmados",
+    "rate": "Taxa por pop 100k",
+    "population": "População da área"
   }
 }

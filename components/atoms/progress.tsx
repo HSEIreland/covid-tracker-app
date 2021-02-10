@@ -28,8 +28,8 @@ export const Progress: React.FC<ProgressProps> = ({
     <View
       style={[
         styles.progress,
-        backgroundColor && {backgroundColor},
-        width && {width}
+        !!backgroundColor && {backgroundColor},
+        !!width && {width}
       ]}>
       <View style={[styles.progressBar, barStyles]} />
     </View>

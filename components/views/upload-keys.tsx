@@ -1,17 +1,19 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, FC} from 'react';
 import {Text, StyleSheet} from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import {useTranslation} from 'react-i18next';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {useExposure} from 'react-native-exposure-notification-service';
 
 import {useApplication} from '../../providers/context';
-import {saveMetric, METRIC_TYPES} from '../../services/api';
+import {saveMetric, METRIC_TYPES} from '../../services/api/utils';
 
 import {
   validateCode,
   uploadExposureKeys,
   ValidationResult
 } from '../../services/api/exposures';
+import {usePause} from '../../providers/reminders/pause-reminder';
 
 import {DataProtectionLink} from './data-protection-policy';
 
@@ -35,13 +37,18 @@ type UploadStatus =
   | 'permissionError'
   | 'error';
 
-export const UploadKeys = ({navigation}) => {
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
+
+export const UploadKeys: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const exposure = useExposure();
+  const {paused} = usePause();
   const {
     showActivityIndicator,
     hideActivityIndicator,
-    accessibility
+    setContext
   } = useApplication();
 
   const [status, setStatus] = useState<UploadStatus>('initialising');
@@ -108,9 +115,24 @@ export const UploadKeys = ({navigation}) => {
   const uploadDataHandler = async () => {
     let exposureKeys;
     try {
+      if (paused) {
+        try {
+          await exposure.start();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
       exposureKeys = await exposure.getDiagnosisKeys();
     } catch (err) {
       console.log('getDiagnosisKeys error:', err);
+      if (paused) {
+        try {
+          await exposure.pause();
+        } catch (e) {
+          console.log(e);
+        }
+      }
       return setStatus('permissionError');
     }
 
@@ -119,16 +141,28 @@ export const UploadKeys = ({navigation}) => {
       await uploadExposureKeys(uploadToken, exposureKeys);
       hideActivityIndicator();
 
+      setContext({uploadDate: Date.now()});
       setStatus('success');
     } catch (err) {
       console.log('error uploading exposure keys:', err);
       saveMetric({
         event: METRIC_TYPES.LOG_ERROR,
-        payload: JSON.stringify({where: 'uploadExposureKeys', error: JSON.stringify(err)})
+        payload: JSON.stringify({
+          where: 'uploadExposureKeys',
+          error: JSON.stringify(err)
+        })
       });
       hideActivityIndicator();
 
       setStatus('error');
+    } finally {
+      if (paused) {
+        try {
+          await exposure.pause();
+        } catch (e) {
+          console.log(e);
+        }
+      }
     }
 
     try {
@@ -139,9 +173,10 @@ export const UploadKeys = ({navigation}) => {
   const renderValidation = () => {
     return (
       <>
-        <Markdown markdownStyles={{block: {marginBottom: 24}}}>
+        <Markdown markdownStyles={{block: {...text.default, marginBottom: 16}}}>
           {t('uploadKeys:code:intro')}
         </Markdown>
+        <Spacing s={16} />
         <CodeInput
           style={styles.codeInput}
           count={6}

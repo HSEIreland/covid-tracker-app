@@ -12,19 +12,29 @@ import {TrendChart, TrendChartProps} from '../molecules/trend-chart';
 import {text} from '../../theme';
 import {useApplication} from '../../providers/context';
 
-interface TrendChartCardProps extends TrendChartProps {
-  data: DataByDate;
+interface TrendChartCardProps extends Omit<TrendChartProps, 'a11yLabelKey'> {
   title?: string;
+  primaryColor?: string;
+  backgroundColor?: string;
+  a11yLabelKeys?: string[];
+  data: DataByDate;
 }
 
-function extractLatest(data: DataByDate): Date {
+function extractLatest(data: DataByDate): Date | string {
   const [lastTimestamp] = data[data.length - 1];
   return lastTimestamp;
 }
 
 export const TrendChartCard: FC<TrendChartCardProps> = ({
-  data,
   title,
+  data,
+  primaryColor,
+  backgroundColor,
+  a11yLabelKeys = [
+    'confirmedChart:label:default',
+    'confirmedChart:label:months',
+    'confirmedChart:label:all'
+  ],
   ...areaChartProps
 }) => {
   const {chartsTabIndex, setContext} = useApplication();
@@ -78,6 +88,9 @@ export const TrendChartCard: FC<TrendChartCardProps> = ({
       <TrendChart
         data={filteredData}
         chartType={chartType}
+        primaryColor={primaryColor}
+        backgroundColor={backgroundColor}
+        a11yLabelKey={a11yLabelKeys[chartsTabIndex]}
         {...areaChartProps}
       />
       <Spacing s={8} />

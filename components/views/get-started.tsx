@@ -19,7 +19,7 @@ import {Button} from '../atoms/button';
 
 import {colors} from '../../constants/colors';
 import Layouts from '../../theme/layouts';
-import {text} from '../../theme';
+import {baseStyles, text} from '../../theme';
 
 const OnboardingImage = require('../../assets/images/onboarding-bg/bg.png');
 const Logo = require('../../assets/images/logo/logo.png');
@@ -104,7 +104,6 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
           resizeMode="stretch"
           source={OnboardingImage}
           style={styles.background}
-          accessibilityIgnoresInvertColors={false}
         />
         <ScrollView
           style={styles.scrollViewContainer}
@@ -113,7 +112,7 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
           importantForAccessibility="yes">
           <View style={styles.container}>
             <View style={styles.row}>
-              <View style={[styles.image]}>
+              <View style={[styles.image, baseStyles.flipIfRtl]}>
                 <Image
                   resizeMode="contain"
                   source={OnboardImage}
@@ -126,7 +125,6 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
                   source={Logo}
                   style={styles.logo}
                   ref={(r) => (firstEl.current = r)}
-                  accessibilityIgnoresInvertColors={false}
                   accessible
                   importantForAccessibility="yes"
                   accessibilityRole="text"
@@ -232,8 +230,8 @@ export const styles = StyleSheet.create({
     zIndex: 2,
     minHeight: height,
     backgroundColor: 'transparent',
-    paddingLeft: 12 * scale,
-    paddingRight: 12 * scale,
+    paddingStart: 12 * scale,
+    paddingEnd: 12 * scale,
     paddingTop: scale > 2 ? 64 : 32
   },
   row: {
@@ -245,7 +243,7 @@ export const styles = StyleSheet.create({
   image: {
     flex: 1,
     marginBottom: 12,
-    marginRight: -12
+    marginEnd: -12
   },
   intro: {
     flex: 1,

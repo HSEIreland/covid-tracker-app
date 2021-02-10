@@ -2,17 +2,21 @@ import React, {FC, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-import countryCodes from '../../assets/country-codes';
+import countryCodes, {CountryCode} from '../../assets/country-codes';
 
 import {Dropdown} from '../atoms/dropdown';
 import {colors} from '../../constants/colors';
 import {text} from '../../theme';
 
+interface CountryCodeItem extends CountryCode {
+  value: string;
+}
+
 const countryCodeItems = countryCodes.map((cc) => ({
   ...cc,
   value: cc.iso
 }));
-countryCodeItems.splice(2, 0, {});
+countryCodeItems.splice(2, 0, {} as CountryCodeItem);
 
 interface CountryCodeDropdownProps {
   value: string;

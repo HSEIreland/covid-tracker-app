@@ -1,4 +1,11 @@
-import React, {useRef, useEffect, FC, MutableRefObject} from 'react';
+import React, {
+  useRef,
+  useEffect,
+  FC,
+  MutableRefObject,
+  useState,
+  useCallback
+} from 'react';
 import {
   Text,
   View,
@@ -6,7 +13,7 @@ import {
   TouchableWithoutFeedback,
   Animated
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {TFunction} from 'i18next';
 
@@ -14,8 +21,9 @@ import {Spacing} from '../atoms/spacing';
 import {Button} from '../atoms/button';
 import {Link} from '../atoms/link';
 
-import {styles} from './checkin-consent';
+import {styles as consentStyles} from './checkin-consent';
 import {useApplication} from '../../providers/context';
+import {useCheckinReminder} from '../../providers/reminders/checkin-reminder';
 
 import {text} from '../../theme';
 
@@ -35,7 +43,23 @@ interface PromptProps {
 }
 
 const Prompt: FC<PromptProps> = ({complete, t, cardRef, handleNext}) => {
+  const [saving, setSaving] = useState(false);
   const opacity = useRef(new Animated.Value(0));
+
+  useFocusEffect(
+    useCallback(() => {
+      setSaving(false);
+    }, [])
+  );
+
+  const nextHandler = (next?: string) => {
+    if (saving) {
+      return;
+    }
+    setSaving(true);
+
+    handleNext(next);
+  };
 
   useEffect(() => {
     if (!complete) {
@@ -49,7 +73,7 @@ const Prompt: FC<PromptProps> = ({complete, t, cardRef, handleNext}) => {
         toValue: 0,
         duration: DURATION,
         useNativeDriver: false
-      }).start();
+      }).start(() => setSaving(false));
     }
   }, [complete]);
 
@@ -66,15 +90,20 @@ const Prompt: FC<PromptProps> = ({complete, t, cardRef, handleNext}) => {
           <Text style={text.largeBold}>{t('returning:subtitle')}</Text>
         </View>
         <Spacing s={12} />
-        <View style={styles.buttonsContainer}>
+        <View style={consentStyles.buttonsContainer}>
           <Button
+            disabled={saving}
             width="100%"
             type="empty"
-            onPress={() => handleNext('checkIn')}>
+            onPress={() => nextHandler('checkIn')}>
             {t('returning:action1')}
           </Button>
           <Spacing s={16} />
-          <Button width="100%" type="empty" onPress={() => handleNext()}>
+          <Button
+            disabled={saving}
+            width="100%"
+            type="empty"
+            onPress={() => nextHandler()}>
             {t('returning:action2')}
           </Button>
         </View>
@@ -138,13 +167,14 @@ export const QuickCheckIn: React.FC<Props> = ({
 }) => {
   const {t} = useTranslation();
   const app = useApplication();
+  const {doneCheckIn} = useCheckinReminder();
 
   const handleNext = async (value?: string) => {
     if (value !== 'checkIn') {
       return nextHandler && nextHandler();
     }
 
-    app.checkIn(
+    await app.checkIn(
       app.user!.sex!,
       app.user!.ageRange!,
       app.user!.location!,
@@ -156,32 +186,33 @@ export const QuickCheckIn: React.FC<Props> = ({
       },
       {quickCheckIn: true}
     );
+    doneCheckIn();
   };
 
+  const completedChecker = app.isCheckerCompleted();
+
   return (
-    <Animated.View style={styles.container}>
-      <View style={styles.dismissed}>
+    <Animated.View style={consentStyles.container}>
+      <View style={consentStyles.dismissed}>
         <TouchableWithoutFeedback
           accessibilityRole="button"
           accessibilityHint={t('common:dismiss')}
           accessibilityLabel={t('common:dismiss')}
           onPress={onDismissed}>
           <Image
-            accessibilityIgnoresInvertColors
-            style={{width: 24, height: 24}}
-            width={24}
-            height={24}
+            style={consentStyles.iconSize}
+            {...consentStyles.iconSize}
             source={require('../../assets/images/dismiss/dismiss.png')}
           />
         </TouchableWithoutFeedback>
       </View>
       <Prompt
         cardRef={cardRef}
-        complete={app.completedChecker}
+        complete={completedChecker}
         t={t}
         handleNext={handleNext}
       />
-      <Result complete={app.completedChecker} t={t} />
+      <Result complete={completedChecker} t={t} />
     </Animated.View>
   );
 };

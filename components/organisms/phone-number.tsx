@@ -27,12 +27,15 @@ const callBackDefaultValues: PhoneNumberValues = {
   number: ''
 };
 
-function isValidPhoneNumber(value: string = ''): boolean {
+function isValidPhoneNumber(value: string | null = ''): boolean {
+  // @ts-ignore: adding `this` to function args as per TS docs breaks args
+  const iso: string = this?.parent?.iso;
+
   if (!value) {
     return true;
   }
 
-  const country = countryCodes.find((cc) => cc.iso === this.parent.iso);
+  const country = countryCodes.find((cc) => cc.iso === iso);
   if (!country) {
     return false;
   }
@@ -85,7 +88,10 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
     enableReinitialize: true,
     onSubmit: async ({iso, number}) => {
       const country = countryCodes.find((cc) => cc.iso === iso);
-      const [mobile] = phone(`${country?.code}${number.replace(/^0+/, '')}`, iso);
+      const [mobile] = phone(
+        `${country?.code}${number.replace(/^0+/, '')}`,
+        iso
+      );
       app.setContext({
         callBackData: {
           iso,

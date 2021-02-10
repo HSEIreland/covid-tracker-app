@@ -12,8 +12,9 @@
     "dismiss": "Dismiss",
     "registerError": "Sorry, that didn't work properly.Error code: ({{code}}).\nPlease try again.",
     "registerTimestampError": "We couldn’t verify your device. Please check it’s set to the correct date and time, and try again.",
-    "millions": "millions",
-    "thousands": "thousands"
+    "millions": "million",
+    "thousands": "thousands",
+    "continue": "Continue"
   },
   "viewNames": {
     "age": "Confirm your age",
@@ -31,7 +32,11 @@
     "metrics": "Settings For App Metrics",
     "leave": "Leave COVID Tracker Ireland",
     "contactTracing": "Contact Tracing",
-    "requestACallback": "Request a call-back"
+    "requestACallback": "Request a call-back",
+    "venueHistory": "Venue Check-In",
+    "riskyVenueContact": "Risky Venue Contact",
+    "vaccineStats": "Vaccination Stats",
+    "vaccineByCounty": "Vaccinations By County"
   },
   "navbar": {
     "settings": "Settings",
@@ -43,8 +48,7 @@
     "updates": "Updates",
     "symptomCheck": "COVID Check-In",
     "contactTracing": "Contact Tracing",
-    "shareApp": "Share app ",
-    "shareError": "There was an error sharing. Please try again or contact us."
+    "vaccine": "Vaccine\nStats"
   },
   "onboarding": {
     "intro": {
@@ -62,7 +66,7 @@
         "text": "Keep up to date on the fight against COVID-19."
       },
       "view4": {
-        "text": "If you tap Get started, you are accepting the ",
+        "text": "If you tap Get started, you are accepting the",
         "link": "Terms & Conditions"
       },
       "action": "Get started"
@@ -113,9 +117,9 @@
         "confrmed": "Hospital confirmed cases"
       },
       "icu": {
-        "admissions": "Intensive Care Unit admissions",
-        "discharges": "Intensive Care Unit discharges",
-        "confrmed": "Intensive Care Unit confirmed cases"
+        "admissions": "ICU admissions",
+        "discharges": "ICU discharges",
+        "confrmed": "ICU confirmed cases"
       }
     },
     "last7days": {
@@ -137,11 +141,11 @@
     "question3": "**Do you have any difficulty breathing?**\n\nThis might be like panting or feeling like you can't fill your lungs.",
     "question3Label": "Difficulty breathing",
     "question4id": "flu",
-    "question4": "**Do you have any loss of sense of taste or smell?**\n\nThis might mean you can't taste or smell anything, or things taste or smell different to normal.",
-    "question4Label": "Loss of sense of taste or smell",
+    "question4": "**Do you have any loss or change to your sense of taste or smell?**\n\nThis might mean you can't taste or smell anything, or things taste or smell different to normal.",
+    "question4Label": "Loss or change of sense of taste or smell",
     "yes": "Yes",
     "no": "No",
-    "virusIsolation": "These symptoms are a match for the symptoms of coronavirus. Remember, 8 out of 10 people with COVID-19 recover at home with rest and over-the-counter medicine.\n\n## What to do next\n\nPlease self-isolate at home to protect others.\n\nCall your GP to get advice and see if you should be tested for COVID-19.",
+    "virusIsolation": "These symptoms are a match for the symptoms of coronavirus. Remember, 8 out of 10 people with COVID-19 recover at home with rest and over-the-counter medicine.\n\n## What to do next\n\nPlease self-isolate at home to protect others.\n\nPhone your GP to get advice and see if you should be tested for COVID-19.",
     "recovered": "Good to hear you’re feeling better. Stay well by following the advice on hse.ie.",
     "linkButton": "Read more advice here",
     "viewHistory": "View my history",
@@ -156,7 +160,7 @@
       "protectionAdvice": "Advice on protection"
     },
     "noSymptomsNotWell": {
-      "message": "Thank you for checking in. Sorry to hear you're not feeing well.\n\nIf you have symptoms like a runny nose or sore throat, you should behave like you have coronavirus and self-isolate for 14 days to protect other people.\n\nPhone your GP to discuss your symptoms and whether you need a test for coronavirus.",
+      "message": "Thank you for checking in. We are sorry that you are not feeling well.\n\nIf you develop any symptoms of COVID-19, self-isolate and phone your GP immediately.",
       "viewHistory": "View my history",
       "advice": "Visit hse.ie to read more about how to protect yourself and others from coronavirus.",
       "protectionAdvice": "Advice on protection"
@@ -188,14 +192,20 @@
     "contactTracingHint": "View or amend settings for Contact Tracing",
     "checkIn": "COVID Check-In",
     "checkinHint": "View or amend settings for COVID Check In",
+    "checkInReminder": "COVID Check-In Reminder",
+    "checkinReminderHint": "Set up a daily reminder to check symptoms",
     "privacyPolicy": "Data Protection Information Notice",
     "privacyPolicyHint": "View the Data Protection Information Notice",
     "termsAndConditions": "Terms & Conditions",
     "termsAndConditionsHint": "View the Terms and Conditions",
     "metrics": "App Metrics",
     "metricsHint": "View or amend settings for App Metrics",
+    "language": "App Language",
+    "languageHint": "View or amend settings for App Language",
     "leave": "Leave",
-    "leaveHint": "Leave the application"
+    "leaveHint": "Leave the application",
+    "venueHistory": "Venue Check-In",
+    "venueHistoryHint": "View the Venue Check-In"
   },
   "leave": {
     "title": "Leave",
@@ -220,6 +230,10 @@
     "nationalPicture": "The national picture",
     "breakdown": "Tap for county breakdown"
   },
+  "languageSettings": {
+    "title": "App Language",
+    "intro": "Choose your language:"
+  },
   "contactTracing": {
     "title": "Contact Tracing",
     "active": {
@@ -228,7 +242,7 @@
     },
     "noSupport": {
       "title": "Contact Tracing not available",
-      "message": "Unfortunately, this device does not support Contact Tracing. You can still use the app for COVID Check-In and Updates."
+      "message": "Unfortunately, this device does not support Exposure Notification Services and can't alert you if you have been in close contact with someone who has tested positive for COVID-19."
     },
     "canSupport": {
       "title": "Contact Tracing not available",
@@ -240,19 +254,26 @@
     },
     "notEnabled": {
       "title": "Contact Tracing not enabled",
-      "message": "To enable Contact Tracing you need it setup.",
-      "button": "Setup"
+      "message": "You need to enable Exposure Notification Services to activate Contact Tracing.",
+      "button": "Enable"
     },
     "notActive": {
       "title": "Contact Tracing not active",
-      "message00": "You need to enable **Exposure notification service** in your settings",
-      "message10": "You need to enable **Exposure notification service** in your settings",
-      "message01": "You need to enable **Bluetooth** in your settings",
-      "message11": "You need to enable **Exposure notification service** and **Bluetooth** in your settings",
-      "button": "Go to settings",
+      "message00": "You need to accept Exposure Notification Services in your settings.",
+      "message10": "You need to accept Exposure Notification Services in your settings.",
+      "message01": "You need to enable Bluetooth in your settings.",
+      "message11": "You need to accept Exposure Notification Services and enable Bluetooth in your settings.",
+      "button": "Go to device settings",
       "android": {
         "button": "Enable",
-        "message": "You need to enable **Exposure notification service** to activate Contact Tracing"
+        "message": "You need to enable Exposure Notification Services to activate Contact Tracing."
+      }
+    },
+    "pause": {
+      "text": "Pause Contact Tracing",
+      "paused": "Paused - reminder set for {{time}}",
+      "reactivate": {
+        "label": "Reactivate exposure alerts"
       }
     },
     "registrationsTitle": "App registrations",
@@ -285,6 +306,7 @@
         "title": "Status",
         "active": "Service is currently active",
         "notActive": "Service is not active",
+        "paused": "Service is currently paused",
         "intro": "To update your permission settings, go to your device's app settings.",
         "gotoSettings": "Update settings",
         "android": {
@@ -316,9 +338,12 @@
   },
   "confirmedChart": {
     "title": "Daily confirmed cases",
-    "label": "Daily confirmed cases graph",
+    "label": {
+      "default": "{{total}} total confirmed cases in the last 2 weeks",
+      "months": "{{total}} total confirmed cases in the last 2 months",
+      "all": "{{total}} total confirmed cases"
+    },
     "hint": "Graph showing daily confirmed cases over time",
-    "yesterday": "confirmed cases yesterday",
     "prevCases": "Cases",
     "prevDeaths": "Deaths",
     "prevCase": "Case",
@@ -332,8 +357,8 @@
   },
   "statsSource": {
     "monitor": "COVID-19 Health Surveillance Monitor (Ireland)",
-    "lastUpdatedStats": "Confirmed cases last update: ",
-    "lastUpdatedProfile": "Cases profile last update: "
+    "lastUpdatedStats": "Confirmed cases last update:",
+    "lastUpdatedProfile": "Cases profile last update:"
   },
   "symptomsHistory": {
     "title": "Your symptom history",
@@ -353,7 +378,7 @@
   },
   "yourData": {
     "title": "Your data",
-    "info": "The COVID Tracker app protects your privacy and does not share personal information about you with other app users. **Your identity will never be revealed to other app users.**\n\nAny personal data you provide will be processed in line with GDPR and data protection law. You can read more about this in the Data Protection Information Notice below. **Your data will only be used in relation to the COVID-19 pandemic response** as set out in the Data Protection Information Notice.\n\nIf you need to be alerted, the app will start this process with a secure in-app notification. Separate to using this app, the HSE contact tracing team may phone you if someone with COVID-19 identifies you as a close contact. If you have a COVID-19 test, the HSE will contact you by text or by phone with results.\n\nTake care with any suspicious phone calls, emails or texts asking you for personal information. **The HSE will not ask you for personal information by text or email.**",
+    "info": "The COVID Tracker app protects your privacy and does not share personal information about you with other app users. **Your identity will never be revealed to other app users.**\n\nAny personal data you provide will be processed in line with GDPR and data protection law. You can read more about this in the Data Protection Information Notice below. **Your data will only be used in relation to the COVID-19 pandemic response** as set out in the Data Protection Information Notice.\n\nIf you need to be alerted, the app will start this process with a secure in-app notification. Separate to using this app, the HSE Contact Tracing team may phone you if someone with COVID-19 identifies you as a close contact. If you have a COVID-19 test, the HSE will contact you by text or by phone with results.\n\nTake care with any suspicious phone calls, emails or texts asking you for personal information. **The HSE will not ask you for personal information by text or email.**",
     "viewInSettings": "You can view this notice at any time in Settings. If you do not want to continue, close and delete the app. If you consent, tap Continue to proceed.",
     "continue": "Continue"
   },
@@ -369,15 +394,15 @@
   },
   "underAge": {
     "title": "Under 16",
-    "notice": "Thank you for your interest but unfortunately you are too young to participate in this initiative.\n\nKeep safe."
+    "notice": "Thank you for your interest but unfortunately you are too young to participate in this initiative.\n\nKeep safe.\n\nVisit hse.ie to read more about how to protect yourself and others from coronavirus.",
+    "protectionAdvice": "Advice on protection"
   },
   "followUpCall": {
     "title": "Contact Tracing follow-up call",
     "shortTitle": "Call Back",
     "intro": "If someone you've been in close contact with tests positive for COVID-19, the app will send you a Close Contact Alert.  The HSE will also phone you if you provide your number below.",
-    "note": "The HSE may also phone if you are identified as a close contact by manual contact tracing. The HSE will give you advice and refer you for testing if appropriate.\n\nThe app will only share your phone number with the HSE if you get a Close Contact Alert. You can enter your number below, or add it later in Settings.",
-    "noteAlt": "If someone you've been in close contact with tests positive for COVID-19, the app will send you a Close Contact Alert.  The HSE will also phone you if you provide your number below.\n\nThe HSE may also phone if you are identified as a close contact by manual contact tracing. The HSE will give you advice and refer you for testing if appropriate.\n\nThe app will only share your phone number with the HSE if you get a Close Contact Alert. You can enter your number below.",
-    "noteSettings": "If you want we will try to call you to provide further assistance after you receive an exposure notification.\n\nYour phone number will only be shared with the HSE if you get an exposure notification.",
+    "note": "The HSE will give you advice and refer you for testing if appropriate.\n\nThe app will only share your phone number with the HSE if you get a Close Contact Alert. You can enter your number below, or add it later.",
+    "noteAlt": "The app will send you a Close Contact Alert if someone you have been in close contact with tests positive for COVID-19.\n\nThe HSE may also phone you when this happens to give you advice on what to do.\n\nYou can enter your phone number below or add it in Settings at a later stage. Your phone number will only be shared with the HSE if you get a Close Contact Alert.",
     "optIn": "Yes, I want to opt-in",
     "noThanks": "No thanks"
   },
@@ -385,45 +410,67 @@
     "title": "Close Contact Alert",
     "description": "Please check the COVID Tracker app now."
   },
+  "exposureReminder": {
+    "notification": {
+      "title": "COVID Tracker Reminder",
+      "description": "Please check the COVID Tracker app now."
+    },
+    "card": {
+      "title": "Close Contact Reminder",
+      "description": "This is a reminder that you must continue to restrict your movements (stay at home) until {{restrictionEnd}}, unless advised otherwise by HSE contact tracing team.\n\nIf you become unwell or develop new symptoms, you need to self-isolate (stay in your room) and phone your doctor.\n\nMore information is available at https://hse.ie/cvdcc"
+    }
+  },
+  "restrictionEnd": { 
+    "notification": {
+      "title": "COVID Tracker Reminder",
+      "description": "Please check the COVID Tracker app now."
+    },
+    "card": {
+      "title": "Close Contact Reminder",
+      "description": "This is to confirm that your period of restricted movement is complete today ({{restrictionEnd}}).\n\nAs long as you don't have any COVID-19 symptoms, you may move more freely as before, taking care to practice good hygiene and social distancing.\n\nMore information is available at https://hse.ie/cvdcc"
+    }
+  },
+  "caseReminder": {
+    "notification": {
+      "title": "COVID Tracker Reminder",
+      "description": "Please check the COVID Tracker app now."
+    },
+    "card": {
+      "title": "Self-Isolation Reminder",
+      "description": "This is a reminder from the HSE that you must continue to stay at home & self-isolate (stay in your room) for 10 days from when your symptoms began, or from the date of your test if you have no symptoms.\n\nIf you become unwell phone your doctor.\n\nMore information is available at https://hse.ie/cvdpos/"
+    }
+  },
   "closeContactWarn": {
     "title": "Close Contact Alert",
     "notice": "The app has detected that you have been in close contact with someone who has tested positive for COVID-19."
   },
-  "closeContact": {
-    "title": "Close contact",
-    "text": "The easiest way to check what to do next is to request a call back from the Contact Tracing Team. They will check if your close contact alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.",
-    "titleInfo": "Close contact information",
-    "introInfo": "If you have received a notification from the app, or a call from our Contact Tracing team, telling you that you have been in close contact with someone that has tested positive for coronavirus, you may need to be tested.",
-    "text1Info": "If you get an alert in the app, the easiest way to check what to do next is to request a call back from the Contact Tracing team. They will check if your Close Contact Alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.\n\nThere are some things that you should do to protect others.",
-    "text2Info": "**Phone your GP if you develop symptoms.\n\nFind out more about what you need to do on hse.ie",
-    "titleAlert": "Close Contact Alert",
-    "introAlert": "The COVID Tracker app has detected that you have been in close contact with someone that has tested positive for coronavirus. You may need to be tested.",
-    "text1Alert": "**The Contact Tracing team will be in touch with you shortly. They will check if your Close Contact Alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.**\n\nThere are some things that you should do to protect others.",
-    "text2Alert": "**Phone your GP if you develop symptoms.**\n\nFind out more about what you need to do on hse.ie",
-    "todo": "1. Stay at home.\n\n2. Do not go to work.\n\n3. Do not use public transport.\n\n4. Do not have visitors at your home.\n\n5. Do not visit others, even if you usually care for them.\n\n6. Do not go to the shops or pharmacy unless it''s absolutely necessary - where possible, order your groceries online or have some family or friends drop them off.\n\n7. Keep away from older people, anyone with long-term medical conditions and pregnant women.",
-    "gotoHSE": "Go to HSE.ie",
-    "requestCallback": {
-      "title": "Request a call-back",
-      "text": "Speak with a member of our Contact Tracing team"
-    }
+  "closeContactInfo": {
+    "title": "Close contact information",
+    "content": "**If you have been in close contact with someone who has tested positive for COVID-19 you will see a red box saying ‘Close Contact Alert’ in the app.**\n\nIf you have shared your phone number our contact tracing team will call you within 48 hours. They will tell you what you need to do and arrange a test if necessary.\n\nThere are some places where special precautions are taken such as schools and healthcare facilities. If you are in one of these places we will give you advice on what you need to do if you receive a close contact alert."
+  },
+  "closeContactAlert": {
+    "title": "Close Contact Alert",
+    "content": "**You have received an alert because you were in close contact with someone who has tested positive for coronavirus on [[closeContactDate]]**.\n\n<<CALL-BACK>>\n\n# You should now restrict your movements\n\n* Stay at home\n\n* Don’t go to work, school or college.\n\n* Don’t use public transport.\n\n* Do not have visitors to your home, and don’t visit other people\n\n* Don’t go shopping unless absolutely necessary.\n\nIf you develop any symptoms of COVID-19, self-isolate and phone your GP immediately.\n\n# Close contact alerts in schools\n\nIf there is a confirmed case in the school, the local public health department will advise the principal what action you need to take.\n\nIf you were in school on [[closeContactDate]] you should:\n\n* Let the school know you have received an alert.\n\n* Follow the advice that public health have given to the school.\n\n* Let the contact tracing team know that there is a confirmed case in your school when they call you.\n\n# Close contact alert in healthcare settings\n\nYou should talk to your local Occupational Health team about your close contact alert. When you speak to our contact tracing team tell them you are a healthcare worker.\n\nRead more about what you need to do on [HSE.ie](https://www.hse.ie).",
+    "call-back": "Enter your phone number below so you can receive a call from our contact tracing team within 48 hours. They will tell you what you need to do and arrange a test if necessary.\n\n<<PHONE-NUMBER>>\n\nYou can also call HSELive on 1850 24 1850 to arrange a call back from our contact tracing team.",
+    "callback-queued": "Your phone number [[phone_number]] has been sent to our contact tracing team. They will call you in the next 48 hours to arrange a test."
   },
   "uploadKeys": {
     "title": "Upload your Random IDs",
     "code": {
-      "intro": "A member of the Contact Tracing team may ask you to share Random IDs generated by your phone over the previous 14 days.\n\nIf so, you will receive a unique 6-digit code by text message to activate the upload functionality.",
+      "intro": "A member of the Contact Tracing team may ask you to share Random IDs generated by your phone over the previous 14 days.\n\nIf so, you will receive a unique 6-digit code by text message to activate the upload functionality. Please enter your code in the boxes below.",
       "expiredError": "Code has expired. Contact HSE to request another one.",
       "invalidError": "Invalid code. Please try again.",
       "error": "There was an error validating the code. Please try again."
     },
     "upload": {
-      "intro": "To assist us in tracing your recent contacts over the last 14 days, we are asking you to share your anonymous Random IDs generated by your phone with the HSE.",
+      "intro": "To assist us in tracing your recent contacts over the last 14 days, we are asking you to share your Random IDs generated by your phone with the HSE.",
       "button": "Upload your Random IDs to HSE"
     },
     "permissionError": "We have not uploaded your keys as you did not grant permission.",
     "uploadError": "An error occurred trying to upload",
     "uploadSuccess": {
       "toast": "Upload complete",
-      "thanks": "Thanks for uploading your Random Ids. This will help our contact tracing team to slow the spread of COVID-19 and protect others.",
+      "thanks": "Thanks for uploading your Random IDs. This will help our Contact Tracing team to slow the spread of COVID-19 and protect others.",
       "updates": "Return to Updates"
     }
   },
@@ -447,7 +494,7 @@
       }
     },
     "number": {
-      "label": "Your phone number (optional)",
+      "label": "Your phone number",
       "placeholder": "Your number",
       "error": {
         "invalid": "Your number is not valid. Please provide your full phone number.",
@@ -470,14 +517,14 @@
   },
   "appUsage": {
     "title": "App Metrics",
-    "info": "The HSE would like to understand your use of the App for the purpose of improving it.\n\nThe app will collect anonymous metrics about how you use the app and the effectiveness of Contact Tracing processes.\n\nThis information is gathered by the HSE directly and does not use any third parties to gather metrics. **This information is only gathered with your consent and cannot be used to identify you.**",
+    "info": "The HSE would like to understand your use of the app for the purpose of improving it.\n\nThe app will collect anonymous metrics about how you use the app and the effectiveness of Contact Tracing processes.\n\nThis information is gathered by the HSE directly and does not use any third parties to gather metrics. **This information is only gathered with your consent and cannot be used to identify you.**",
     "settingsInfo": "If you change your mind, you can change these permissions in Settings at any time.",
     "yesButton": "Yes, I consent",
     "noThanks": "No thanks"
   },
   "metrics": {
     "title": "App Metrics",
-    "info": "The HSE would like to understand your use of the App for the purpose of improving it.\n\nThe app will collect anonymous metrics about how you use the app and the effectiveness of Contact Tracing processes.\n\nThis information is gathered by the HSE directly and does not use any third parties to gather metrics. **This information is only gathered with your consent and cannot be used to identify you.**",
+    "info": "The HSE would like to understand your use of the app for the purpose of improving it.\n\nThe app will collect anonymous metrics about how you use the app and the effectiveness of Contact Tracing processes.\n\nThis information is gathered by the HSE directly and does not use any third parties to gather metrics. **This information is only gathered with your consent and cannot be used to identify you.**",
     "share": "Share app usage statistics"
   },
   "tracingAvailable": {
@@ -500,5 +547,166 @@
     "title_ios": "A new version of Covid Tracker is available on the App Store",
     "title_android": "A new version of Covid Tracker is available on the Play Store",
     "text": "Update now"
+  },
+  "pause": {
+    "title": "Pause Contact Tracing",
+    "introduction": "Once paused, you will need to reactivate on the Contact Tracing screen. We can send you a reminder to do this.",
+    "dropdown": {
+      "label": "Set up reminder to reactivate at:",
+      "placeholder": "Set time"
+    },
+    "alternativeTime": "or in:",
+    "button": {
+      "label": "Pause"
+    },
+    "modalHeader": "Set reminder time",
+    "intervals": {
+      "4": {
+        "label": "+4 hrs"
+      },
+      "8": {
+        "label": "+8 hrs"
+      },
+      "12": {
+        "label": "+12 hrs"
+      },
+      "label": "Set up reminder to reactivate in {{hours}} hours, at {{time}}"
+    },
+    "reminder": {
+      "title": "REMINDER: Reactivate contact tracing",
+      "message": "It's time to reactivate contact tracing now."
+    }
+  },
+  "reminder": {
+    "title": "Setup reminder",
+    "switch": "COVID Check-In daily reminder",
+    "modalHeader": "Set reminder time",
+    "time": "Time",
+    "toast": {
+      "today": "You will be notified every day starting today at {{time}}",
+      "tomorrow": "You will be notified every day starting tomorrow at {{time}}"
+    },
+    "notification": {
+      "title": "Check-In Reminder",
+      "message": "How are you feeling today? It's time for your daily check-in."
+    },
+    "card": {
+      "active": "We'll remind you to check-in tomorrow at {{time}}.",
+      "inactive": "Set up a daily reminder to check symptoms."
+    }
+  },
+  "incidenceRate": {
+    "title": "National 14-day incidence rate",
+    "perPopulation": "Per 100,000 Population",
+    "dateInterval": "{{from}} to {{to}}",
+    "a11yLabel": "From {{from}} to {{to}}, rate of {{rate}} per 100,000 population"
+  },
+  "lea": {
+    "council": "{{name}} ({{areasCount}})",
+    "county": "County {{name}} ({{areasCount}})",
+    "lea": "Local Electoral Area",
+    "cases": "Confirmed cases",
+    "rate": "Rate per 100k pop",
+    "population": "Area population"
+  },
+  "venueCheckIn": {
+    "title": "Venue check-In",
+    "subTitle": "Check in to a venue by scanning an official QR code",
+    "scan": {
+      "title": "Check in to a venue by scanning an official QR code",
+      "description": "Your phone will confirm when the venue has been recognised.",
+      "footer": "If you need assistance, please speak to a member of staff at the venue.",
+      "authRequired": {
+        "title": "Allow camera access",
+        "description": "This app needs access to your camera in order to check in to venues by scanning official QR codes.",
+        "cancelButton": "Go back",
+        "confirmButton": "Allow camera permissions"
+      }
+    },
+    "result": {
+      "success": {
+        "title": "Successful check-in",
+        "message": "Thank you for scanning the QR code.\nYour visit to this venue has been recorded.",
+        "continueButton": "Continue",
+        "cancelButton": "Cancel this check-in"
+      },
+      "error": {
+        "title": "QR code not recognised",
+        "message": "It may not be an official QR code or it could be damaged. Please speak to a member of staff at the venue for assistance.",
+        "tryAgainButton": "Try again"
+      }
+    },
+    "history": {
+      "title": "Venue History",
+      "noVenues": "You haven’t checked in to any venues yet. Once you do, you will be able to view your history and delete individual records here.",
+      "editButton": "Edit",
+      "deleteAllButton": "Delete all check-in data",
+      "alert": {
+        "title": "Delete all check-in data",
+        "message": "Are you sure you want to delete all of your venue check-in data?",
+        "confirmButton": "Delete",
+        "cancelButton": "Cancel"
+      }
+    },
+    "notification": {
+      "title": "Risky Venue Alert",
+      "message": "Please check the COVID Tracker app now."
+    },
+    "riskyVenueContact": {
+      "title": "Risky Venue Alert",
+      "alertintro": "The COVID Tracker app has detected that you have been in a venue together with other customers, and one of them has tested positive for coronavirus. You may need to be tested.",
+      "todo": {
+        "list": "# You should now restrict your movements\n\n* Stay at home\n\n* Do not go to work, school, college or use public transport\n\n* Do not have visitors to your home, and don’t visit other people\n\n* Do not go to the shops or pharmacy unless it’s absolutely necessary."
+      },
+      "symptoms": {
+        "title": "Phone your GP if you develop symptoms.",
+        "intro": "Find out more about what you need to do on hse.ie.",
+        "callHSE": "Go to HSE.ie"
+      }
+    }
+  },
+  "vaccineStats": {
+    "headline": {
+      "heading": "Vaccination Headline Figures",
+      "first": "First dose vaccinations",
+      "second": "Second dose vaccinations",
+      "lastUpdated": "Last updated {{date}}"
+    },
+    "doses": {
+      "heading": "Doses administered",
+      "label": {
+        "default": "{{total}} total doses administered in the last 2 weeks",
+        "months": "{{total}} total doses administered in the last 2 months",
+        "all": "{{total}} total doses administered"
+      },
+      "hint": "Graph showing daily doses administered over time"
+      },
+    "demographics": {
+      "heading": "Doses by age and gender",
+      "age": "Age group",
+      "male": "Male",
+      "female": "Female",
+      "summary": "in the {{title}} age group, {{male}} males and {{female}} females recieved doses"
+    },
+    "vendor": {
+      "heading": "Doses by vaccine type",
+      "first": "1st dose",
+      "second": "2nd",
+      "summary": "{{name}}: {{total}} doses administered, {{first}} first doses and {{second}} second doses"
+    },
+    "missing": {
+      "title": "More stats coming soon",
+      "description": "As the vaccine rollout increases we will populate this area with more statistics as they come available."
+    }
+  },
+  "vaccineByCounty": {
+    "card": {
+      "title": "Vaccinations by county",
+      "description": "Tap for county breakdown"
+    },
+    "heading": "Vaccinations by county",
+    "previous": "Previous 7 days",
+    "total": "Total",
+    "summary": "{{county}}: {{total}} vaccination doses administered, {{last7}} in the previous week"
   }
 }

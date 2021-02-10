@@ -1,16 +1,18 @@
 import React, {useState, useCallback, FC, useEffect} from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {startOfDay, sub, isBefore, format} from 'date-fns';
 
 import {Heading} from '../atoms/heading';
+import {ArrowIcon} from '../atoms/arrow-icon';
 
 import {useApplication} from '../../providers/context';
+import {getDateLocaleOptions} from '../../services/i18n/date';
 
 import {colors} from '../../constants/colors';
 import {shadows, text} from '../../theme';
 import Layouts from '../../theme/layouts';
-import {DataByDate} from 'services/api';
+import {DataByDate} from '../../services/api';
 import {StackScreenProps} from '@react-navigation/stack';
 
 function getCountyStats(data: DataByDate): readonly [number, number] {
@@ -20,7 +22,7 @@ function getCountyStats(data: DataByDate): readonly [number, number] {
 
   const twoWeeksAgo = sub(lastDate, {weeks: 2});
   const twoWeeksStat = data.reduce(
-    (total: number, [date, stat]: [date: string, stat: any]) => {
+    (total: number, [date, stat]: [date: Date | string, stat: any]) => {
       if (isBefore(new Date(date), twoWeeksAgo)) {
         return total;
       }
@@ -44,7 +46,9 @@ function numberToText(stat: any) {
 }
 
 export const CountyBreakdown: FC<StackScreenProps<any>> = ({navigation}) => {
-  const {t} = useTranslation();
+  const {i18n, t} = useTranslation();
+  const dateLocale = getDateLocaleOptions(i18n);
+
   const app = useApplication();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -60,11 +64,13 @@ export const CountyBreakdown: FC<StackScreenProps<any>> = ({navigation}) => {
   const handlePress = (countyName: string) =>
     navigation.navigate('chartByCounty', {countyName});
 
-  const sampleCountyData = app.data?.counties[0].dailyCases;
+  const countiesData = app.data?.counties;
+  const sampleCountyData = countiesData && countiesData.length > 0 && countiesData[0].dailyCases;
   const sourceDate = sampleCountyData
     ? format(
         new Date(sampleCountyData[sampleCountyData.length - 1][0]),
-        'do MMM'
+        'do MMM',
+        dateLocale
       )
     : '';
 
@@ -105,62 +111,60 @@ export const CountyBreakdown: FC<StackScreenProps<any>> = ({navigation}) => {
             </View>
             <View style={styles.iconColumn} />
           </View>
-          {app.data.counties.map(({county, dailyCases}, index) => {
-            const [lastStat, twoWeeksStat] = getCountyStats(dailyCases);
-            const a11yLabel = t('casesByCounty:summary', {
-              county,
-              lastStat,
-              date: sourceDate,
-              twoWeeksStat
-            });
-            const a11yHint = t('casesByCounty:summaryHint', {
-              county
-            });
-            return (
-              <TouchableOpacity
-                key={`county-${county}`}
-                onPress={() => handlePress(county)}
-                activeOpacity={0.8}
-                accessibilityRole="link"
-                accessibilityLabel={a11yLabel}
-                accessibilityHint={a11yHint}>
-                <View
-                  style={[
-                    styles.line,
-                    index === (app.data && app.data.counties.length - 1) &&
-                      styles.lastLine
-                  ]}>
-                  <View style={styles.textColumn}>
-                    <Text maxFontSizeMultiplier={1.4} style={styles.rowHeading}>
-                      {county}
-                    </Text>
-                  </View>
-                  <View style={styles.numberColumn}>
-                    <View style={styles.numberWrapper}>
-                      <Text maxFontSizeMultiplier={1.4} style={styles.number}>
-                        {numberToText(lastStat)}
+          {countiesData &&
+            countiesData.map(({county, dailyCases}, index) => {
+              if (!dailyCases || county === undefined) {
+                return null;
+              }
+              const [lastStat, twoWeeksStat] = getCountyStats(dailyCases);
+              const a11yLabel = t('casesByCounty:summary', {
+                county,
+                lastStat,
+                date: sourceDate,
+                twoWeeksStat
+              });
+              const a11yHint = t('casesByCounty:summaryHint', {
+                county
+              });
+              const isLast = countiesData && index === countiesData.length - 1;
+              return (
+                <TouchableOpacity
+                  key={`county-${county}`}
+                  onPress={() => handlePress(county)}
+                  activeOpacity={0.8}
+                  accessibilityRole="link"
+                  accessibilityLabel={a11yLabel}
+                  accessibilityHint={a11yHint}>
+                  <View style={[styles.line, isLast && styles.lastLine]}>
+                    <View style={styles.textColumn}>
+                      <Text
+                        maxFontSizeMultiplier={1.4}
+                        numberOfLines={1} // Truncate long names on small screens: tap shows full name
+                        style={styles.rowHeading}>
+                        {county}
                       </Text>
                     </View>
-                  </View>
-                  <View style={styles.numberColumn}>
-                    <View style={styles.numberWrapper}>
-                      <Text maxFontSizeMultiplier={1.4} style={styles.number}>
-                        {numberToText(twoWeeksStat)}
-                      </Text>
+                    <View style={styles.numberColumn}>
+                      <View style={styles.numberWrapper}>
+                        <Text maxFontSizeMultiplier={1.4} style={styles.number}>
+                          {numberToText(lastStat)}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.numberColumn}>
+                      <View style={styles.numberWrapper}>
+                        <Text maxFontSizeMultiplier={1.4} style={styles.number}>
+                          {numberToText(twoWeeksStat)}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.iconColumn}>
+                      <ArrowIcon />
                     </View>
                   </View>
-                  <View style={styles.iconColumn}>
-                    <Image
-                      accessibilityIgnoresInvertColors
-                      style={styles.arrowIcon}
-                      {...styles.arrowIcon}
-                      source={require('../../assets/images/arrow-right/teal.png')}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+                </TouchableOpacity>
+              );
+            })}
         </View>
       )}
     </Layouts.Scrollable>
@@ -226,10 +230,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end'
-  },
-  arrowIcon: {
-    width: 24,
-    height: 24
   },
   columnHeading: {
     ...text.smallBold,

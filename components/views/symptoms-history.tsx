@@ -1,22 +1,35 @@
-import React from 'react';
-import {StyleSheet, View, Image, Text, ViewStyle} from 'react-native';
+import React, {FC} from 'react';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  ViewStyle,
+  ImageSourcePropType
+} from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 import {format} from 'date-fns';
 import {useExposure} from 'react-native-exposure-notification-service';
 
-import {useApplication} from '../../providers/context';
+import {Symptoms, useApplication} from '../../providers/context';
 import {useAppState} from '../../hooks/app-state';
+import {getDateLocaleOptions} from '../../services/i18n/date';
 
 import {Spacing} from '../atoms/layout';
 import {Card} from '../atoms/card';
 import {Heading} from '../atoms/heading';
 import {Toast} from '../atoms/toast';
 import {CheckInCard} from '../molecules/check-in-card';
+import {CheckinReminderCard} from '../molecules/checkin-reminder-card';
 
 import {colors} from '../../constants/colors';
 import Layouts from '../../theme/layouts';
 import {text} from '../../theme';
+
+type Icons = Record<'1' | '2' | '3' | '4', ImageSourcePropType>;
+type IconsKey = keyof Icons;
 
 const symptomsHistoryIcons = {
   '1': require('../../assets/images/symptoms-history/1_temp.png'),
@@ -25,9 +38,15 @@ const symptomsHistoryIcons = {
   '4': require('../../assets/images/symptoms-history/4_nose.png')
 };
 
-export const SymptomsHistory = ({navigation}) => {
-  const {t} = useTranslation();
-  const {completedChecker, checks, verifyCheckerStatus} = useApplication();
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
+
+export const SymptomsHistory: FC<Props> = ({navigation}) => {
+  const {i18n, t} = useTranslation();
+  const dateLocale = getDateLocaleOptions(i18n);
+
+  const {isCheckerCompleted, checks} = useApplication();
   const [appState] = useAppState();
   const isFocused = useIsFocused();
   const {readPermissions} = useExposure();
@@ -39,9 +58,10 @@ export const SymptomsHistory = ({navigation}) => {
       }
 
       readPermissions();
-      verifyCheckerStatus();
-    }, [isFocused, appState, verifyCheckerStatus])
+    }, [isFocused, appState])
   );
+
+  const completedChecker = isCheckerCompleted();
 
   return (
     <Layouts.Scrollable safeArea={false} backgroundColor="#FAFAFA">
@@ -58,8 +78,6 @@ export const SymptomsHistory = ({navigation}) => {
       {!completedChecker && (
         <>
           <CheckInCard
-            accessibilityRefocus
-            accessibilityFocus
             onPress={() =>
               navigation.navigate('symptoms', {
                 screen: 'symptoms.checker',
@@ -75,19 +93,24 @@ export const SymptomsHistory = ({navigation}) => {
         accessibilityFocus
         text={t('symptomsHistory:title')}
       />
+      {completedChecker && (
+        <>
+          <CheckinReminderCard />
+          <Spacing s={20} />
+        </>
+      )}
       <Card>
         {!checks.length && (
           <Text style={text.smallBold}>{t('checker:noresults')}</Text>
         )}
         {checks.map((check, index) => {
-          const allSymptoms = Array.from(
-            new Array(4),
-            (_, index) => index + 1
-          ).map((i) => ({
-            index: i,
-            questionId: t(`checker:question${i}id`),
-            label: t(`checker:question${i}Label`)
-          }));
+          const allSymptoms = Array.from(new Array(4), (_, i) => i + 1).map(
+            (i) => ({
+              index: i,
+              questionId: t(`checker:question${i}id`) as keyof Symptoms,
+              label: t(`checker:question${i}Label`)
+            })
+          );
           const symptoms = allSymptoms.filter(
             (s) => check.symptoms[s.questionId] === 1
           );
@@ -138,20 +161,27 @@ export const SymptomsHistory = ({navigation}) => {
                   </Text>
                 </View>
                 <Text style={text.xsmallBoldOpacity70}>
-                  {format(new Date(Number(check.timestamp)), 'do MMMM')}
+                  {format(
+                    new Date(Number(check.timestamp)),
+                    'do MMMM',
+                    dateLocale
+                  )}
                 </Text>
               </View>
               {symptoms.length > 0 &&
-                symptoms.map(({index, label}) => {
+                symptoms.map(({index: symptomsIndex, label}) => {
                   return (
-                    <View key={`symptom-${index}`} style={styles.row}>
+                    <View key={`symptom-${symptomsIndex}`} style={styles.row}>
                       <View style={[styles.icon, styles.iconDimensions]}>
                         <Image
-                          accessibilityIgnoresInvertColors
                           style={styles.iconDimensions}
                           width={32}
                           height={32}
-                          source={symptomsHistoryIcons[index.toString()]}
+                          source={
+                            symptomsHistoryIcons[
+                              symptomsIndex.toString() as IconsKey
+                            ]
+                          }
                         />
                       </View>
                       <Text style={styles.symptom}>{label}</Text>
@@ -169,7 +199,8 @@ export const SymptomsHistory = ({navigation}) => {
 const rowStyle: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
-  paddingVertical: 4
+  paddingVertical: 4,
+  flexWrap: 'wrap'
 };
 
 const styles = StyleSheet.create({

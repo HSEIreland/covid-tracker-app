@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   StyleSheet,
-  StyleProp,
   View,
-  ViewStyle,
   Text,
-  Image,
-  FlatList,
   TouchableWithoutFeedback,
   Platform
 } from 'react-native';
@@ -16,8 +12,12 @@ import {useTranslation} from 'react-i18next';
 import {HIDE_DEBUG} from '@env';
 import {getVersion, Version} from 'react-native-exposure-notification-service';
 
+import {ArrowIcon} from '../../atoms/arrow-icon';
+import {Card} from '../../atoms/card';
+import {Spacing} from '../../atoms/spacing';
+
 import {colors} from '../../../constants/colors';
-import {text, shadows} from '../../../theme';
+import {text} from '../../../theme';
 import Layouts from '../../../theme/layouts';
 
 const REQUIRED_PRESS_COUNT = 3;
@@ -54,11 +54,11 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
 
   useEffect(() => {
     const getVer = async () => {
-      const ver = await getVersion()
-      setVersion(ver)
-    }
+      const ver = await getVersion();
+      setVersion(ver);
+    };
     getVer();
-  }, [getVersion]);
+  }, []);
 
   useEffect(() => {
     const init = async () => {
@@ -74,102 +74,125 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
     init();
   }, []);
 
-  const settings: SettingLineItem[] = [
-    {
-      id: 'contactTracing',
-      title: t('settings:contactTracing'),
-      label: t('settings:contactTracing'),
-      hint: t('settings:contactTracingHint'),
-      screen: 'settings.contactTracing'
-    },
-    {
-      id: 'checkIn',
-      title: t('settings:checkIn'),
-      label: t('settings:checkIn'),
-      hint: t('settings:checkinHint'),
-      screen: 'settings.checkIn'
-    },
-    {
-      id: 'privacy',
-      title: t('settings:privacyPolicy'),
-      label: t('settings:privacyPolicy'),
-      hint: t('settings:privacyPolicyHint'),
-      screen: 'settings.privacy'
-    },
-    {
-      id: 'terms',
-      title: t('settings:termsAndConditions'),
-      label: t('settings:termsAndConditions'),
-      hint: t('settings:termsAndConditionsHint'),
-      screen: 'settings.terms'
-    },
-    {
-      id: 'metrics',
-      title: t('settings:metrics'),
-      label: t('settings:metrics'),
-      hint: t('settings:metricsHint'),
-      screen: 'settings.metrics'
-    },
-    {
-      id: 'leave',
-      title: t('settings:leave'),
-      label: t('settings:leave'),
-      hint: t('settings:leaveHint'),
-      screen: 'settings.leave'
-    }
+  const settings: SettingLineItem[][] = [
+    [
+      {
+        id: 'contactTracing',
+        title: t('settings:contactTracing'),
+        label: t('settings:contactTracing'),
+        hint: t('settings:contactTracingHint'),
+        screen: 'settings.contactTracing'
+      },
+      {
+        id: 'checkIn',
+        title: t('settings:checkIn'),
+        label: t('settings:checkIn'),
+        hint: t('settings:checkinHint'),
+        screen: 'settings.checkIn'
+      },
+      /*{
+        id: 'venueHistory',
+        title: t('settings:venueHistory'),
+        label: t('settings:venueHistory'),
+        hint: t('settings:venueHistoryHint'),
+        screen: 'settings.venueHistory'
+      },*/
+      {
+        id: 'checkInReminder',
+        title: t('settings:checkInReminder'),
+        label: t('settings:checkInReminder'),
+        hint: t('settings:checkinReminderHint'),
+        screen: 'settings.checkInReminder'
+      },
+      {
+        id: 'metrics',
+        title: t('settings:metrics'),
+        label: t('settings:metrics'),
+        hint: t('settings:metricsHint'),
+        screen: 'settings.metrics'
+      },
+      {
+        id: 'language',
+        title: t('settings:language'),
+        label: t('settings:language'),
+        hint: t('settings:language'),
+        screen: 'settings.language'
+      },
+      {
+        id: 'leave',
+        title: t('settings:leave'),
+        label: t('settings:leave'),
+        hint: t('settings:leaveHint'),
+        screen: 'settings.leave'
+      }
+    ],
+    [
+      {
+        id: 'privacy',
+        title: t('settings:privacyPolicy'),
+        label: t('settings:privacyPolicy'),
+        hint: t('settings:privacyPolicyHint'),
+        screen: 'settings.privacy'
+      },
+      {
+        id: 'terms',
+        title: t('settings:termsAndConditions'),
+        label: t('settings:termsAndConditions'),
+        hint: t('settings:termsAndConditionsHint'),
+        screen: 'settings.terms'
+      }
+    ]
   ];
 
   if (HIDE_DEBUG !== 'y' && showDebug) {
-    settings.push({
-      id: 'debug',
-      label: '',
-      hint: '',
-      title: 'Debug',
-      screen: 'settings.debug'
-    });
+    settings.push([
+      {
+        id: 'debug',
+        label: '',
+        hint: '',
+        title: 'Debug',
+        screen: 'settings.debug'
+      }
+    ]);
   }
 
   return (
-    <Layouts.Basic heading={t('settings:title')} backgroundColor="#FAFAFA">
-      <FlatList
-        style={styles.list}
-        data={settings}
-        renderItem={({item, index}) => {
-          const {id, title, label, hint, screen} = item;
-
-          const itemStyle: StyleProp<ViewStyle> = [styles.item];
-          if (index === settings.length - 1) {
-            itemStyle.push(styles.itemLast);
-          }
-
-          return (
-            <TouchableWithoutFeedback
-              key={id}
-              accessibilityLabel={label}
-              accessibilityRole="button"
-              accessibilityHint={hint}
-              onPress={() => navigation.navigate(screen)}>
-              <View style={itemStyle}>
-                <Text style={styles.text}>{title}</Text>
-                <Image
-                  accessibilityIgnoresInvertColors
-                  style={styles.iconSize}
-                  {...styles.iconSize}
-                  source={require('../../../assets/images/arrow-right/teal.png')}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        }}
-        keyExtractor={({id}) => id}
-      />
+    <Layouts.Scrollable
+      heading={t('settings:title')}
+      backgroundColor="#FAFAFA"
+      scrollStyle={styles.scroll}>
+      {settings.map((settingsList, listIndex) => (
+        <Fragment key={`list-${listIndex}`}>
+          {!!listIndex && <Spacing s={20} />}
+          <Card style={styles.container} padding={{h: 0, v: 0, r: 0}}>
+            {settingsList.map(({id, label, hint, screen, title}, index) => (
+              <TouchableWithoutFeedback
+                key={id}
+                accessibilityLabel={label}
+                accessibilityRole="button"
+                accessibilityHint={hint}
+                onPress={() => navigation.navigate(screen)}>
+                <View
+                  style={[
+                    styles.item,
+                    index === settingsList.length - 1 && styles.itemLast
+                  ]}>
+                  <Text style={styles.text}>{title}</Text>
+                  <ArrowIcon />
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
+          </Card>
+        </Fragment>
+      ))}
       <View style={styles.flex} />
       {version && (
         <Text style={text.default} onPress={versionPressHandler}>
-            App version {Platform.OS === 'ios' ? 'iOS' : 'Android'} {version.display}
+          App version {Platform.OS === 'ios' ? 'iOS' : 'Android'}{' '}
+          {version.display}
         </Text>
       )}
-    </Layouts.Basic>
+    </Layouts.Scrollable>
   );
 };
 
@@ -177,11 +200,13 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1
   },
-  list: {
-    flexGrow: 0,
-    marginTop: 0,
-    ...shadows.default,
-    backgroundColor: colors.white
+  scroll: {
+    flexGrow: 1,
+    justifyContent: 'flex-start'
+  },
+  container: {
+    flex: 0,
+    flexGrow: 0
   },
   item: {
     flexDirection: 'row',
@@ -197,9 +222,5 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     ...text.defaultBold
-  },
-  iconSize: {
-    width: 24,
-    height: 24
   }
 });

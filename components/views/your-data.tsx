@@ -15,6 +15,8 @@ import {Quote} from '../molecules/quote';
 import {Toast} from '../atoms/toast';
 
 import Layouts from '../../theme/layouts';
+import {text} from '../../theme';
+import PushNotification from 'react-native-push-notification';
 
 interface YourDataProps {
   navigation: StackNavigationProp<any>;
@@ -42,6 +44,11 @@ export const YourData: FC<YourDataProps> = ({navigation}) => {
       });
 
       app.hideActivityIndicator();
+
+      // If app is uninstalled with an active notification, on iOS can stay and be hard to clear
+      // Any notifications on register will be from a previous registration and therefore obsolete
+      PushNotification.setApplicationIconBadgeNumber(0);
+
       navigation.reset({
         index: 0,
         routes: [{name: 'appUsage'}]
@@ -72,7 +79,7 @@ export const YourData: FC<YourDataProps> = ({navigation}) => {
 
   return (
     <Layouts.Scrollable toast={errorToast} heading={t('yourData:title')}>
-      <Markdown markdownStyles={{block: {marginBottom: 16}}}>
+      <Markdown markdownStyles={{block: {...text.default, marginBottom: 16}}}>
         {t('yourData:info')}
       </Markdown>
       <Spacing s={8} />

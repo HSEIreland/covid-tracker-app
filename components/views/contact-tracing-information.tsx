@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Text, View, Image, StyleSheet, Platform, Linking} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import * as SecureStore from 'expo-secure-store';
 import {useExposure} from 'react-native-exposure-notification-service';
@@ -15,12 +16,13 @@ import {Card} from '../atoms/card';
 
 import {colors} from '../../constants/colors';
 import Layouts from '../../theme/layouts';
-import {text} from '../../theme';
+import {baseStyles, text} from '../../theme';
 
 const TracingImage = require('../../assets/images/information/image.png');
 
 interface Props {
   navigation: StackNavigationProp<any>;
+  route: RouteProp<any, any>;
 }
 
 const upgradeImage: {[key: string]: any} = {
@@ -46,12 +48,6 @@ export const ContactTracingInformation = ({navigation, route}: Props) => {
     }
   };
 
-  useEffect(() => {
-    if (!exposure.supported && exposure.canSupport) {
-      SecureStore.setItemAsync('supportPossible', 'true');
-    }
-  }, []);
-
   const handlePermissions = async () => {
     await exposure.askPermissions();
     const opts = (route && route.params) || {};
@@ -69,8 +65,8 @@ export const ContactTracingInformation = ({navigation, route}: Props) => {
       routes: [{name: 'main'}]
     });
   };
-
-  if (!exposure.supported && !exposure.canSupport) {
+  const isIOS125 = Platform.Version.toString().startsWith('12.') && Platform.OS === 'ios'
+  if (isIOS125 || (!exposure.supported && !exposure.canSupport)) {
     return (
       <Layouts.PinnedBottom heading={t('onboarding:information:title')}>
         <View style={notSupportedStyles.imageWrapper}>
@@ -202,13 +198,14 @@ export const ContactTracingInformation = ({navigation, route}: Props) => {
             {t('onboarding:information:highlight1')}
           </Text>
         </View>
-        <Image
-          accessibilityIgnoresInvertColors
-          style={headerStyles.image}
-          width={157}
-          height={207}
-          source={TracingImage}
-        />
+        <View style={[headerStyles.image, baseStyles.flipIfRtl]}>
+          <Image
+            accessibilityIgnoresInvertColors
+            width={157}
+            height={207}
+            source={TracingImage}
+          />
+        </View>
       </View>
       <Spacing s={16} />
       <Text style={text.default}>{t('onboarding:information:text')}</Text>
@@ -240,7 +237,7 @@ const headerStyles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    paddingRight: 16,
+    paddingEnd: 16,
     ...text.defaultBold,
     color: colors.teal,
     paddingBottom: 16
@@ -249,7 +246,7 @@ const headerStyles = StyleSheet.create({
     width: 157,
     height: 207,
     marginTop: -48,
-    marginRight: -20
+    marginEnd: -20
   }
 });
 
@@ -261,14 +258,14 @@ const permissionsStyles = StyleSheet.create({
   icon: {
     width: 32,
     height: 32,
-    marginRight: 12
+    marginEnd: 12
   }
 });
 
 const cardStyles = StyleSheet.create({
   text: {
     flex: 1,
-    paddingRight: 12
+    paddingEnd: 12
   },
   image: {
     width: 88,

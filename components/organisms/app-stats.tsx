@@ -6,6 +6,7 @@ import {Card} from '../atoms/card';
 
 import {text} from '../../theme';
 import {colors} from '../../constants/colors';
+import {alignWithLanguage} from '../../services/i18n/common';
 
 interface AppStatsProps {
   appUsers: number;
@@ -29,7 +30,9 @@ export const AppStats: FC<AppStatsProps> = ({dailyCheckIns}) => {
           </View>
           <View style={styles.col}>
             <Text style={text.xxlargeBlack}>
-              {new Intl.NumberFormat('en-IE').format(dailyCheckIns)}
+              {alignWithLanguage(
+                new Intl.NumberFormat('en-IE').format(dailyCheckIns)
+              )}
             </Text>
             <Text style={styles.text}>{t('appStats:dailyCheckIns')}</Text>
           </View>
@@ -77,6 +80,6 @@ const styles = StyleSheet.create({
     height: 24
   },
   checkInsIconBackground: {
-    backgroundColor: '#EAFBED'
+    backgroundColor: colors.lightGreen
   }
 });

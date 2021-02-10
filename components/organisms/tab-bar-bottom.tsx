@@ -4,37 +4,18 @@ import {
   View,
   TouchableWithoutFeedback,
   Image,
-  Text,
-  Share,
-  Platform
+  Text
 } from 'react-native';
-import {TFunction} from 'i18next';
 import {useTranslation} from 'react-i18next';
-import Constants from 'expo-constants';
 import {
   useExposure,
   StatusState
 } from 'react-native-exposure-notification-service';
+import {useSafeArea} from 'react-native-safe-area-context';
 
+import {usePause} from '../../providers/reminders/pause-reminder';
 import {colors} from '../../constants/colors';
 import {text} from '../../theme';
-
-export const shareApp = async (t: TFunction) => {
-  try {
-    await Share.share(
-      {
-        message: Platform.OS === 'android' ? t('common:url') : undefined,
-        url: t('common:url')
-      },
-      {
-        subject: t('common:name'),
-        dialogTitle: t('common:name')
-      }
-    );
-  } catch (error) {
-    console.log(t('tabBar:shareError'));
-  }
-};
 
 const ctOnUnselected = require('../../assets/images/contact-tracing/ct-on-unselected.png');
 const ctOffUnselected = require('../../assets/images/contact-tracing/ct-off-unselected.png');
@@ -47,7 +28,8 @@ const barChartActive = require('../../assets/images/bar-chart/bar-chart-active.p
 const checkInactive = require('../../assets/images/covid-gray/covid.png');
 const checkActive = require('../../assets/images/covid-teal/covid.png');
 
-const shareIcon = require('../../assets/images/share/share.png');
+const vaccineInactice = require('../../assets/images/vaccine/tab-inactive.png');
+const vaccineActive = require('../../assets/images/vaccine/tab-active.png');
 
 /**
  * The component assumes the order of the <Tab /> components in the BottomNavigation is correct.
@@ -56,6 +38,8 @@ const shareIcon = require('../../assets/images/share/share.png');
 export const TabBarBottom: FC<any> = ({navigation, state}) => {
   const {t} = useTranslation();
   const {initialised, status, enabled} = useExposure();
+  const {paused} = usePause();
+  const insets = useSafeArea();
 
   const tabItems = [
     {
@@ -63,6 +47,13 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
       image: {
         inactive: barChartInactive,
         active: barChartActive
+      }
+    },
+    {
+      label: t('tabBar:vaccine'),
+      image: {
+        inactive: vaccineInactice,
+        active: vaccineActive
       }
     },
     {
@@ -78,11 +69,13 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
         w: 30,
         h: 24,
         inactive:
-          !initialised || (enabled && status.state === StatusState.active)
+          !initialised ||
+          (enabled && !paused && status.state === StatusState.active)
             ? ctOnUnselected
             : ctOffUnselected,
         active:
-          !initialised || (enabled && status.state === StatusState.active)
+          !initialised ||
+          (enabled && !paused && status.state === StatusState.active)
             ? ctOnSelected
             : ctOffSelected
       }
@@ -90,14 +83,18 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.tabBar}>
+    <View style={[styles.container, {paddingBottom: insets.bottom}]}>
+      <View accessibilityRole="tablist" style={styles.tabBar}>
         {tabItems.map((tab, index) => {
           const isActive = state.index === index;
           const routeName = state.routes[index].name;
 
           return (
             <TouchableWithoutFeedback
+              accessibilityRole="tab"
+              accessibilityLabel={tab.label}
+              accessibilityState={{selected: isActive}}
+              importantForAccessibility="yes"
               key={`tab-bar-item-${index}`}
               onPress={() => navigation.navigate(routeName)}>
               <View style={[styles.tab]}>
@@ -117,19 +114,6 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
             </TouchableWithoutFeedback>
           );
         })}
-        <TouchableWithoutFeedback onPress={() => shareApp(t)}>
-          <View style={[styles.tab]}>
-            <Image
-              accessibilityIgnoresInvertColors
-              style={styles.iconSize}
-              {...styles.iconSize}
-              source={shareIcon}
-            />
-            <Text allowFontScaling={false} style={[styles.label]}>
-              {t('tabBar:shareApp')}
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
       </View>
     </View>
   );
@@ -137,14 +121,12 @@ export const TabBarBottom: FC<any> = ({navigation, state}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
-    paddingBottom: Constants.statusBarHeight === 44 ? 34 : 0
+    backgroundColor: colors.white
   },
   tabBar: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     backgroundColor: colors.white,
-    paddingHorizontal: 16,
     paddingTop: 12,
     paddingBottom: 4,
     borderTopColor: colors.gray,
@@ -154,6 +136,7 @@ const styles = StyleSheet.create({
     maxWidth: '22%',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    flex: 1,
     borderRadius: 3
   },
   label: {

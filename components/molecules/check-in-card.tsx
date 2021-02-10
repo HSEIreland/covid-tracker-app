@@ -1,9 +1,15 @@
-import React, {forwardRef} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import React, {forwardRef, MutableRefObject} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableWithoutFeedback
+} from 'react-native';
 import {Card} from '../atoms/card';
 
 import {colors} from '../../constants/colors';
-import {text} from '../../theme';
+import {baseStyles, text} from '../../theme';
 import {useTranslation} from 'react-i18next';
 
 interface CheckInCardProps {
@@ -15,18 +21,21 @@ export const CheckInCard = forwardRef<any, CheckInCardProps>(
     const {t} = useTranslation();
 
     return (
-      <Card cardRef={ref} onPress={onPress} padding={{r: 4}}>
+      <Card
+        cardRef={ref as MutableRefObject<TouchableWithoutFeedback>}
+        onPress={onPress}
+        padding={{r: 4}}>
         <View style={styles.row}>
           <View style={styles.icon}>
             <Image
               accessibilityIgnoresInvertColors
-              style={styles.imageSize}
+              style={[styles.imageSize, baseStyles.flipIfRtl]}
               width={styles.imageSize.width}
               height={styles.imageSize.height}
               source={require('../../assets/images/mask-wearer/image.png')}
             />
           </View>
-          <View>
+          <View style={styles.textContainer}>
             <Text style={text.largeBlack}>{t('checker:title')}</Text>
             <Text style={[text.smallBold, {color: colors.teal}]}>
               {t('welcome:letUsKnow')}
@@ -54,5 +63,8 @@ const styles = StyleSheet.create({
   imageSize: {
     width: 64,
     height: 64
+  },
+  textContainer: {
+    flex: 1
   }
 });

@@ -10,6 +10,7 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 
 import {SingleRow} from '../atoms/layout';
+import {ArrowIcon} from '../atoms/arrow-icon';
 
 import {colors} from '../../constants/colors';
 
@@ -41,12 +42,7 @@ export const TracingAvailable = forwardRef<TouchableWithoutFeedback>(
             </Text>
           </View>
           <SingleRow>
-            <Image
-              accessibilityIgnoresInvertColors
-              style={styles.iconSize}
-              {...styles.iconSize}
-              source={require('../../assets/images/arrow-right/teal.png')}
-            />
+            <ArrowIcon />
           </SingleRow>
         </View>
       </TouchableWithoutFeedback>
@@ -73,9 +69,5 @@ const styles = StyleSheet.create({
   title: {
     ...text.largeBlack,
     marginBottom: 6
-  },
-  iconSize: {
-    width: 24,
-    height: 24
   }
 });

@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {
@@ -29,10 +29,18 @@ import {Button} from '../../components/atoms/button';
 import {Toast} from '../../components/atoms/toast';
 import {CloseContactWarning} from '../molecules/close-contact-warning';
 import {TracingAvailable} from '../molecules/tracing-available';
+import {VaccineHeadlineCard} from '../molecules/vaccine-headline-card';
 import {TrendChartCard} from '../organisms/trend-chart-card';
 import {PolicyUpdateCard} from '../molecules/policy-updates-card';
 import {NewAppVersionCard} from '../molecules/new-app-version-card';
 import {QuickStats} from '../organisms/quick-stats';
+// import {VenueCheckInCard} from '../../venue-check-in';
+
+// const showVenue = true;
+
+// "Now Available" card is hangover from when ENS support was new
+// There are reports of it showing seemingly randomly incorrectly
+const allowNowAvailableCard = false;
 
 export const Dashboard: FC<any> = ({navigation}) => {
   const app = useApplication();
@@ -47,23 +55,22 @@ export const Dashboard: FC<any> = ({navigation}) => {
   const [appState] = useAppState();
   const isFocused = useIsFocused();
   const exposure = useExposure();
-  const [ref1, ref2, ref3, ref4, ref5, ref6, ref7] = useFocusRef({
+  const [ref1, ref2, ref3, ref4, ref5, /* ref6, */ ref7] = useFocusRef({
     accessibilityFocus: true,
     accessibilityRefocus: true,
-    count: 7,
+    count: 6,
     timeout: 1000
   });
 
-  const {verifyCheckerStatus} = app;
   const {checkInConsent, quickCheckIn, checks} = app;
 
   const displayQuickCheckIn =
     !quickCheckInDismissed &&
     (quickCheckIn ||
-      (checkInConsent && checks.length > 0 && !app.completedChecker));
+      (checkInConsent && checks.length > 0 && !app.isCheckerCompleted()));
 
   let appUsers = 0;
-  if (app.data?.installs.length) {
+  if (app.data?.installs?.length) {
     appUsers = Number(app.data.installs[app.data.installs.length - 1][1]);
   }
 
@@ -73,43 +80,43 @@ export const Dashboard: FC<any> = ({navigation}) => {
         return;
       }
       exposure.readPermissions();
-      verifyCheckerStatus();
-    }, [isFocused, appState, verifyCheckerStatus])
+
+      // Exclude exposure from deps, don't re-run each time it is recreated
+      /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [isFocused, appState])
   );
 
   useEffect(() => {
     const getVer = async () => {
-      const ver = await getVersion()
-      setVersion(ver)
-    }
+      const ver = await getVersion();
+      setVersion(ver);
+    };
     getVer();
-  }, [getVersion]);
+  }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
     app.loadAppData().then(() => setRefreshing(false));
   };
 
+  // Auto-refresh on first load only
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(onRefresh, []);
 
   useEffect(() => {
     const checkTracingNowAvailable = async () => {
-      const supportPossible = await SecureStore.getItemAsync('supportPossible');
-      if (supportPossible && supportPossible === 'true') {
-        if (
-          exposure.canSupport &&
-          exposure.supported &&
-          exposure.status.state !== StatusState.active &&
-          exposure.status.state !== StatusState.restricted
-        ) {
-          setTracingNowAvailable(true);
-        } else if (exposure.supported) {
-          try {
-            SecureStore.deleteItemAsync('supportPossible');
-          } catch (e) {
-            console.log(e);
-          }
-        }
+      const isIOS125 =
+        Platform.Version.toString().startsWith('12.') && Platform.OS === 'ios';
+
+      if (
+        allowNowAvailableCard &&
+        !isIOS125 &&
+        exposure.canSupport &&
+        exposure.supported &&
+        exposure.status.state !== StatusState.active &&
+        exposure.status.state !== StatusState.restricted
+      ) {
+        setTracingNowAvailable(true);
       }
     };
     checkTracingNowAvailable();
@@ -132,6 +139,17 @@ export const Dashboard: FC<any> = ({navigation}) => {
     (app.dpinNotificationExpiryDate &&
       new Date() < app.dpinNotificationExpiryDate) ||
     false;
+
+  const hasAppStats = !!app?.data?.checkIns;
+  const hasVaccineStats = !!app?.data?.vaccine;
+  const hasQuickStats =
+    app?.data?.currentCases?.length && app?.data?.currentDeaths?.length;
+  const hasChartData = !!app?.data?.chart?.length;
+  const hasCovidStats =
+    app?.data?.hospital && app?.data?.icu && app?.data?.tests;
+  const hasStatsSource =
+    app?.data?.statistics?.lastUpdated.profile &&
+    app?.data?.statistics?.lastUpdated.stats;
 
   return (
     <Layouts.Scrollable
@@ -174,9 +192,18 @@ export const Dashboard: FC<any> = ({navigation}) => {
           <Spacing s={16} />
         </>
       )}
+      {/*showVenue && (
+        <>
+          <VenueCheckInCard
+            onPress={() => navigation.navigate('venueCheckIn')}
+            ref={ref6}
+          />
+          <Spacing s={16} />
+        </>
+      )*/}
       {displayQuickCheckIn && (
         <QuickCheckIn
-          cardRef={ref6}
+          cardRef={ref7}
           onDismissed={() => setQuickCheckInDismissed(true)}
           nextHandler={() =>
             navigation.navigate('symptoms', {
@@ -197,39 +224,69 @@ export const Dashboard: FC<any> = ({navigation}) => {
       )}
       {app.data && (
         <>
-          <AppStats
-            appUsers={appUsers}
-            dailyCheckIns={Number(app.data.checkIns.total)}
-          />
-          <Spacing s={16} />
-          <QuickStats
-            cases={app.data.currentCases}
-            deaths={app.data.currentDeaths}
-          />
-          <Spacing s={16} />
-          <TrendChartCard
-            title={t('confirmedChart:title')}
-            hint={t('confirmedChart:hint')}
-            yesterday={t('confirmedChart:yesterday')}
-            data={app.data.chart}
-          />
-          <Spacing s={16} />
+          {hasAppStats && (
+            <>
+              <AppStats
+                appUsers={appUsers}
+                dailyCheckIns={Number(app.data.checkIns!.total)}
+              />
+              <Spacing s={16} />
+            </>
+          )}
+          {hasVaccineStats && (
+            <>
+              <VaccineHeadlineCard
+                vaccineStats={app.data.vaccine}
+                onPress={() => navigation.navigate('vaccineStats')}
+              />
+              <Spacing s={16} />
+            </>
+          )}
+          {hasQuickStats && (
+            <>
+              <QuickStats
+                cases={app.data.currentCases!}
+                deaths={app.data.currentDeaths!}
+              />
+              <Spacing s={16} />
+            </>
+          )}
+          {hasChartData && (
+            <>
+              <TrendChartCard
+                title={t('confirmedChart:title')}
+                a11yHintKey="confirmedChart:hint"
+                data={app.data.chart!}
+              />
+              <Spacing s={16} />
+            </>
+          )}
           <CountyBreakdownCard
             onPress={() => navigation.navigate('casesByCounty')}
+            title={t('appStats:nationalPicture')}
+            description={t('appStats:breakdown')}
           />
           <Spacing s={16} />
-          <CovidStats
-            hospital={app.data.hospital}
-            icu={app.data.icu}
-            tests={app.data.tests}
-          />
-          <Spacing s={16} />
-          <StatsSource
-            lastUpdated={{
-              stats: new Date(app.data.statistics.lastUpdated.stats),
-              profile: new Date(app.data.statistics.lastUpdated.profile)
-            }}
-          />
+          {hasCovidStats && (
+            <>
+              <CovidStats
+                hospital={app.data.hospital!}
+                icu={app.data.icu!}
+                tests={app.data.tests!}
+              />
+              <Spacing s={16} />
+            </>
+          )}
+          {hasStatsSource && (
+            <>
+              <StatsSource
+                lastUpdated={{
+                  stats: new Date(app.data.statistics!.lastUpdated.stats!),
+                  profile: new Date(app.data.statistics!.lastUpdated.profile!)
+                }}
+              />
+            </>
+          )}
         </>
       )}
     </Layouts.Scrollable>

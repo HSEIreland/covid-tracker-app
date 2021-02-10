@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {format} from 'date-fns';
 
 import {text} from '../../theme';
+import {getDateLocaleOptions} from '../../services/i18n/date';
 
 interface StatsSourceProps {
   style?: ViewStyle;
@@ -14,18 +15,19 @@ interface StatsSourceProps {
 }
 
 export const StatsSource: FC<StatsSourceProps> = ({style, lastUpdated}) => {
-  const {t} = useTranslation();
+  const {i18n, t} = useTranslation();
+  const dateLocale = getDateLocaleOptions(i18n);
 
   return (
     <View style={[styles.container, style]}>
-      <Text style={text.xsmallBold}>{t('statsSource:monitor')}</Text>
-      <Text style={text.xsmallBold}>
+      <Text style={styles.text}>{t('statsSource:monitor')}</Text>
+      <Text style={styles.text}>
         {t('statsSource:lastUpdatedStats')}&nbsp;
-        {format(lastUpdated.stats, 'dd/MM/yyyy')}
+        {format(lastUpdated.stats, 'dd/MM/yyyy', dateLocale)}
       </Text>
-      <Text style={text.xsmallBold}>
+      <Text style={styles.text}>
         {t('statsSource:lastUpdatedProfile')}&nbsp;
-        {format(lastUpdated.profile, 'dd/MM/yyyy')}
+        {format(lastUpdated.profile, 'dd/MM/yyyy', dateLocale)}
       </Text>
     </View>
   );
@@ -35,5 +37,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center'
+  },
+  text: {
+    ...text.xsmallBold,
+    textAlign: 'center',
+    paddingBottom: 6,
+    lineHeight: 14
   }
 });

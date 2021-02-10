@@ -4,9 +4,10 @@ import {
   CryptoEncoding
 } from 'expo-crypto';
 
-import {request, getDeviceCheckData} from '.';
-
 import {urls} from '../../constants/urls';
+
+import {getDeviceCheckData} from '.';
+import {networkError, request} from './utils';
 
 export enum ValidationResult {
   NetworkError,
@@ -58,7 +59,7 @@ export const validateCode = async (
   } catch (err) {
     console.log('Code validation error: ', err, err.message);
 
-    if (err.message && err.message === 'Network Unavailable') {
+    if (err.message && err.message === networkError) {
       return {result: ValidationResult.NetworkError};
     }
 

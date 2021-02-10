@@ -1,4 +1,4 @@
-import React, {FC, forwardRef} from 'react';
+import React, {forwardRef} from 'react';
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -11,9 +11,10 @@ import {
 import {useTranslation} from 'react-i18next';
 
 import {SingleRow, Spacing} from '../atoms/layout';
+import {ArrowIcon} from '../atoms/arrow-icon';
 
 import {colors} from '../../constants/colors';
-import {shadows, text} from '../../theme';
+import {baseStyles, shadows, text} from '../../theme';
 
 const InformationAltImage = require('../../assets/images/information/alt.png');
 
@@ -34,13 +35,15 @@ export const NewAppVersionCard = forwardRef<TouchableWithoutFeedback>(
     return (
       <TouchableWithoutFeedback ref={ref} onPress={onUpdate}>
         <View style={styles.card}>
-          <Image
-            accessibilityIgnoresInvertColors
-            width={106}
-            height={100}
-            resizeMode="contain"
-            source={InformationAltImage}
-          />
+          <View style={baseStyles.flipIfRtl}>
+            <Image
+              accessibilityIgnoresInvertColors
+              width={106}
+              height={100}
+              resizeMode="contain"
+              source={InformationAltImage}
+            />
+          </View>
           <View style={styles.content}>
             <Text style={text.largeBlack}>
               {t(`newVersionAvailable:title_${Platform.OS}`)}
@@ -51,12 +54,7 @@ export const NewAppVersionCard = forwardRef<TouchableWithoutFeedback>(
             </Text>
           </View>
           <SingleRow>
-            <Image
-              accessibilityIgnoresInvertColors
-              style={styles.iconSize}
-              {...styles.iconSize}
-              source={require('../../assets/images/arrow-right/teal.png')}
-            />
+            <ArrowIcon />
           </SingleRow>
         </View>
       </TouchableWithoutFeedback>
@@ -72,14 +70,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 16,
-    paddingRight: 4
+    paddingEnd: 4
   },
   content: {
     flex: 1,
-    marginLeft: 10
-  },
-  iconSize: {
-    width: 24,
-    height: 24
+    marginStart: 10
   }
 });

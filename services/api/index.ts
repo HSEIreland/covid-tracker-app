@@ -1,17 +1,23 @@
-import {Platform} from 'react-native';
-import * as SecureStore from 'expo-secure-store';
-import {format} from 'date-fns';
-// To enable certificate pinning uncomment line below, add your cert files and reference them in request method below
-// import {fetch} from 'react-native-ssl-pinning';
-import NetInfo from '@react-native-community/netinfo';
 import {ENV, TEST_TOKEN, SAFETYNET_KEY} from '@env';
+import {Platform} from 'react-native';
 import RNGoogleSafetyNet from 'react-native-google-safetynet';
 import RNIOS11DeviceCheck from 'react-native-ios11-devicecheck';
-import {urls} from '../../constants/urls';
+import {format} from 'date-fns';
 import {Check, UserLocation} from '../../providers/context';
-import {isMountedRef, navigationRef} from '../../navigation';
-import AsyncStorage from '@react-native-community/async-storage';
-import { getVersion } from 'react-native-exposure-notification-service';
+import {urls} from '../../constants/urls';
+
+import {
+  identifyNetworkIssue,
+  request,
+  requestRetry,
+  saveMetric,
+  METRIC_TYPES
+} from './utils';
+
+export type ApiSettings = Record<
+  string,
+  string | number | Record<string, string | Record<string, string>>
+>;
 
 interface CheckIn {
   sex: string;
@@ -50,114 +56,8 @@ export const getDeviceCheckData = async (
   }
 };
 
-const connected = async (retry = false): Promise<boolean> => {
-  const networkState = await NetInfo.fetch();
-  if (networkState.isInternetReachable && networkState.isConnected) {
-    return true;
-  }
-
-  if (retry) {
-    throw new Error('Network Unavailable');
-  } else {
-    await new Promise((r) => setTimeout(r, 1000));
-    await connected(true);
-    return true;
-  }
-};
-
-export const request = async (url: string, cfg: any) => {
-  await connected();
-  const {authorizationHeaders = false, ...config} = cfg;
-
-  if (authorizationHeaders) {
-    let bearerToken = await SecureStore.getItemAsync('token');
-    if (!bearerToken) {
-      bearerToken = await createToken();
-    }
-
-    if (!config.headers) {
-      config.headers = {};
-    }
-    config.headers.Authorization = `Bearer ${bearerToken}`;
-  }
-
-  let isUnauthorised;
-  let resp;
-  try {
-    resp = await fetch(url, {
-      ...config,
-      // timeoutInterval: 30000,
-      // sslPinning: {
-      //  certs: ['certx', 'certy']
-      //}
-    });
-    isUnauthorised = resp && resp.status === 401;
-  } catch (e) {
-    if (!authorizationHeaders || e.status !== 401) {
-      throw e;
-    }
-    isUnauthorised = true;
-  }
-
-  if (authorizationHeaders && isUnauthorised) {
-    let newBearerToken = await createToken();
-    const newConfig = {
-      ...config,
-      headers: {...config.headers, Authorization: `Bearer ${newBearerToken}`}
-    };
-
-    return fetch(url, {
-      ...newConfig,
-      // timeoutInterval: 30000,
-      // sslPinning: {
-      //   certs: ['certx', 'certy']
-      // }
-    });
-  }
-
-  return resp;
-};
-
-async function createToken(): Promise<string> {
-  try {
-    const refreshToken = await SecureStore.getItemAsync('refreshToken');
-
-    const req = await request(`${urls.api}/refresh`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${refreshToken}`
-      },
-      body: JSON.stringify({})
-    });
-    if (!req) {
-      throw new Error('Invalid response');
-    }
-    const resp = await req.json();
-
-    if (!resp.token) {
-      throw new Error('Error getting token');
-    }
-
-    await SecureStore.setItemAsync('token', resp.token);
-
-    saveMetric({event: METRIC_TYPES.TOKEN_RENEWAL});
-
-    return resp.token;
-  } catch (err) {
-    // We get a 401 Unauthorized if the refresh token is missing, invalid or has expired
-    // If this is the case, send the user back into onboarding to activate & generate a new one
-    if (err.status === 401 && isMountedRef.current && navigationRef.current) {
-      navigationRef.current.reset({
-        index: 0,
-        routes: [{name: 'over16'}]
-      });
-    }
-    return '';
-  }
-}
-
 export class RegisterError extends Error {
-  constructor(message: string, code: number) {
+  constructor(message: string, code: string) {
     super(message);
     this.name = 'RegisterError';
     // @ts-ignore
@@ -191,7 +91,9 @@ export async function register(): Promise<{
       const errBody = await err.json();
       throw new RegisterError(errBody.message, errBody.code || 1001);
     }
-    throw new RegisterError(err.message, 1002);
+    const codeVal = err.cancelled ? '1006' : await identifyNetworkIssue();
+    console.log('Register error code is ', codeVal);
+    throw new RegisterError(err.message, codeVal);
   }
 
   let deviceCheckData;
@@ -199,7 +101,7 @@ export async function register(): Promise<{
     deviceCheckData = await getDeviceCheckData(nonce);
   } catch (err) {
     console.log('Device check error: ', err);
-    throw new RegisterError(err.message, 1003);
+    throw new RegisterError(err.message, `1003:${err.message}`);
   }
 
   try {
@@ -224,9 +126,12 @@ export async function register(): Promise<{
     console.log('Register (verify) error:', err);
     if (err.json) {
       const errBody = await err.json();
-      throw new RegisterError(errBody.message, errBody.code || 1004);
+      throw new RegisterError(
+        errBody.message,
+        errBody.code || `1004:${err.message}:${errBody.message}`
+      );
     }
-    throw new RegisterError(err.message, 1005);
+    throw new RegisterError(err.message, '1005');
   }
 }
 
@@ -276,25 +181,32 @@ export async function checkIn(checks: Check[], checkInData: CheckIn) {
   } catch (err) {
     console.log('Error checking-in:', err);
     if (err.status !== 401) {
-      saveMetric({event: METRIC_TYPES.LOG_ERROR, payload: JSON.stringify({where: 'checkIn', error: JSON.stringify(err)})});
+      saveMetric({
+        event: METRIC_TYPES.LOG_ERROR,
+        payload: JSON.stringify({where: 'checkIn', error: JSON.stringify(err)})
+      });
     }
   }
 }
 
 export async function loadSettings() {
   try {
-    const req = await request(`${urls.api}/settings/language`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const req = await requestRetry(
+      `${urls.api}/settings/language`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      },
+      3
+    );
     if (!req) {
       throw new Error('Invalid response');
     }
 
     const resp = await req.json();
-    return resp;
+    return resp as ApiSettings;
   } catch (err) {
     console.log('Error loading settings data', err);
     throw err;
@@ -306,7 +218,7 @@ export interface CheckIns {
   ok: number;
 }
 
-export type DataByDate = [Date, number][];
+export type DataByDate = [Date | string, number][];
 
 export interface CovidStatistics {
   confirmed: number;
@@ -325,7 +237,16 @@ export interface CovidStatistics {
   };
 }
 
-export interface StatsData {
+export interface LEA {
+  id: string;
+  area: string;
+  population: number;
+  cases: number;
+  rate: number;
+}
+
+// All fields _should_ be present, but data comes from 3rd parties so any could be missing
+export type StatsData = Partial<{
   generatedAt: Date;
   checkIns: CheckIns;
   statistics: CovidStatistics;
@@ -337,7 +258,42 @@ export interface StatsData {
   installPercentage: string;
   uploads: number;
   activeUsers: string;
-  counties: {cases: number; county: string; dailyCases: DataByDate}[];
+  counties: Partial<{
+    cases: number;
+    county: string;
+    dailyCases: DataByDate;
+    areas: LEA[];
+  }>[];
+  vaccine: Partial<{
+    overallDoses: Partial<{
+      first: number;
+      second: number;
+      total: number;
+      dateUpdated: number | string;
+    }>;
+    vendorBreakdown: Partial<{
+      name: string;
+      first: number;
+      second: number;
+      total: number;
+    }>[];
+    ageBreakdown: Partial<{
+      title: string;
+      male: number;
+      female: number;
+    }>[];
+    dailyDoses: Partial<{
+      date: string;
+      first: number;
+      second: number;
+      total: number;
+    }>[];
+    countyBreakdown: Partial<{
+      county: string;
+      last7: number;
+      total: number;
+    }>[];
+  }>;
   hospital: {
     admissions: number;
     discharges: number;
@@ -352,17 +308,25 @@ export interface StatsData {
     completed: number;
     positive: number;
   };
-}
+  incidence: {
+    rate: number;
+    date: Date;
+  };
+}>;
 
 export async function loadData(): Promise<StatsData> {
   try {
-    const req = await request(`${urls.api}/stats`, {
-      authorizationHeaders: true,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const req = await requestRetry(
+      `${urls.api}/stats`,
+      {
+        authorizationHeaders: true,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      },
+      3
+    );
     if (!req) {
       throw new Error('Invalid response');
     }
@@ -373,7 +337,10 @@ export async function loadData(): Promise<StatsData> {
     if (err.status !== 401) {
       saveMetric({
         event: METRIC_TYPES.LOG_ERROR,
-        payload: JSON.stringify({where: 'loadStats', error: JSON.stringify(err)})
+        payload: JSON.stringify({
+          where: 'loadStats',
+          error: JSON.stringify(err)
+        })
       });
     }
     throw err;
@@ -400,64 +367,21 @@ export async function uploadContacts(contacts: any) {
     if (err.status !== 401) {
       saveMetric({
         event: METRIC_TYPES.LOG_ERROR,
-        payload: JSON.stringify({where: 'uploadContacts', error: JSON.stringify(err)})
+        payload: JSON.stringify({
+          where: 'uploadContacts',
+          error: JSON.stringify(err)
+        })
       });
     }
     throw err;
   }
 }
 
-export enum METRIC_TYPES {
-  CHECK_IN = 'CHECK_IN',
-  FORGET = 'FORGET',
-  TOKEN_RENEWAL = 'TOKEN_RENEWAL',
-  CALLBACK_OPTIN = 'CALLBACK_OPTIN',
-  LOG_ERROR = 'LOG_ERROR'
-}
-
-export async function saveMetric({event = '', payload = ''}) {
-  try {
-    const analyticsOptinSecure = await SecureStore.getItemAsync(
-      'analyticsConsent'
-    );
-    const analyticsOptin = await AsyncStorage.getItem('analyticsConsent');
-    const consent =
-      analyticsOptinSecure === 'true' || analyticsOptin === 'true';
-
-    console.log('Request to saveMetric', consent, event, payload);
-    if (!consent) {
-      return false;
-    }
-
-    let bearerToken = await SecureStore.getItemAsync('token');
-    if (!bearerToken) {
-      return false;
-    }
-
-    const version = await getVersion();
-    const os = Platform.OS;
-    const req = await request(`${urls.api}/metrics`, {
-      authorizationHeaders: true,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        os,
-        version: version.display,
-        event,
-        payload
-      })
-    });
-
-    return req && req.status === 204;
-  } catch (err) {
-    console.log('saveMetric Failed', err);
-    return false;
-  }
-}
-
-export async function requestCallback(mobile: string, exposureDate: string, payload: any) {
+export async function requestCallback(
+  mobile: string,
+  exposureDate: string,
+  payload: any
+) {
   try {
     const req = await request(`${urls.api}/callback`, {
       authorizationHeaders: true,
@@ -482,7 +406,10 @@ export async function requestCallback(mobile: string, exposureDate: string, payl
     if (err.status !== 401) {
       saveMetric({
         event: METRIC_TYPES.LOG_ERROR,
-        payload: JSON.stringify({where: 'requestCallback', error: JSON.stringify(err)})
+        payload: JSON.stringify({
+          where: 'requestCallback',
+          error: JSON.stringify(err)
+        })
       });
     }
     throw err;

@@ -11,7 +11,8 @@
     "changesUpdated": "Athruithe uasdátaithe",
     "dismiss": "Dífhostú",
     "registerError": "Tá brón orm, níor oibrigh sé sin i gceart. Cód earráide: ({{code}}). \\ N Bain triail eile as.",
-    "registerTimestampError": "Ní fhéadfaimis do fón a fhíorú. Seiceáil go bhfuil sé socraithe go bhfuil an dáta agus an t-am cruinn ceart, agus bain triail eile as."
+    "registerTimestampError": "Ní fhéadfaimis do fón a fhíorú. Seiceáil go bhfuil sé socraithe go bhfuil an dáta agus an t-am cruinn ceart, agus bain triail eile as.",
+    "continue": "Lean ar aghaidh"
   },
   "viewNames": {
     "age": "Deimhnigh d’aois",
@@ -192,6 +193,8 @@
     "termsAndConditionsHint": "Féach ar na Téarmaí agus Coinníollacha",
     "metrics": "Méadraigh na h-Aipe",
     "metricsHint": "Féach ar nó athraigh socruithe le haghaidh Méadraigh na h-Aipe",
+    "language": "Teanga an Aip",
+    "languageHint": "Féach ar nó athraigh Teanga an Aip",
     "leave": "Fág",
     "leaveHint": "Fág an aip"
   },
@@ -217,6 +220,10 @@
     "dailyCheckIns": "Seiceáil isteach COVID inniu",
     "nationalPicture": "An scéal ar fud na tíre",
     "breakdown": "Brúigh chun eolas a fháil de réir contae"
+  },
+  "languageSettings": {
+    "title": "Teanga an Aip",
+    "intro": "Roghnaigh do theanga"
   },
   "contactTracing": {
     "title": "Rianú Teagmhála",
@@ -253,6 +260,13 @@
         "message": "Caithfidh tú  **Exposure notification service**  a chumasú i do shocruithe chun an Rianú Teagmhála a chur ag obair"
       }
     },
+    "pause": {
+      "text": "Cuir Rianú Teagmhála ar sos",
+      "paused": "Curtha ar sos. Tá meabhrúchán socruithe i gcomhair {{time}}",
+      "reactivate": {
+        "label": "Athmhúsclaítear fógraí neamhchosaint"
+      }
+    },
     "registrationsTitle": "Clárúcháin aip",
     "registrationsSince": "ó seoladh é",
     "shareAppText": "Más mó daoine a bhaineann úsáid as an aip seo is ea is fearr a oibreoidh ár n-iarrachtaí le teagmhálaithe a rianú. Roinn an aip seo le daoine eile agus bainfidh muid amach ár sprioc.",
@@ -283,6 +297,7 @@
         "title": "Stádas",
         "active": "Stádas fós gníomhach",
         "notActive": "Níl an stádas gníomhach",
+        "paused": "Tá an seirbhís ar sos.",
         "intro": "Le do shocruithe ceadaithe a uasdhátú, téigh chuig socruithe aip d'fhearais.",
         "gotoSettings": "Uasdátaigh na socruithe",
         "android": {
@@ -314,9 +329,12 @@
   },
   "confirmedChart": {
     "title": "Cásanna deimhnithe go laethúil",
-    "label": "Graf cásanna deimhnithe",
+    "label": {
+      "default": "{{total}} cásanna deimhnithe iomlán sa choicís seo caite",
+      "months": "{{total}} cásanna deimhnithe iomlán sa dhá mhí seo caite",
+      "all": "{{total}} cásanna deimhnithe iomlán"
+    },
     "hint": "Graf cásanna deimhnithe le himeacht ama",
-    "yesterday": "Cásanna deimhnithe inné",
     "prevCases": "Cásanna",
     "prevDeaths": "Básanna",
     "prevCase": "Cás",
@@ -365,7 +383,8 @@
   },
   "underAge": {
     "title": "Faoi 16",
-    "notice": "Go raibh maith agat as spéis a léiriú ach tá tú ró-óg chun a bheith páirteach sa tionscnamh seo.\n\nTabhair aire."
+    "notice": "Go raibh maith agat as spéis a léiriú ach tá tú ró-óg chun a bheith páirteach sa tionscnamh seo.\n\nTabhair aire.",
+    "protectionAdvice": "Comhairle faoi cosaint"
   },
   "followUpCall": {
     "title": "Glaoch leantach maidir le Rianú Teagmhála",
@@ -373,7 +392,6 @@
     "intro": "Cuirfidh an aip Foláireamh maidir le Dlúth-theagmháil chugat má fhaigheann duine a raibh dlúth-theagmháil agat leis/ léi toradh dearfach do COVID-19. Cuirfidh FnaSS glaoch ort freisin má chuireann tú d'uimhir ar fáil thíos.",
     "note": "D'fhéadfadh FnaSS glaoch a chur ort freisin má aithnítear gur dlúth-theagmhálaí tú de bharr a rianú teagmhála. Cuirfidh an FnaSS comhairle ort agus socróidh sí tástáil duit más gá.\n\nNí roinnfidh an aip d'uimhir fóin le FnaSS ach amháin má fhaigheann tú Foláireamh maidir le Dlúth-theagmháil. Is féidir an uimhir a chur isteach thíos, nó sna Socruithe níos déanaí.",
     "noteAlt": "Cuirfidh an aip Foláireamh maidir le Dlúth-theagmháil chugat má fhaigheann duine a raibh dlúth theagmháil agat leis/ léi toradh dearfach do COVID-19. Cuirfidh FnaSS glaoch ort freisin má chuireann tú d'uimhir ar fáil thíos.\n\nD'fhéadfadh FnaSS glaoch a chur ort freisin má aithnítear gur dlúth-theagmhálaí tú de bharr a rianú teagmhála. Cuirfidh an FnaSS comhairle ort agus socróidh sí tástáil duit más gá.\n\nNí roinnfidh an aip d'uimhir fóin le FnaSS ach amháin má fhaigheann tú Foláireamh maidir le Dlúth-theagmháil. Is féidir an uimhir a chur isteach thíos.",
-    "noteSettings": "Más mian leat, déanfaidh muid iarracht glaoch a chur ort chun tuilleadh cúnaimh a thabhairt duit má fhaigheann tú fógra nochta.\n\nNí roinnfear d'uimhir fóin le FnaSS ach amháin má fhaigheann tú fógra nochta.",
     "optIn": "Sea, ba mhaith liom a bheith páirteach",
     "noThanks": "Níor mhaith liom a bheith páirteach, go raibh maith agat"
   },
@@ -385,21 +403,14 @@
     "title": "Foláireamh maidir le Dlúth-theagmháil",
     "notice": "Tá an aip tar éis a fháil amach go raibh tú i ndluth-theagmháil le duine a fuair toradh dearfach do COVID-19."
   },
-  "closeContact": {
-    "title": "Dlúth-theagmháil",
-    "text": "The easiest way to check what to do next is to request a call back from the Contact Tracing Team. They will check if your close contact alert may be connected to your work or a time that you were protected by PPE or other precautions. They will let you know if you need to be tested or take any other steps. You can also contact HSELive on 1850 24 1850 and they will arrange a call back.",
-    "titleInfo": "Eolas faoi Dhlúth-theagmháil",
-    "introInfo": "Má fuair tú fógra ón aip, nó glaoch ón bhfoireann um Rianú Teagmhála, ag insint duit go raibh tú i ndlúth theagmháil le duine a fuair toradh dearfach don choróinvíreas, b'fhéidir go gcaithfeá an tástáil  a dhéanamh.",
-    "text2Info": "**Má tá comharthaí ort nó comharthaí ag teacht chun cinn, cuir glaoch ar do dhochtúir teaghlaigh.**\n\nFaigh tuilleadh eolais ar hse.ie.",
-    "titleAlert": "Foláireamh maidir le Dlúth-theagmháil",
-    "introAlert": "Cuir d’uimhir theileafóin i socruithe an aip agus cuirfimid glaoch ort má fhaigheann tú fógra dlúth teagmháil chun tástáil a shocrú. Féadfaidh tú glaoch ar **HSELive freisin ar 1850 24 1850** chun tástáil a shocrú má fhaigheann tú fógra.",
-    "text2Alert": "**Má tá comharthaí ort nó comharthaí ag teacht chun cinn, cuir glaoch ar do dhochtúir teaghlaigh.**\n\nFaigh tuilleadh eolais ar hse.ie.",
-    "todo": "1. Fan sa bháile.\n\n2. Ná téigh ag obair.\n\n3. Ná húsáid iompar poiblí.\n\n4. Ná bíodh cuairteoirí i do theach.\n\n5. Ná tabhair cuairt ar dhaoine eile, fiú más tú a  thugann aire dóibh.\n\n6. Ná téigh go dtí siopaí nó cógaslann mura bhfuil gá leis - ordaigh d'earraí grósaera ar líne, más féidir, nó abair le gaol nó cara leat iad a bhailiú.\n\n7. Fan amach ó dhaoine aosta, ó dhaoine a bhfuil tinneas fadthéarmach orthu agus ó mhná torracha.",
-    "gotoHSE": "Téigh chuig hse.ie",
-    "requestCallback": {
-      "title": "Iarr glaoch ar ais",
-      "text": "Labhair le ball dár bhfoireann Rianú Teagmhála"
-    }
+  "closeContactInfo": {
+    "title": "Eolas faoi Dhlúth-theagmháil",
+    "content": "**Má raibh tú i ndluth-theagmháil le duine a fuair toradh dearfach do COVID-19, feicfidh tú bosca dearg ag rá 'Foláireamh maidir le Dlúth-theagmháil' san aip. \n\nMá roinn tú d'uimhir lenár bhFoireann Rianú Teagmhála. Cuirfidh siad glaoch ar ais ort chun chomhairle a thabhairt duit faoi cad ba choír duit a dhéanamh agus socróidh sí tástáil duit más gá. Tá réamhchúraimí speisialta ann i roinnt áiteanna m.sh scoileanna agus suíomhanna seirbhíse sláinte. Má tá tú i gceann de na háiteanna seo cuirfimid comhairle duit faoi cad ba chóir duit a dhéanamh má faigheann tú Foláireamh maidir le Dlúth-theagmháil."
+  },
+  "closeContactAlert": {
+    "title": "Foláireamh maidir le Dlúth-theagmháil",
+    "content": "**Fuair tú foláireamh toisc go raibh tú i ndluth-theagmháil le duine a fuair toradh dearfach do COVID-19 ar [[closeContactDate]]**.\n\n<<CALL-BACK>>\n\nMá thagann siomptóim ort, féin-aonraigh agus déan teagmháil le do dhochtúir teaghlaigh láithreach.\n\n# Foláireamh maidir le Dlúth-theagmháil i scoileanna\n\n* Má tá cás deimhnithe sa scoil, cuirfidh an roinn sláinte phoiblí áitiúil chomairle don phríómhoide cad ba chóir duit a dhéanamh.\n\nMá raibh tú ar scoil ar an [[closeContactDate]] ba chóir duit:\n\n* Abair leis an scoil go bhfuil foláireamh faighte agat.\n\n* Cloígh leis an gcomhairle a tugadh sláinte phoiblí don scoil.\n\n* Oibrí Sláinte\n\nBa chóir duit caint le do Roinn Sláinte Ceirde faoi do Foláireamh maidir le Dlúth-theagmháil.",
+    "call-back": "Cuir d'uimhir thíos agus beidh tú in ann glaoch a fháil ón bhFoireann Rianú Teaghmála.Cuirfidh siad comhairle duit faoi cad ba chóir duit a dhéanamh má faigheann tú Foláireamh maidir le Dlúth-theagmháil."
   },
   "uploadKeys": {
     "title": "Uaslódáil d'Aitheantas Randamach",
@@ -494,5 +505,46 @@
     "title_ios": "Tá leagan nua de COVID Tracker ar fáil ar an App Store",
     "title_android": "Tá leagan nua de COVID Tracker ar fáil ar an Play Store",
     "text": "Uasdátú anois"
+  },
+  "pause": {
+    "title": "Cuir Rianú Teagmhála ar sos",
+    "introduction": "A luaithe a cuirtear sos air, caithfidh tú é a athmhúscailt ar scáileán Rianú Teagmhála. Is féidir linn meabhrúchán chun é a dhéanamh a chur chugat.",
+    "dropdown": {
+      "label": "Socraigh meabhrúchán chun athmhúscailt ag:",
+      "placeholder": "Socraigh am"
+    },
+    "alternativeTime": "Nó ag",
+    "button": {
+      "label": "Sos"
+    },
+    "modalHeader": "Socraigh am meabhrúchán",
+    "intervals": {
+      "4": {
+        "label": "+4 hrs"
+      },
+      "8": {
+        "label": "+8 hrs"
+      },
+      "12": {
+        "label": "+12 hrs"
+      }
+    },
+    "reminder": {
+      "title": "Athmhúsclaítear Rianú Teagmhála",
+      "message": "Tá sé in am Rianú Teaghmála a athmhúscailt anois"
+    }
+  },
+  "incidenceRate": {
+    "title": "Ráta na dteaghmas Náisiúnta le coicís seo caite",
+    "perPopulation": "in aghaidh 100,000 an daonra",
+    "dateInterval": "{{from}} go {{to}}",
+    "a11yLabel": "Ó {{from}} go {{to}}, ráta {{rate}} in aghaidh 100,000 an daonra"
+  },
+  "lea": {
+    "county": "Contae {{name}} ({{areasCount}})",
+    "lea": "Toghlimistéar Áitiúil",
+    "cases": "Cásanna deimhnithe",
+    "rate": "in aghaidh 100,000 an daonra",
+    "population": "Daonra an Limistéar"
   }
 }

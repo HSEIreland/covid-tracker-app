@@ -2,17 +2,22 @@ import React, {useState, useRef} from 'react';
 import {Text, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-import {Spacing, Separator} from '../../atoms/layout';
+import {
+  useFocusRef,
+  setAccessibilityFocusRef
+} from '../../../hooks/accessibility';
+import {useDbText} from '../../../providers/settings';
+import {useApplication, UserLocation} from '../../../providers/context';
+
 import {Button} from '../../atoms/button';
-import {SelectList} from '../../atoms/select-list';
 import {Dropdown} from '../../atoms/dropdown';
+import {Spacing, Separator} from '../../atoms/layout';
+import {SelectList} from '../../atoms/select-list';
 import {Toast} from '../../atoms/toast';
 import {LocationDropdown} from '../../molecules/locality-dropdown';
 
-import {useSettings} from '../../../providers/settings';
-import {useApplication, UserLocation} from '../../../providers/context';
-
 import {text, baseStyles} from '../../../theme';
+import {colors} from '../../../constants/colors';
 import Layouts from '../../../theme/layouts';
 
 interface ProfileData {
@@ -30,9 +35,13 @@ export const CheckInSettings: React.FC<CheckInSettingsProps> = ({
   navigation
 }) => {
   const {t} = useTranslation();
-  const {sexOptions, ageRangeOptions} = useSettings();
   const app = useApplication();
-
+  const {sexOptions, ageRangeOptions} = useDbText();
+  const [toastRef, ref1, ref2, ref3] = useFocusRef({
+    accessibilityFocus: false,
+    count: 4,
+    timeout: 1000
+  });
   const scrollViewRef = useRef<ScrollView>(null);
 
   const {
@@ -85,7 +94,8 @@ export const CheckInSettings: React.FC<CheckInSettingsProps> = ({
 
   const successToast = profile.saved && (
     <Toast
-      color="rgba(0, 207, 104, 0.16)"
+      ref={toastRef}
+      color={colors.toastGreen}
       message={t('common:changesUpdated')}
       icon={require('../../../assets/images/success/green.png')}
     />
@@ -109,20 +119,26 @@ export const CheckInSettings: React.FC<CheckInSettingsProps> = ({
       />
       <Separator />
       <Dropdown
+        ref={ref1}
         label={t('ageRange:label')}
         placeholder={t('ageRange:placeholder')}
         items={ageRangeOptions}
         value={profile.ageRange}
-        onValueChange={(value) =>
-          setProfile({...profile, saved: false, ageRange: value})
-        }
+        onValueChange={(value) => {
+          setProfile({...profile, saved: false, ageRange: value});
+          setAccessibilityFocusRef(ref1);
+        }}
+        onClose={() => setAccessibilityFocusRef(ref1)}
       />
       <Separator />
       <LocationDropdown
+        countyRef={ref2}
+        localityRef={ref3}
         value={profile.location}
-        onValueChange={(value) =>
-          setProfile({...profile, saved: false, location: value})
-        }
+        onValueChange={(value) => {
+          setProfile({...profile, saved: false, location: value});
+          setAccessibilityFocusRef(value.locality ? ref3 : ref2);
+        }}
       />
       <Spacing s={24} />
       <Button

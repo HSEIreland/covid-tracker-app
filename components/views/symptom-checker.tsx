@@ -1,18 +1,23 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useRef, useCallback} from 'react';
 import {
   Animated,
   Image,
   Text,
   StyleSheet,
   View,
-  Dimensions
+  Dimensions,
+  ImageSourcePropType,
+  AppState
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import {useApplication, Symptoms} from '../../providers/context';
-import {useSettings} from '../../providers/settings';
+import {useApplication, Symptoms, UserLocation} from '../../providers/context';
+import {useDbText} from '../../providers/settings';
+import {useCheckinReminder} from '../../providers/reminders/checkin-reminder';
+import {setAccessibilityFocusRef, useFocusRef} from '../../hooks/accessibility';
 
 import {Spacing, Separator} from '../atoms/layout';
 import {Heading} from '../atoms/heading';
@@ -21,8 +26,9 @@ import {Markdown} from '../atoms/markdown';
 import {Dropdown} from '../atoms/dropdown';
 import {SelectList} from '../atoms/select-list';
 import {CheckInConsent} from '../molecules/checkin-consent';
+import {CheckinReminderCard} from '../molecules/checkin-reminder-card';
 import {LocationDropdown} from '../molecules/locality-dropdown';
-import {Result} from '../molecules/result-card';
+import {Result, ResultType} from '../molecules/result-card';
 
 import {colors} from '../../constants/colors';
 import Layouts from '../../theme/layouts';
@@ -31,7 +37,10 @@ import {text, shadows, baseStyles} from '../../theme';
 const width = Dimensions.get('window').width;
 const ANIMATION_DURATION = 300;
 
-const icons = {
+type Icons = Record<'1' | '2' | '3' | '4', ImageSourcePropType>;
+type IconsKey = keyof Icons;
+
+const icons: Icons = {
   '1': require('../../assets/images/symptoma/image.png'),
   '2': require('../../assets/images/symptomc/image.png'),
   '3': require('../../assets/images/symptomb/image.png'),
@@ -62,48 +71,84 @@ const markdownStyles = {
     ...text.largeBold
   },
   block: {
+    ...text.default,
     marginBottom: 16
   }
 };
+
+const getDefaultAnswers = () =>
+  ({
+    fever: 0,
+    cough: 0,
+    breath: 0,
+    flu: 0
+  } as Symptoms);
 
 export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
   const skipQuickCheckIn = route.params && route.params.skipQuickCheckIn;
   const timestamp = route.params && route.params.timestamp;
 
-  const {sexOptions, ageRangeOptions} = useSettings();
+  const {sexOptions, ageRangeOptions} = useDbText();
   const {t} = useTranslation();
   const app = useApplication();
+  const {isCheckerCompleted} = app;
+  const headingRef = useRef<Text>(null);
+  const [ref1, ref2, ref3] = useFocusRef({
+    accessibilityFocus: false,
+    count: 3,
+    timeout: 1000
+  });
+  const navigation = useNavigation();
+  const {doneCheckIn} = useCheckinReminder();
+
+  const isDemographicsToDo =
+    app.user &&
+    (!app.user.sex ||
+      !app.user.ageRange ||
+      !app.user.location.county ||
+      !app.user.location.locality);
 
   const [state, setState] = useState({
-    question:
-      app.user &&
-      (!app.user.sex ||
-        !app.user.ageRange ||
-        !app.user.location.county ||
-        !app.user.location.locality)
-        ? -1
-        : skipQuickCheckIn
-        ? 1
-        : 0,
-    result: null,
+    saving: false,
+    question: (isDemographicsToDo && -1) || (skipQuickCheckIn && 1) || 0,
+    result: null as ResultType | null,
     sex: (app.user && app.user.sex) || '',
     ageRange: (app.user && app.user.ageRange) || '',
     location: Object.assign(
       {county: '', locality: ''},
       app.user && app.user.location
-    ),
+    ) as UserLocation,
     feelingWell: true,
-    answers: {
-      fever: 0,
-      cough: 0,
-      breath: 0,
-      flu: 0
-    },
+    answers: getDefaultAnswers(),
     slideInX: new Animated.Value(width)
   });
 
+  const isDonePreviously = isCheckerCompleted() && !state.result;
+  const isShowingThankYou =
+    state.question === 5 && !!state.result && !state.saving;
+  const showSpinner = app.initializing || isDonePreviously;
+
+  const restartIfNeeded = useCallback(() => {
+    if (isShowingThankYou && !isCheckerCompleted()) {
+      navigation.setParams({skipQuickCheckIn: false});
+      setState((s) => ({
+        ...s,
+        question: isDemographicsToDo ? -1 : 0,
+        result: null,
+        answers: getDefaultAnswers()
+      }));
+    }
+  }, [isCheckerCompleted, isDemographicsToDo, isShowingThankYou, navigation]);
+
+  useEffect(() => {
+    restartIfNeeded();
+    AppState.addEventListener('change', restartIfNeeded);
+    return () => AppState.removeEventListener('change', restartIfNeeded);
+  }, [restartIfNeeded]);
+
   useFocusEffect(
     React.useCallback(() => {
+      restartIfNeeded();
       setState((s) => ({
         ...s,
         sex: (app.user && app.user.sex) || '',
@@ -113,7 +158,7 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
           app.user && app.user.location
         )
       }));
-    }, [app.user])
+    }, [app.user, restartIfNeeded])
   );
 
   useEffect(() => {
@@ -144,6 +189,9 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
 
   useEffect(() => {
     if (state.question === -1) {
+      if (app.checkInConsent) {
+        setAccessibilityFocusRef(headingRef);
+      }
       return;
     }
 
@@ -151,40 +199,46 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
       toValue: 0,
       duration: ANIMATION_DURATION,
       useNativeDriver: true
-    }).start();
-  }, [state.question]);
+    }).start(() => setAccessibilityFocusRef(headingRef));
+  }, [state.question, app.checkInConsent]);
 
   useEffect(() => {
-    const {question, sex, ageRange, location, answers, feelingWell} = state;
-    if (question !== 5) {
-      return;
-    }
+    const completeCheckIn = async () => {
+      const {sex, ageRange, location, answers, feelingWell} = state;
+      const symptomsCount = countSymptoms(answers);
 
-    const symptomsCount = countSymptoms(answers);
-
-    let result: string | null = null;
-    if (!symptomsCount) {
-      if (ageRangeOptions.find((g) => g.value === ageRange && g.riskGroup)) {
-        result = 'riskGroup';
+      let result: ResultType | null = null;
+      if (!symptomsCount) {
+        if (ageRangeOptions.find((g) => g.value === ageRange && g.riskGroup)) {
+          result = 'riskGroup';
+        } else {
+          const {checks} = app;
+          result =
+            checks[0] && countSymptoms(checks[0].symptoms) > 0
+              ? 'recovered'
+              : feelingWell
+              ? 'noSymptomsWell'
+              : 'noSymptomsNotWell';
+        }
       } else {
-        const {checks} = app;
-        result =
-          checks[0] && countSymptoms(checks[0].symptoms) > 0
-            ? 'recovered'
-            : feelingWell
-            ? 'noSymptomsWell'
-            : 'noSymptomsNotWell';
+        result = 'virusIsolation';
       }
-    } else {
-      result = 'virusIsolation';
-    }
 
-    setState((s) => ({...s, result}));
+      setState((s) => ({...s, result, saving: true}));
 
-    try {
-      app.checkIn(sex, ageRange, location, answers as Symptoms);
-    } catch (err) {
-      console.log(err);
+      try {
+        if (!app.isCheckerCompleted()) {
+          await app.checkIn(sex, ageRange, location, answers as Symptoms);
+          doneCheckIn();
+          setState((s) => ({...s, saving: false}));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (state.question === 5 && !state.saving) {
+      completeCheckIn();
     }
   }, [state.question]);
 
@@ -221,7 +275,11 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
     });
   };
 
-  if (!app.checkInConsent) {
+  if (isDonePreviously) {
+    navigation.navigate('symptoms.history');
+  }
+
+  if (!app.checkInConsent || showSpinner) {
     return (
       <Layouts.Scrollable safeArea={false} backgroundColor="#FAFAFA">
         <Heading
@@ -229,7 +287,7 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
           accessibilityFocus
           text={t('checker:title')}
         />
-        <CheckInConsent />
+        {showSpinner ? <Spinner /> : <CheckInConsent />}
       </Layouts.Scrollable>
     );
   }
@@ -248,16 +306,26 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
         />
         <Separator />
         <Dropdown
+          ref={ref1}
           label={t('ageRange:label')}
           placeholder={t('ageRange:placeholder')}
           items={ageRangeOptions}
           value={state.ageRange}
-          onValueChange={(ageRange) => setState((s) => ({...s, ageRange}))}
+          onValueChange={(ageRange) => {
+            setState((s) => ({...s, ageRange}));
+            setAccessibilityFocusRef(ref1);
+          }}
+          onClose={() => setAccessibilityFocusRef(ref1)}
         />
         <Separator />
         <LocationDropdown
+          countyRef={ref2}
+          localityRef={ref3}
           value={state.location}
-          onValueChange={(location) => setState((s) => ({...s, location}))}
+          onValueChange={(location) => {
+            setState((s) => ({...s, location}));
+            setAccessibilityFocusRef(location.locality ? ref3 : ref2);
+          }}
         />
       </View>
       <Spacing s={16} />
@@ -306,6 +374,8 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
   const renderResults = () => (
     <Animated.View style={{transform: [{translateX: state.slideInX}]}}>
       <Result result={state.result || ''} />
+      <Spacing s={20} />
+      <CheckinReminderCard />
     </Animated.View>
   );
 
@@ -318,8 +388,8 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
   return (
     <Layouts.Scrollable safeArea={false} backgroundColor="#FAFAFA">
       <Heading
-        accessibilityRefocus
         accessibilityFocus
+        headingRef={headingRef}
         text={t(`checker:${headingTranslationKey}`)}
       />
       {state.question === -1 && renderIntro()}
@@ -333,9 +403,8 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
           <View style={styles.card}>
             <View style={styles.row}>
               <Image
-                accessibilityIgnoresInvertColors
                 style={styles.icon}
-                source={icons[state.question]}
+                source={icons[String(state.question) as IconsKey]}
               />
               <View style={styles.question}>
                 <Markdown markdownStyles={markdownStyles}>

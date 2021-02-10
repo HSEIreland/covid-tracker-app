@@ -1,9 +1,7 @@
 import React, {FC} from 'react';
 import {StyleSheet, Dimensions, Image, View} from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import Layouts from '../../theme/layouts';
 import {Spacing} from '../atoms/spacing';
-import {ResponsiveImage} from '../atoms/responsive-image';
 import {useTranslation} from 'react-i18next';
 import {useSafeArea} from 'react-native-safe-area-context';
 import {colors} from '../../constants/colors';
@@ -18,19 +16,18 @@ export const Loading: FC = () => {
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom}]}>
       <View style={styles.bg} />
-      <Spacing s={164}/>
+      <Spacing s={164} />
       <Image
-          style={{width, height: (width * SPLASH_HEIGHT) / SPLASH_WIDTH}}
-          width={width}
-          height={(width * SPLASH_HEIGHT) / SPLASH_WIDTH}
-          resizeMode="contain"
-          source={require('../../assets/age-bg.png')}
-          accessible
-          accessibilityRole="text"
-          accessibilityHint={t('common:name')}
-          accessibilityIgnoresInvertColors
-        />
-      <Spacing s={64}/>
+        style={{width, height: (width * SPLASH_HEIGHT) / SPLASH_WIDTH}}
+        width={width}
+        height={(width * SPLASH_HEIGHT) / SPLASH_WIDTH}
+        resizeMode="contain"
+        source={require('../../assets/age-bg.png')}
+        accessible
+        accessibilityRole="text"
+        accessibilityHint={t('common:name')}
+      />
+      <Spacing s={64} />
 
       <Spinner animation="fade" visible />
     </View>

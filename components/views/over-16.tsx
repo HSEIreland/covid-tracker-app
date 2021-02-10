@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {StyleSheet, View, Text, Dimensions, Image} from 'react-native';
 import {useSafeArea} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
+import {ScrollView} from 'react-native-gesture-handler';
 
 import {Spacing} from '../atoms/spacing';
 import {Button} from '../atoms/button';
@@ -9,7 +10,7 @@ import {Link} from '../atoms/link';
 
 import {colors} from '../../constants/colors';
 import {text} from '../../theme';
-import {ScrollView} from 'react-native-gesture-handler';
+import {useRtl} from '../../hooks/i18n';
 
 const width = Dimensions.get('window').width;
 const SPLASH_WIDTH = 375;
@@ -17,6 +18,7 @@ const SPLASH_HEIGHT = 291;
 
 export const Over16: FC<any> = ({navigation}) => {
   const {t} = useTranslation();
+  useRtl();
   const insets = useSafeArea();
 
   return (
@@ -33,7 +35,6 @@ export const Over16: FC<any> = ({navigation}) => {
           accessible
           accessibilityRole="text"
           accessibilityHint={t('common:name')}
-          accessibilityIgnoresInvertColors={false}
         />
         <View style={styles.bottom}>
           <Spacing s={32} />
@@ -70,14 +71,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.yellow
   },
   scroll: {
-    flex: 1
+    flexGrow: 1
   },
   empty: {
     flex: 1,
     backgroundColor: colors.yellow
   },
   bottom: {
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    backgroundColor: colors.white
   },
   center: {
     textAlign: 'center'

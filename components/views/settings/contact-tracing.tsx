@@ -9,6 +9,7 @@ import {
 } from 'react-native-exposure-notification-service';
 
 import {useAppState} from '../../../hooks/app-state';
+import {usePause} from '../../../providers/reminders/pause-reminder';
 
 import {Spacing, Separator} from '../../atoms/layout';
 import {Button} from '../../atoms/button';
@@ -16,14 +17,17 @@ import {Markdown} from '../../atoms/markdown';
 import {PhoneNumber} from '../../organisms/phone-number';
 import {Toast} from '../../atoms/toast';
 
+import {colors} from '../../../constants/colors';
 import Layouts from '../../../theme/layouts';
 import {text} from '../../../theme';
-import {METRIC_TYPES, saveMetric} from '../../../services/api';
+import {METRIC_TYPES, saveMetric} from '../../../services/api/utils';
+import {PausedControls} from '../contact-tracing/paused';
 
 export const ContactTracingSettings = () => {
   const {t} = useTranslation();
   const [appState] = useAppState();
   const isFocused = useIsFocused();
+  const {paused} = usePause();
   const {
     supported,
     status,
@@ -40,8 +44,11 @@ export const ContactTracingSettings = () => {
   const [confirmedChanges, setConfirmedChanges] = useState<boolean>(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
-  const serviceStatus =
-    status.state === StatusState.active && enabled ? 'active' : 'notActive';
+  const serviceStatus = paused
+    ? 'paused'
+    : status.state === StatusState.active && enabled
+    ? 'active'
+    : 'notActive';
 
   useFocusEffect(
     React.useCallback(() => {
@@ -111,7 +118,7 @@ export const ContactTracingSettings = () => {
 
   const successToast = confirmedChanges && (
     <Toast
-      color="rgba(0, 207, 104, 0.16)"
+      color={colors.toastGreen}
       message={t('common:changesUpdated')}
       icon={require('../../../assets/images/success/green.png')}
     />
@@ -132,17 +139,23 @@ export const ContactTracingSettings = () => {
         )}
       </Text>
       <Spacing s={12} />
-      <Text style={text.default}>
-        {Platform.OS === 'ios' || enabled
-          ? t('contactTracing:settings:status:intro')
-          : t('contactTracing:settings:status:android:intro')}
-      </Text>
-      <Spacing s={12} />
-      <Button type="empty" onPress={gotoSettings}>
-        {Platform.OS === 'ios' || enabled
-          ? t('contactTracing:settings:status:gotoSettings')
-          : t('contactTracing:settings:status:android:gotoSettings')}
-      </Button>
+      {paused ? (
+        <PausedControls />
+      ) : (
+        <>
+          <Text style={text.default}>
+            {Platform.OS === 'ios' || enabled
+              ? t('contactTracing:settings:status:intro')
+              : t('contactTracing:settings:status:android:intro')}
+          </Text>
+          <Spacing s={12} />
+          <Button type="empty" onPress={gotoSettings}>
+            {Platform.OS === 'ios' || enabled
+              ? t('contactTracing:settings:status:gotoSettings')
+              : t('contactTracing:settings:status:android:gotoSettings')}
+          </Button>
+        </>
+      )}
 
       <Separator />
 

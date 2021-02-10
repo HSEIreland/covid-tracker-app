@@ -8,46 +8,78 @@ import {
 } from 'react-native';
 import {colors} from '../../constants/colors';
 import {text} from '../../theme';
+import {Markdown} from './markdown';
 
 interface ListItem {
   value: any;
   label: string;
+  a11yLabel?: string;
+}
+
+interface ItemTextProps {
+  color: string;
 }
 
 interface SelectListProps {
   items: ListItem[];
+  title?: string;
   selectedValue?: any;
+  markdown?: boolean;
   onItemSelected: (value: any) => void;
 }
 
+const DefaultItemText: FC<ItemTextProps> = ({children, color}) => (
+  <Text style={[styles.textWrap, text.defaultBold, {color}]}>{children}</Text>
+);
+
+const MarkdownItemText: FC<ItemTextProps> = ({children, color}) => {
+  const style = {...styles.markdown, color};
+  return (
+    <Markdown
+      style={{...style, ...styles.textWrap}}
+      markdownStyles={{
+        text: style,
+        block: style,
+        strong: {...style, ...text.defaultBold, color}
+      }}>
+      {children}
+    </Markdown>
+  );
+};
+
 export const SelectList: FC<SelectListProps> = ({
   items,
+  title,
   selectedValue,
+  markdown = false,
   onItemSelected
 }) => {
-  const renderItem = ({label, value}: ListItem, index: number) => {
+  const renderItem = ({value, label, a11yLabel}: ListItem, index: number) => {
     const isLast = index === items.length - 1;
-    let color = colors.text;
-    let backgroundColor = colors.gray;
+    let color: string = colors.text;
+    let backgroundColor: string = colors.gray;
     if (value === selectedValue) {
       color = colors.white;
       backgroundColor = colors.teal;
     }
+
+    const ItemText = markdown ? MarkdownItemText : DefaultItemText;
 
     return (
       <TouchableWithoutFeedback
         key={`item-${index}`}
         onPress={() => onItemSelected(value)}
         accessibilityLabel={
-          value === selectedValue ? `${label} selected` : `${label} unselected`
+          title ? `${a11yLabel || label}, ${title}` : a11yLabel || label
         }
-        accessibilityRole="checkbox">
+        accessibilityRole="radio"
+        accessibilityState={{selected: value === selectedValue}}>
         <View
           style={[styles.row, {backgroundColor}, isLast && styles.lastItem]}>
           <View style={styles.icon}>
             {value === selectedValue ? <IconSelected /> : <IconNotSelected />}
           </View>
-          <Text style={[text.defaultBold, {color}]}>{label}</Text>
+          <ItemText color={color}>{label}</ItemText>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -58,7 +90,6 @@ export const SelectList: FC<SelectListProps> = ({
 
 const IconSelected = () => (
   <Image
-    accessibilityIgnoresInvertColors
     style={styles.iconSize}
     width={styles.iconSize.width}
     height={styles.iconSize.height}
@@ -87,6 +118,9 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 12
   },
+  textWrap: {
+    flex: 1
+  },
   circle: {
     width: 26,
     height: 26,
@@ -101,5 +135,9 @@ const styles = StyleSheet.create({
   },
   lastItem: {
     marginBottom: 0
+  },
+  markdown: {
+    ...text.default,
+    backgroundColor: 'transparent'
   }
 });

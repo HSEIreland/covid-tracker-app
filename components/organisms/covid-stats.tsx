@@ -7,6 +7,7 @@ import {Heading} from '../atoms/heading';
 import {Card} from '../atoms/card';
 
 import {text} from '../../theme';
+import {colors} from '../../constants/colors';
 
 interface Stats {
   admissions: number;
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e9e9e9',
+    borderBottomColor: colors.grayBorder,
     flex: 1
   },
   rowLast: {

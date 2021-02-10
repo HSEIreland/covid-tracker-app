@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {useTranslation} from 'react-i18next';
-import * as SecureStore from 'expo-secure-store';
 
 import {DataProtectionLink} from './data-protection-policy';
 
@@ -13,6 +12,7 @@ import {Quote} from '../molecules/quote';
 import {useApplication} from '../../providers/context';
 
 import Layouts from '../../theme/layouts';
+import {text} from '../../theme';
 
 interface AppUsageProps {
   navigation: any;
@@ -34,7 +34,7 @@ export const AppUsage: FC<AppUsageProps> = ({navigation}) => {
 
   return (
     <Layouts.Scrollable heading={t('appUsage:title')}>
-      <Markdown markdownStyles={{block: {marginBottom: 16}}}>
+      <Markdown markdownStyles={{block: {...text.default, marginBottom: 16}}}>
         {t('appUsage:info')}
       </Markdown>
       <Spacing s={24} />
