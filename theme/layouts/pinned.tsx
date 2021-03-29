@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {useSafeArea} from 'react-native-safe-area-context';
 
 import {SPACING_TOP, SPACING_BOTTOM, SPACING_HORIZONTAL} from './shared';
@@ -8,11 +8,19 @@ import {Heading} from '../../components/atoms/heading';
 import {colors} from '../../constants/colors';
 
 interface LayoutProps {
-  heading?: string;
+  accessibilityFocus?: boolean;
+  accessibilityRefocus?: boolean;
+  backgroundColor?: string;
   children: any;
+  heading?: string;
 }
 
-export const PinnedBottom: FC<LayoutProps> = ({children, heading}) => {
+export const PinnedBottom: FC<LayoutProps> = ({
+  accessibilityFocus = true,
+  accessibilityRefocus = false,
+  children,
+  heading
+}) => {
   const insets = useSafeArea();
   const content = React.Children.toArray(children);
   const bottom = content.pop();
@@ -23,10 +31,16 @@ export const PinnedBottom: FC<LayoutProps> = ({children, heading}) => {
         styles.container,
         {paddingBottom: insets.bottom + SPACING_BOTTOM}
       ]}>
-      <View>
-        {heading && <Heading accessibilityFocus text={heading} />}
+      <ScrollView keyboardShouldPersistTaps="always">
+        {heading && (
+          <Heading
+            accessibilityFocus={accessibilityFocus}
+            accessibilityRefocus={accessibilityRefocus}
+            text={heading}
+          />
+        )}
         {content}
-      </View>
+      </ScrollView>
       <View>{bottom}</View>
     </View>
   );

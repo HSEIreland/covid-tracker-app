@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 
 import {useApplication} from '../../providers/context';
 import {DataByDate} from '../../services/api';
+import {useDataRefresh} from '../../hooks/data-refresh';
 
 import {Heading} from '../atoms/heading';
 import {Spacing} from '../atoms/spacing';
@@ -21,14 +22,8 @@ import Layouts from '../../theme/layouts';
 export const VaccineStats = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const {data, loading, loadAppData} = useApplication();
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    loadAppData().then(() => setRefreshing(false));
-  };
-  const refresh = {refreshing, onRefresh};
+  const {data, loading} = useApplication();
+  const refresh = useDataRefresh();
 
   const headlineHeading = t('vaccineStats:headline:heading');
 

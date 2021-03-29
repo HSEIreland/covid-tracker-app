@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from 'react';
+import {useMemo} from 'react';
 import {add, format, set, max, min} from 'date-fns';
 import {useExposure} from 'react-native-exposure-notification-service';
 

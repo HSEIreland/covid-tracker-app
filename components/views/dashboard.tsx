@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect} from 'react';
-import {View, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {
@@ -8,12 +8,12 @@ import {
   getVersion,
   Version
 } from 'react-native-exposure-notification-service';
-import * as SecureStore from 'expo-secure-store';
 
 import {useSettings} from '../../providers/settings';
 import {useApplication} from '../../providers/context';
 import {useAppState} from '../../hooks/app-state';
 import {useFocusRef} from '../../hooks/accessibility';
+import {useDataRefresh} from '../../hooks/data-refresh';
 
 import {Spacing} from '../atoms/spacing';
 
@@ -36,6 +36,8 @@ import {NewAppVersionCard} from '../molecules/new-app-version-card';
 import {QuickStats} from '../organisms/quick-stats';
 // import {VenueCheckInCard} from '../../venue-check-in';
 
+import {colors} from '../../constants/colors';
+
 // const showVenue = true;
 
 // "Now Available" card is hangover from when ENS support was new
@@ -48,7 +50,7 @@ export const Dashboard: FC<any> = ({navigation}) => {
     appConfig: {latestVersion: appLatestVersion}
   } = useSettings();
   const {t} = useTranslation();
-  const [refreshing, setRefreshing] = useState(false);
+  const {refreshing, onRefresh} = useDataRefresh();
   const [version, setVersion] = useState<Version>();
   const [quickCheckInDismissed, setQuickCheckInDismissed] = useState(false);
   const [tracingNowAvailable, setTracingNowAvailable] = useState(false);
@@ -94,23 +96,26 @@ export const Dashboard: FC<any> = ({navigation}) => {
     getVer();
   }, []);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    app.loadAppData().then(() => setRefreshing(false));
-  };
-
-  // Auto-refresh on first load only
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  useEffect(onRefresh, []);
+  useEffect(() => {
+    // If user used deep link on unregistered app, can now apply and clear it
+    if (app.pendingCode) {
+      app.setContext({pendingCode: null, loading: false});
+      navigation.reset({
+        index: 1,
+        routes: [
+          {name: 'main', params: {screen: 'tracing'}},
+          {name: 'uploadKeys', params: {c: app.pendingCode}}
+        ]
+      });
+    }
+    // Only run this once
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []);
 
   useEffect(() => {
     const checkTracingNowAvailable = async () => {
-      const isIOS125 =
-        Platform.Version.toString().startsWith('12.') && Platform.OS === 'ios';
-
       if (
         allowNowAvailableCard &&
-        !isIOS125 &&
         exposure.canSupport &&
         exposure.supported &&
         exposure.status.state !== StatusState.active &&
@@ -155,7 +160,7 @@ export const Dashboard: FC<any> = ({navigation}) => {
     <Layouts.Scrollable
       safeArea={false}
       toast={errorToast}
-      backgroundColor="#FAFAFA"
+      backgroundColor={colors.background}
       refresh={{refreshing, onRefresh}}>
       {tracingNowAvailable && (
         <>

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, FC, useEffect} from 'react';
+import React, {useState, FC, useEffect} from 'react';
 import {
   Dimensions,
   I18nManager,
@@ -10,11 +10,13 @@ import {RouteProp} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useTranslation} from 'react-i18next';
 import Carousel from 'react-native-snap-carousel';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import {useApplication} from '../../providers/context';
 import {DataByDate, LEA} from '../../services/api';
 import {getSubCounties} from '../../services/api/counties';
 import {alignWithLanguage} from '../../services/i18n/common';
+import {useDataRefresh} from '../../hooks/data-refresh';
 
 import {Heading} from '../atoms/heading';
 import {Spacing} from '../atoms/spacing';
@@ -22,10 +24,11 @@ import {IncidenceRate} from '../molecules/incidence-rate';
 import {LeaCard} from '../molecules/lea-card';
 import {QuickStats} from '../organisms/quick-stats';
 import {TrendChartCard} from '../organisms/trend-chart-card';
+import {MissingData} from '../templates/missing-data';
+
 import Layouts from '../../theme/layouts';
 import {SPACING_HORIZONTAL} from '../../theme/layouts/shared';
-import Spinner from 'react-native-loading-spinner-overlay';
-import {MissingData} from '../templates/missing-data';
+import {colors} from '../../constants/colors';
 
 const {width: screenWidth} = Dimensions.get('screen');
 
@@ -36,10 +39,10 @@ interface CountyChartProps {
 }
 
 export const CountyChart: FC<CountyChartProps> = ({route}) => {
-  const {data: appData, loadAppData} = useApplication();
+  const {data: appData} = useApplication();
   const {t} = useTranslation();
-  const [refreshing, setRefreshing] = useState(false);
   const [areaSelectedMap, setAreaSelectedMap] = useState<any>(null);
+  const refresh = useDataRefresh();
 
   useEffect(() => {
     const getAreaSelectedMap = async () => {
@@ -48,11 +51,6 @@ export const CountyChart: FC<CountyChartProps> = ({route}) => {
     };
     getAreaSelectedMap();
   }, []);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    loadAppData().then(() => setRefreshing(false));
-  }, [loadAppData]);
 
   if (!areaSelectedMap) {
     return (
@@ -71,9 +69,7 @@ export const CountyChart: FC<CountyChartProps> = ({route}) => {
   const areas = countyData?.areas;
 
   if (!dailyCases || !areas) {
-    return (
-      <MissingData heading={countyName} refresh={{onRefresh, refreshing}} />
-    );
+    return <MissingData heading={countyName} refresh={refresh} />;
   }
 
   const councils = getSubCounties(countyName, areas);
@@ -98,9 +94,7 @@ export const CountyChart: FC<CountyChartProps> = ({route}) => {
     );
 
   return (
-    <Layouts.Scrollable
-      refresh={{refreshing, onRefresh}}
-      backgroundColor="#FAFAFA">
+    <Layouts.Scrollable refresh={refresh} backgroundColor={colors.background}>
       <Heading accessibilityFocus text={alignWithLanguage(countyName)} />
       <QuickStats cases={dailyCases} />
       <Spacing s={16} />

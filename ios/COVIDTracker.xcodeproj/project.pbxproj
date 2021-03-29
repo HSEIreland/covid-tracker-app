@@ -14,6 +14,11 @@
 		2828A178243F42FF00C4BB5D /* launch_background_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 2828A176243F42FF00C4BB5D /* launch_background_image.png */; };
 		2828A179243F42FF00C4BB5D /* launch_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2828A177243F42FF00C4BB5D /* launch_icon.png */; };
 		2836A7912449D2B1006215C7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2836A78F2449D2B1006215C7 /* LaunchScreen.xib */; };
+		28CB211C2490FDC600A3C67A /* cert1.cer in Resources */ = {isa = PBXBuildFile; fileRef = 28CB21172490FDC500A3C67A /* cert1.cer */; };
+		28CB211D2490FDC600A3C67A /* cert2.cer in Resources */ = {isa = PBXBuildFile; fileRef = 28CB21182490FDC500A3C67A /* cert2.cer */; };
+		28CB211E2490FDC600A3C67A /* cert5.cer in Resources */ = {isa = PBXBuildFile; fileRef = 28CB21192490FDC600A3C67A /* cert5.cer */; };
+		28CB211F2490FDC600A3C67A /* cert4.cer in Resources */ = {isa = PBXBuildFile; fileRef = 28CB211A2490FDC600A3C67A /* cert4.cer */; };
+		28CB21202490FDC600A3C67A /* cert3.cer in Resources */ = {isa = PBXBuildFile; fileRef = 28CB211B2490FDC600A3C67A /* cert3.cer */; };
 		413AFFC2249366F9001D3D6E /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413AFFC1249366F9001D3D6E /* Stub.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,9 +46,15 @@
 		2828A176243F42FF00C4BB5D /* launch_background_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_background_image.png; sourceTree = "<group>"; };
 		2828A177243F42FF00C4BB5D /* launch_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_icon.png; sourceTree = "<group>"; };
 		2836A7902449D2B1006215C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = COVIDTracker/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		28D77FD7243F5B48001A4277 /* COVIDTracker Ireland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "COVIDTracker Ireland.entitlements"; path = "COVIDTracker/COVIDTracker Ireland.entitlements"; sourceTree = "<group>"; };
+		28CB21172490FDC500A3C67A /* cert1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert1.cer; sourceTree = "<group>"; };
+		28CB21182490FDC500A3C67A /* cert2.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert2.cer; sourceTree = "<group>"; };
+		28CB21192490FDC600A3C67A /* cert5.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert5.cer; sourceTree = "<group>"; };
+		28CB211A2490FDC600A3C67A /* cert4.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert4.cer; sourceTree = "<group>"; };
+		28CB211B2490FDC600A3C67A /* cert3.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert3.cer; sourceTree = "<group>"; };
 		28D77FD8243F60D8001A4277 /* COVIDTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "COVIDTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		386DF3CD6F7A3FA73AB92391 /* Pods-COVIDTracker-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDTracker-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-COVIDTracker-tvOSTests/Pods-COVIDTracker-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		410E8B542562C5CA000EE58C /* COVIDTrackerIreland-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "COVIDTrackerIreland-Development.entitlements"; sourceTree = SOURCE_ROOT; };
+		410E8B552562C5CA000EE58C /* COVIDTrackerIreland-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "COVIDTrackerIreland-Release.entitlements"; sourceTree = SOURCE_ROOT; };
 		4112511324EFC7A700F87722 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = COVIDTracker/en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4112511424EFC7EF00F87722 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "COVIDTracker/pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		413AFFC1249366F9001D3D6E /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
@@ -57,6 +68,7 @@
 		A7D5519187ABB9EDCD330B81 /* libPods-COVIDTracker-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-COVIDTracker-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3EF5C5C04A7FE2A25397DD8 /* Pods-COVIDTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDTracker.debug.xcconfig"; path = "Target Support Files/Pods-COVIDTracker/Pods-COVIDTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		CB336533B5B4A30931A88283 /* Pods-COVIDTracker-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDTracker-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-COVIDTracker-tvOSTests/Pods-COVIDTracker-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E740DF502563F44000F6B656 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = COVIDTracker/ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EEFD313BE93A46E101189EAE /* Pods_COVIDTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_COVIDTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,10 +96,16 @@
 		13B07FAE1A68108700A75B9A /* COVIDTracker */ = {
 			isa = PBXGroup;
 			children = (
+				28CB21172490FDC500A3C67A /* cert1.cer */,
+				28CB21182490FDC500A3C67A /* cert2.cer */,
+				28CB211B2490FDC600A3C67A /* cert3.cer */,
+				28CB211A2490FDC600A3C67A /* cert4.cer */,
+				28CB21192490FDC600A3C67A /* cert5.cer */,
 				2836A78F2449D2B1006215C7 /* LaunchScreen.xib */,
-				28D77FD7243F5B48001A4277 /* COVIDTracker Ireland.entitlements */,
 				2828A175243F42EE00C4BB5D /* Supporting */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				410E8B542562C5CA000EE58C /* COVIDTrackerIreland-Development.entitlements */,
+				410E8B552562C5CA000EE58C /* COVIDTrackerIreland-Release.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -215,6 +233,7 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 46CH29TAYZ;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -237,6 +256,7 @@
 				pl,
 				lt,
 				lv,
+				ar,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -261,10 +281,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28CB21202490FDC600A3C67A /* cert3.cer in Resources */,
+				28CB211C2490FDC600A3C67A /* cert1.cer in Resources */,
 				2828A173243F41CC00C4BB5D /* Assets.xcassets in Resources */,
 				2828A179243F42FF00C4BB5D /* launch_icon.png in Resources */,
+				28CB211F2490FDC600A3C67A /* cert4.cer in Resources */,
+				28CB211D2490FDC600A3C67A /* cert2.cer in Resources */,
 				2828A178243F42FF00C4BB5D /* launch_background_image.png in Resources */,
 				2836A7912449D2B1006215C7 /* LaunchScreen.xib in Resources */,
+				28CB211E2490FDC600A3C67A /* cert5.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +336,7 @@
 				"${BUILT_PRODUCTS_DIR}/RNCAsyncStorage/RNCAsyncStorage.framework",
 				"${BUILT_PRODUCTS_DIR}/RNCMaskedView/RNCMaskedView.framework",
 				"${BUILT_PRODUCTS_DIR}/RNCPushNotificationIOS/RNCPushNotificationIOS.framework",
+				"${BUILT_PRODUCTS_DIR}/RNDateTimePicker/RNDateTimePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework",
 				"${BUILT_PRODUCTS_DIR}/RNIOS11DeviceCheck/RNIOS11DeviceCheck.framework",
 				"${BUILT_PRODUCTS_DIR}/RNSVG/RNSVG.framework",
@@ -339,7 +365,9 @@
 				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-exposure-notification-service/react_native_exposure_notification_service.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-restart/react_native_restart.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-safe-area-context/react_native_safe_area_context.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -362,6 +390,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCAsyncStorage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCMaskedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCPushNotificationIOS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNDateTimePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNGestureHandler.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNIOS11DeviceCheck.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNSVG.framework",
@@ -390,7 +419,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_exposure_notification_service.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_netinfo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_restart.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_safe_area_context.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_webview.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -480,6 +511,7 @@
 				41A7AC0D24FD00D000E89C48 /* pl */,
 				41A7AC0E24FD00F100E89C48 /* lt */,
 				41A7AC0F24FD010500E89C48 /* lv */,
+				E740DF502563F44000F6B656 /* ar */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -536,10 +568,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "COVIDTracker/COVIDTracker Ireland.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "COVIDTrackerIreland-Development.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 129;
 				DEVELOPMENT_TEAM = 46CH29TAYZ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -547,9 +579,9 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = COVIDTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -571,15 +603,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "COVIDTracker/COVIDTracker Ireland.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "COVIDTrackerIreland-Release.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 129;
 				DEVELOPMENT_TEAM = 46CH29TAYZ;
 				INFOPLIST_FILE = COVIDTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

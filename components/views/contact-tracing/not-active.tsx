@@ -81,7 +81,11 @@ export const NotActive: FC<NotActiveProps> = ({
       <Markdown style={text.default}>
         {Platform.OS === 'ios'
           ? t(`contactTracing:notActive:${messageKey}`)
-          : t('contactTracing:notActive:android:message')}
+          : t(
+              `contactTracing:notActive:${
+                bluetoothOff ? 'message01' : 'android:message'
+              }`
+            )}
       </Markdown>
       <Spacing s={12} />
       <Button onPress={gotoSettings}>

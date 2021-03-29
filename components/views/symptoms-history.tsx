@@ -13,9 +13,10 @@ import {useTranslation} from 'react-i18next';
 import {format} from 'date-fns';
 import {useExposure} from 'react-native-exposure-notification-service';
 
-import {Symptoms, useApplication} from '../../providers/context';
+import {useApplication} from '../../providers/context';
 import {useAppState} from '../../hooks/app-state';
 import {getDateLocaleOptions} from '../../services/i18n/date';
+import {fixLegacySymptoms, getSymptomId} from '../../services/i18n/symptoms';
 
 import {Spacing} from '../atoms/layout';
 import {Card} from '../atoms/card';
@@ -64,7 +65,7 @@ export const SymptomsHistory: FC<Props> = ({navigation}) => {
   const completedChecker = isCheckerCompleted();
 
   return (
-    <Layouts.Scrollable safeArea={false} backgroundColor="#FAFAFA">
+    <Layouts.Scrollable safeArea={false} backgroundColor={colors.background}>
       {completedChecker && (
         <>
           <Toast
@@ -104,15 +105,16 @@ export const SymptomsHistory: FC<Props> = ({navigation}) => {
           <Text style={text.smallBold}>{t('checker:noresults')}</Text>
         )}
         {checks.map((check, index) => {
+          const checkSymptoms = fixLegacySymptoms(check.symptoms);
           const allSymptoms = Array.from(new Array(4), (_, i) => i + 1).map(
-            (i) => ({
-              index: i,
-              questionId: t(`checker:question${i}id`) as keyof Symptoms,
-              label: t(`checker:question${i}Label`)
+            (q) => ({
+              index: q,
+              symptomId: getSymptomId(q),
+              label: t(`checker:question${q}Label`)
             })
           );
           const symptoms = allSymptoms.filter(
-            (s) => check.symptoms[s.questionId] === 1
+            ({symptomId}) => checkSymptoms[symptomId] === 1
           );
           const hasSymptoms = symptoms.length > 0;
 

@@ -15,6 +15,7 @@ import {useTranslation} from 'react-i18next';
 import {colors} from '../../constants/colors';
 import {text} from '../../theme';
 import {DataByDate} from '../../services/api';
+import {numberToText} from '../../services/i18n/common';
 import {getDateLocaleOptions} from '../../services/i18n/date';
 
 import {AreaChartContent} from '../atoms/area-chart-content';
@@ -103,19 +104,22 @@ export const TrendChart: FC<TrendChartProps> = ({
   const totalValue = chartData.reduce((total, value) => total + value, 0);
   const yMax = maxValue < 5 ? 5 : undefined;
 
+  const total = numberToText(totalValue);
+  const max = numberToText(maxValue);
+
   const label =
     a11yLabelKey &&
     t(a11yLabelKey, {
       yesterday,
-      total: totalValue,
-      max: maxValue
+      total,
+      max
     });
   const hint =
     a11yHintKey &&
     t(a11yHintKey, {
       yesterday,
-      total: totalValue,
-      max: maxValue
+      total,
+      max
     });
 
   const displayData = rtlReverse(chartData);

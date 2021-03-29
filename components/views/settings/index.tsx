@@ -15,6 +15,7 @@ import {getVersion, Version} from 'react-native-exposure-notification-service';
 import {ArrowIcon} from '../../atoms/arrow-icon';
 import {Card} from '../../atoms/card';
 import {Spacing} from '../../atoms/spacing';
+import {TutorialModalCard} from '../../organisms/tutorial-modal-card';
 
 import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
@@ -159,7 +160,7 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
   return (
     <Layouts.Scrollable
       heading={t('settings:title')}
-      backgroundColor="#FAFAFA"
+      backgroundColor={colors.background}
       scrollStyle={styles.scroll}>
       {settings.map((settingsList, listIndex) => (
         <Fragment key={`list-${listIndex}`}>
@@ -185,6 +186,9 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
           </Card>
         </Fragment>
       ))}
+      <Spacing s={20} />
+      <TutorialModalCard />
+      <Spacing s={20} />
       <View style={styles.flex} />
       {version && (
         <Text style={text.default} onPress={versionPressHandler}>
@@ -192,6 +196,7 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
           {version.display}
         </Text>
       )}
+      <Spacing s={8} />
     </Layouts.Scrollable>
   );
 };

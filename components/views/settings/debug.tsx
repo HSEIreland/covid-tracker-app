@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useReducer} from 'react';
 import {
   NativeEventEmitter,
   ScrollView,
@@ -13,17 +13,19 @@ import ExposureNotification, {
   getConfigData,
   CloseContact
 } from 'react-native-exposure-notification-service';
+import * as SecureStore from 'expo-secure-store';
 
 import {Button} from '../../atoms/button';
 
 import Layouts from '../../../theme/layouts';
 import {useApplication} from '../../../providers/context';
-import * as SecureStore from 'expo-secure-store';
+import {useSettings} from '../../../providers/settings';
 import {useCheckinReminder} from '../../../providers/reminders/checkin-reminder';
 import {usePause} from '../../../providers/reminders/pause-reminder';
 import {useExposureReminder} from '../../../providers/reminders/exposure-reminder';
 import {useCaseReminder} from '../../../providers/reminders/case-reminder';
 import {ReminderState} from '../../../providers/reminders/reminder';
+import AsyncStorage from '@react-native-community/async-storage';
 //import {showRiskyVenueNotification} from '../../../venue-check-in';
 
 const emitter = new NativeEventEmitter(ExposureNotification);
@@ -34,14 +36,48 @@ interface DebugEvent {
   scheduledTask?: any;
 }
 
+const testRecaptchaKey = 'debug.test-recaptcha';
+
 export const Debug = () => {
   const exposure = useExposure();
   const app = useApplication();
+  const settings = useSettings();
+
+  const [, forceUpdate] = useReducer((x: number) => x + 1, 0);
   const [events, setEvents] = useState<DebugEvent[]>([]);
   const [contacts, setContacts] = useState<CloseContact[]>([]);
   const [logData, setLogData] = useState<StateData>(null);
   const [configData, setConfigData] = useState<StateData>(null);
   const [appData, setAppData] = useState<StateData>(null);
+  const [testRecaptcha, setTestRecaptcha] = useState(false);
+
+  useEffect(() => {
+    const loadTestRecaptcha = async () => {
+      const isTestRecaptchaOn = await AsyncStorage.getItem(testRecaptchaKey);
+      setTestRecaptcha(!!isTestRecaptchaOn);
+    };
+    loadTestRecaptcha();
+  }, []);
+  const testRecaptchaOn = async () => {
+    await AsyncStorage.setItem(testRecaptchaKey, 'y');
+    Alert.alert(
+      'Recaptcha testing on',
+      'After using "Leave" (but not after uninstall), recaptcha will be required on signup'
+    );
+    setTestRecaptcha(true);
+  };
+  const testRecaptchaOff = async () => {
+    await AsyncStorage.removeItem(testRecaptchaKey);
+    Alert.alert(
+      'Recaptcha testing off',
+      'Recaptcha will no longer be required when signing up'
+    );
+    setTestRecaptcha(false);
+  };
+  const testRecaptchaLabel = `${
+    testRecaptcha ? 'Stop' : 'Start'
+  } requiring recaptcha`;
+  const toggleRecaptcha = testRecaptcha ? testRecaptchaOff : testRecaptchaOn;
 
   const loadData = useCallback(async () => {
     const newContacts = await exposure.getCloseContacts();
@@ -221,6 +257,19 @@ export const Debug = () => {
     }, Keys: ${contact.matchedKeyCount} ${contact.windows ? ', *' : ''}`;
   };
 
+  const oldLength = settings.appConfig.codeLength;
+  const newLength = oldLength === 6 ? 8 : 6;
+  const changeCodeLengthLabel = `Switch to ${newLength}-digit codes`;
+  const changeCodeLength = () => {
+    settings.appConfig.codeLength = newLength;
+    // Alert.prompt doesn't work on Android, just toggle 6 to 8
+    Alert.alert(
+      `Code length now ${settings.appConfig.codeLength}`,
+      'This is temporary and will revert to server settings if the app is closed or left in the background long enough for settings to be reloaded.'
+    );
+    forceUpdate();
+  };
+
   return (
     <Layouts.Basic heading="Debug">
       <ScrollView>
@@ -239,6 +288,12 @@ export const Debug = () => {
         {/*<Button type="default" onPress={checkRiskyVenues}>
           Check Risky Venues
         </Button>*/}
+        <Button type="default" onPress={changeCodeLength}>
+          {changeCodeLengthLabel}
+        </Button>
+        <Button type="default" onPress={toggleRecaptcha}>
+          {testRecaptchaLabel}
+        </Button>
         {logData && (
           <View style={styles.logScroll}>
             <ScrollView
@@ -269,6 +324,44 @@ export const Debug = () => {
               )}
             </ScrollView>
           </View>
+        )}
+        {settings && (
+          <>
+            <View style={styles.contacts}>
+              <Text selectable={true} style={styles.title}>
+                Settings
+              </Text>
+            </View>
+            <ScrollView style={styles.contactsScroll}>
+              <Text selectable={true}>
+                {JSON.stringify(
+                  {
+                    loaded: settings.loaded,
+                    loadedTime: settings.loadedTime
+                      ? {
+                          timestamp: settings.loadedTime.getTime(),
+                          readable: format(
+                            settings.loadedTime,
+                            'dd/MMM HH:mm:ss'
+                          )
+                        }
+                      : settings.loadedTime
+                  },
+                  null,
+                  2
+                )}
+                {JSON.stringify(
+                  {
+                    appConfig: settings.appConfig,
+                    user: settings.user,
+                    traceConfiguration: settings.traceConfiguration
+                  },
+                  null,
+                  2
+                )}
+              </Text>
+            </ScrollView>
+          </>
         )}
         {appData && (
           <>

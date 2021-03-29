@@ -14,8 +14,13 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 
-import {Spacing} from '../atoms/spacing';
+import {useApplication} from '../../providers/context';
+import {useDbText} from '../../providers/settings';
+
 import {Button} from '../atoms/button';
+import {NavBar} from '../atoms/navbar';
+import {Spacing} from '../atoms/spacing';
+import {TutorialModalCard} from '../organisms/tutorial-modal-card';
 
 import {colors} from '../../constants/colors';
 import Layouts from '../../theme/layouts';
@@ -24,9 +29,6 @@ import {baseStyles, text} from '../../theme';
 const OnboardingImage = require('../../assets/images/onboarding-bg/bg.png');
 const Logo = require('../../assets/images/logo/logo.png');
 const OnboardImage = require('../../assets/images/onboard4/image.png');
-
-import {NavBar} from '../atoms/navbar';
-import {useApplication} from '../../providers/context';
 
 interface GetStartedProps {
   navigation: StackNavigationProp<any>;
@@ -44,6 +46,9 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
   const [move, setMove] = useState(false);
   const viewOpacity = useRef(new Animated.Value(1));
   const navOpacity = useRef(new Animated.Value(0));
+  const {tutorialVideoID} = useDbText();
+
+  const hasVideoForLanguage = !!tutorialVideoID;
 
   useEffect(() => {
     if (firstEl.current) {
@@ -157,6 +162,12 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
               {t('onboarding:intro:view3:text')}
             </Text>
             <Spacing s={21} />
+            {hasVideoForLanguage && (
+              <>
+                <TutorialModalCard />
+                <Spacing s={21} />
+              </>
+            )}
             {screenReaderEnabled && (
               <>
                 <Text style={styles.viewText}>
@@ -177,7 +188,7 @@ export const GetStarted = ({navigation}: GetStartedProps) => {
             {!screenReaderEnabled && (
               <Text>
                 <Text style={styles.viewText}>
-                  {t('onboarding:intro:view4:text')}
+                  {t('onboarding:intro:view4:text') + ' '}
                   <TouchableWithoutFeedback
                     onPress={() => {
                       navigation.navigate('terms', {screen: 'settings.terms'});

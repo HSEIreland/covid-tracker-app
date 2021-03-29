@@ -1,23 +1,25 @@
-import React, {useState} from 'react';
+import React, {MutableRefObject, useState} from 'react';
 import {
   StyleSheet,
   ViewStyle,
   Text,
   View,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  AccessibilityProps
 } from 'react-native';
 
 import {colors} from '../../constants/colors';
 import {text, scale} from '../../theme';
 
-interface ButtonProps {
+interface ButtonProps extends AccessibilityProps {
   type?: 'default' | 'empty' | 'danger';
   disabled?: boolean;
   onPress: () => void;
   style?: ViewStyle;
   width?: number | string;
   children: React.ReactNode;
+  buttonRef?: MutableRefObject<TouchableOpacity>;
 }
 
 const dimensions = Dimensions.get('screen');
@@ -28,7 +30,9 @@ export const Button: React.FC<ButtonProps> = ({
   onPress,
   style,
   width,
-  children
+  children,
+  buttonRef,
+  ...a11yProps
 }) => {
   const [pressed, setPressed] = useState(false);
 
@@ -40,7 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
       : colors.buttons.default;
 
   let backgroundColor = buttonColors.shadow;
-  let foregroundColor = buttonColors.background;
+  let foregroundColor: string = buttonColors.background;
   let textColor = buttonColors.text;
 
   if (pressed) {
@@ -79,8 +83,10 @@ export const Button: React.FC<ButtonProps> = ({
         ]}
         accessibilityRole="button"
         importantForAccessibility="yes"
+        ref={buttonRef}
         activeOpacity={1}
-        {...pressHandlers}>
+        {...pressHandlers}
+        {...a11yProps}>
         <Text
           // allowFontScaling={false}
           style={[styles.text, {color: textColor}]}>

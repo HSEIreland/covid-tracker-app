@@ -1,4 +1,4 @@
-import React, {useState, useCallback, FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {startOfDay, sub, isBefore, format} from 'date-fns';
@@ -8,6 +8,8 @@ import {ArrowIcon} from '../atoms/arrow-icon';
 
 import {useApplication} from '../../providers/context';
 import {getDateLocaleOptions} from '../../services/i18n/date';
+import {numberToText} from '../../services/i18n/common';
+import {useDataRefresh} from '../../hooks/data-refresh';
 
 import {colors} from '../../constants/colors';
 import {shadows, text} from '../../theme';
@@ -34,38 +36,19 @@ function getCountyStats(data: DataByDate): readonly [number, number] {
   return [lastStat, twoWeeksStat];
 }
 
-function numberToText(stat: any) {
-  switch (typeof stat) {
-    case 'number':
-      return new Intl.NumberFormat('en-IE').format(stat);
-    case 'string':
-      return stat;
-    default:
-      return '';
-  }
-}
-
 export const CountyBreakdown: FC<StackScreenProps<any>> = ({navigation}) => {
   const {i18n, t} = useTranslation();
   const dateLocale = getDateLocaleOptions(i18n);
+  const refresh = useDataRefresh();
 
   const app = useApplication();
-  const [refreshing, setRefreshing] = useState(false);
-
-  const {loadAppData} = app;
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    loadAppData().then(() => setRefreshing(false));
-  }, [loadAppData]);
-
-  useEffect(onRefresh, [onRefresh]);
 
   const handlePress = (countyName: string) =>
     navigation.navigate('chartByCounty', {countyName});
 
   const countiesData = app.data?.counties;
-  const sampleCountyData = countiesData && countiesData.length > 0 && countiesData[0].dailyCases;
+  const sampleCountyData =
+    countiesData && countiesData.length > 0 && countiesData[0].dailyCases;
   const sourceDate = sampleCountyData
     ? format(
         new Date(sampleCountyData[sampleCountyData.length - 1][0]),
@@ -75,7 +58,7 @@ export const CountyBreakdown: FC<StackScreenProps<any>> = ({navigation}) => {
     : '';
 
   return (
-    <Layouts.Scrollable refresh={{refreshing, onRefresh}}>
+    <Layouts.Scrollable refresh={refresh}>
       <Heading
         accessibilityFocus
         accessibilityRefocus
@@ -174,7 +157,7 @@ export const CountyBreakdown: FC<StackScreenProps<any>> = ({navigation}) => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: '#FAFAFA'
+    backgroundColor: colors.background
   },
   contentContainerStyle: {
     paddingHorizontal: 24,

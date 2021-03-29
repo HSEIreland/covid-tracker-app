@@ -45,7 +45,7 @@ export const HoriztonalBar: React.FC<HoriztonalBarProps> = ({
 
   return (
     <View style={[styles.container, containerStyles]}>
-      <View style={barStyles} />
+      <View style={barStyles} accessibilityIgnoresInvertColors={true} />
     </View>
   );
 };

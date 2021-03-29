@@ -1,5 +1,5 @@
 import React, {FC, useCallback} from 'react';
-import {StyleSheet, Text, View, Image, Platform} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {
@@ -12,6 +12,7 @@ import {
 import {useApplication} from '../../../providers/context';
 import {usePause} from '../../../providers/reminders/pause-reminder';
 import {alignWithLanguage} from '../../../services/i18n/common';
+import {useDataRefresh} from '../../../hooks/data-refresh';
 
 import {Spacing} from '../../atoms/spacing';
 import {Card} from '../../atoms/card';
@@ -42,9 +43,14 @@ export const ContactTracing: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const exposure = useExposure();
   const {checked, paused} = usePause();
-  const {data, completedExposureOnboarding} = useApplication();
+  const {
+    data,
+    completedExposureOnboarding,
+    accessibility: {screenReaderEnabled}
+  } = useApplication();
   const isFocused = useIsFocused();
   const [appState] = useAppState();
+  const refresh = useDataRefresh();
 
   const {
     supported,
@@ -77,13 +83,12 @@ export const ContactTracing: FC<Props> = ({navigation}) => {
 
   let showCards = true;
   let exposureStatusCard;
-  const isIOS125 = Platform.Version.toString().startsWith('12.') && Platform.OS === 'ios'
-  
+
   if (ready) {
     if (pausedStatus) {
       exposureStatusCard = <Paused />;
-    } else if (!supported || isIOS125) {
-      exposureStatusCard = (!canSupport || isIOS125) ? <NoSupport /> : <CanSupport />;
+    } else if (!supported) {
+      exposureStatusCard = !canSupport ? <NoSupport /> : <CanSupport />;
       showCards = false;
     } else {
       if (status.state === StatusState.active && enabled) {
@@ -112,11 +117,16 @@ export const ContactTracing: FC<Props> = ({navigation}) => {
 
   const hasCloseContacts = exposure.contacts && exposure.contacts.length > 0;
 
+  const registrationsStat = screenReaderEnabled
+    ? getLabelHint(t, appRegistrationsCount)
+    : formatLabel(appRegistrationsCount);
+
   return (
     <Layouts.Scrollable
+      refresh={refresh}
       safeArea={false}
       heading={t('contactTracing:title')}
-      backgroundColor="#FAFAFA"
+      backgroundColor={colors.background}
       accessibilityRefocus>
       {hasCloseContacts && (
         <>
@@ -165,7 +175,7 @@ export const ContactTracing: FC<Props> = ({navigation}) => {
                   <Markdown>
                     {t('contactTracing:registrationsCard:text', {
                       percentage: (data && data.installPercentage) || 0,
-                      registrations: formatLabel(appRegistrationsCount)
+                      registrations: registrationsStat
                     })}
                   </Markdown>
                 </View>

@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text, View, Image, StyleSheet, Platform, Linking} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import * as SecureStore from 'expo-secure-store';
 import {useExposure} from 'react-native-exposure-notification-service';
 
 import {useApplication} from '../../providers/context';
@@ -65,8 +64,8 @@ export const ContactTracingInformation = ({navigation, route}: Props) => {
       routes: [{name: 'main'}]
     });
   };
-  const isIOS125 = Platform.Version.toString().startsWith('12.') && Platform.OS === 'ios'
-  if (isIOS125 || (!exposure.supported && !exposure.canSupport)) {
+
+  if (!exposure.supported && !exposure.canSupport) {
     return (
       <Layouts.PinnedBottom heading={t('onboarding:information:title')}>
         <View style={notSupportedStyles.imageWrapper}>

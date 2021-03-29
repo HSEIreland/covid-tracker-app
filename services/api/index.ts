@@ -13,6 +13,7 @@ import {
   saveMetric,
   METRIC_TYPES
 } from './utils';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export type ApiSettings = Record<
   string,
@@ -32,8 +33,22 @@ interface DeviceCheckData {
 }
 
 export const getDeviceCheckData = async (
-  nonce: string
+  nonce: string,
+  recaptchaToken?: string
 ): Promise<DeviceCheckData> => {
+  if (recaptchaToken) {
+    return {
+      platform: 'recaptcha',
+      deviceVerificationPayload: recaptchaToken
+    };
+  }
+
+  // Test ReCaptcha by throwing an error here
+  const testRecaptcha = await AsyncStorage.getItem('debug.test-recaptcha');
+  if (testRecaptcha) {
+    throw new Error('Simulating failed device check');
+  }
+
   if (Platform.OS === 'android') {
     return {
       platform: 'android',
@@ -65,7 +80,9 @@ export class RegisterError extends Error {
   }
 }
 
-export async function register(): Promise<{
+export async function register(
+  recaptchaToken?: string
+): Promise<{
   token: string;
   refreshToken: string;
 }> {
@@ -98,7 +115,7 @@ export async function register(): Promise<{
 
   let deviceCheckData;
   try {
-    deviceCheckData = await getDeviceCheckData(nonce);
+    deviceCheckData = await getDeviceCheckData(nonce, recaptchaToken);
   } catch (err) {
     console.log('Device check error: ', err);
     throw new RegisterError(err.message, `1003:${err.message}`);
@@ -137,7 +154,7 @@ export async function register(): Promise<{
 
 export async function forget(): Promise<boolean> {
   try {
-    saveMetric({event: METRIC_TYPES.FORGET});
+    await saveMetric({event: METRIC_TYPES.FORGET});
     await request(`${urls.api}/register`, {
       authorizationHeaders: true,
       method: 'DELETE'

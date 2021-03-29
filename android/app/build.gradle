@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+// apply plugin: "com.huawei.agconnect"
 
 import com.android.build.OutputFile
 
@@ -132,10 +133,13 @@ android {
         applicationId "com.covidtracker.hse"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 75
-        versionName "1.0.3.60"
-        resConfigs "en", "ga", "pt", "fr", "lt", "lv", "pl"
+        // missingDimensionStrategy "react-native-camera", "general"
+        versionCode 129
+        versionName "1.0.6"
+        resConfigs "en", "ga", "pt", "fr", "lt", "lv", "pl", "ar"
     }
+
+    ndkVersion "21.3.6528147"
 
     splits {
         abi {
@@ -173,6 +177,10 @@ android {
             zipAlignEnabled enableProguardInReleaseBuilds
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
         }
     }
 

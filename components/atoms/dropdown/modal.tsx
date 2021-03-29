@@ -10,13 +10,14 @@ import {
   TextInput,
   Image
 } from 'react-native';
-import Modal, {ModalProps} from 'react-native-modal';
+import {ModalProps} from 'react-native-modal';
 import {useSafeArea} from 'react-native-safe-area-context';
 
 import {Spacing} from '../layout';
 
 import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
+import {FullModal} from '../full-modal';
 
 interface DropdownModalProps extends Partial<ModalProps> {
   title: string;
@@ -118,48 +119,34 @@ export const DropdownModal: React.FC<DropdownModalProps> = ({
     );
   };
 
-  return (
-    <Modal
-      isVisible={true}
-      style={[styles.modal, {marginTop: insets.top + 12}]}>
-      <View style={styles.top}>
-        <View style={styles.header}>
-          <View style={styles.closeIconWrapper}>
-            <TouchableWithoutFeedback
-              accessibilityRole="button"
-              accessibilityHint={`Close ${title}`}
-              accessibilityLabel={`Close ${title}`}
-              onPress={onClose}>
-              <Image
-                style={styles.closeIcon}
-                {...styles.closeIcon}
-                source={require('../../../assets/images/close/close.png')}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-          <Text style={text.small}>{title}</Text>
+  const renderHeader = () =>
+    search && (
+      <>
+        <Spacing s={12} />
+        <View style={styles.search}>
+          <TextInput
+            ref={searchInputRef}
+            style={[
+              styles.searchInput,
+              !!search.term && styles.searchUnderlined
+            ]}
+            placeholderTextColor="rgb(106, 116, 128)"
+            placeholder={search.placeholder}
+            onChangeText={search.onChange}
+            value={search.term}
+          />
         </View>
-        {search && (
-          <>
-            <Spacing s={12} />
-            <View style={styles.search}>
-              <TextInput
-                ref={searchInputRef}
-                style={[
-                  styles.searchInput,
-                  !!search.term && styles.searchUnderlined
-                ]}
-                placeholderTextColor="rgb(106, 116, 128)"
-                placeholder={search.placeholder}
-                onChangeText={search.onChange}
-                value={search.term}
-              />
-            </View>
-          </>
-        )}
-      </View>
+      </>
+    );
+
+  return (
+    <FullModal
+      isVisible={true}
+      title={title}
+      onClose={onClose}
+      header={renderHeader}>
       {renderContent()}
-    </Modal>
+    </FullModal>
   );
 };
 
@@ -172,32 +159,6 @@ const IconSelected = () => (
 );
 
 const styles = StyleSheet.create({
-  modal: {
-    marginHorizontal: 0,
-    marginBottom: 0,
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    borderTopWidth: 1
-  },
-  top: {
-    paddingHorizontal: 32,
-    paddingTop: 32
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative'
-  },
-  closeIconWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   search: {
     paddingVertical: 12,
     borderBottomWidth: 1,
@@ -214,10 +175,6 @@ const styles = StyleSheet.create({
   },
   searchUnderlined: {
     textDecorationLine: 'underline'
-  },
-  closeIcon: {
-    width: 16,
-    height: 16
   }
 });
 

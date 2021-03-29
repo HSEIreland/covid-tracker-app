@@ -6,7 +6,8 @@ import {
   ViewStyle,
   NativeSyntheticEvent,
   TextInputKeyPressEventData,
-  Platform
+  Platform,
+  Keyboard
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 
@@ -15,18 +16,24 @@ import {scale} from '../../theme';
 
 interface CodeInputProps {
   style?: ViewStyle;
+  code: string;
   count: number;
   disabled?: boolean;
   autoFocus?: boolean;
   onChange?: (value: string) => void;
+  onDone?: () => void;
+  error?: boolean;
 }
 
 export const CodeInput: FC<CodeInputProps> = ({
   style,
   count,
+  code,
   disabled = false,
   autoFocus = false,
-  onChange
+  onChange,
+  onDone,
+  error
 }) => {
   const {t} = useTranslation();
   const [values, setValue] = useState<string[]>(Array(count).fill(''));
@@ -34,6 +41,8 @@ export const CodeInput: FC<CodeInputProps> = ({
     () => Array.from({length: count}).map(() => createRef<TextInput>()),
     [count]
   );
+
+  const showErrorStyling = error && String(values.join('')) === code;
 
   useEffect(() => {
     if (autoFocus) {
@@ -53,14 +62,25 @@ export const CodeInput: FC<CodeInputProps> = ({
   };
 
   const onChangeTextHandler = (index: number, value: string) => {
-    const normalisedValue = value.substring(0, count);
+    let normalisedValue = value.substring(0, count);
     const newValues = [...values];
 
     // If the length is > 1, that means it's an OTP from the keyboard's autocomplete
-    // Or it's been pasted from the clipboard
+    // If user manages to type a second character in one box, move it to next box
+    if (
+      normalisedValue.length === 2 &&
+      normalisedValue.charAt(0) === values[index]
+    ) {
+      normalisedValue = normalisedValue.charAt(1);
+      if (index < count - 1) {
+        index++;
+      }
+    }
+
+    // If the length is still > 1, that means it's an OTP from the keyboard's autocomplete    // Or it's been pasted from the clipboard
     if (normalisedValue.length > 1) {
       newValues.splice(0, normalisedValue.length, ...normalisedValue);
-      refs[normalisedValue.length - 1].current?.focus();
+      refs[Math.min(normalisedValue.length, refs.length - 1)].current?.focus();
     } else {
       newValues.splice(index, 1, normalisedValue);
       if (normalisedValue && index < count - 1) {
@@ -70,13 +90,7 @@ export const CodeInput: FC<CodeInputProps> = ({
 
     setValue(newValues);
 
-    if (!normalisedValue) {
-      return;
-    }
-
-    if (newValues.every((v) => !!v)) {
-      onChange && onChange(newValues.join(''));
-    }
+    onChange && onChange(newValues.join(''));
   };
 
   return (
@@ -91,8 +105,15 @@ export const CodeInput: FC<CodeInputProps> = ({
             style={[
               styles.block,
               index === 0 && styles.leftMargin,
-              index === count - 1 && styles.rightMargin
+              index === count - 1 && styles.rightMargin,
+              showErrorStyling && styles.errorBlock
             ]}
+            onSubmitEditing={() => {
+              Keyboard.dismiss();
+              if (onDone) {
+                onDone();
+              }
+            }}
             keyboardType="number-pad"
             returnKeyType="done"
             textContentType={Platform.OS === 'ios' ? 'oneTimeCode' : 'none'}
@@ -135,5 +156,9 @@ const styles = StyleSheet.create({
   },
   rightMargin: {
     marginRight: 0
+  },
+  errorBlock: {
+    color: colors.red,
+    borderColor: colors.red
   }
 });

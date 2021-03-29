@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {StatsData} from '../../services/api';
+import {numberToText} from '../../services/i18n/common';
 
 import {Card} from '../atoms/card';
 
@@ -35,9 +36,9 @@ export const VaccineVendorCard: FC<VaccineVendorProps> = ({vaccineStats}) => {
       {vendorBreakdown.map(({name, first, second, total}, index) => {
         const a11yLabel = t('vaccineStats:vendor:summary', {
           name: name || '',
-          first: first || 0,
-          second: second || 0,
-          total: total || 0
+          first: numberToText(first || ''),
+          second: numberToText(second || (first && total ? total - first : '')),
+          total: numberToText(total || '')
         });
 
         return (
@@ -58,7 +59,7 @@ export const VaccineVendorCard: FC<VaccineVendorProps> = ({vaccineStats}) => {
                         {': '}
                       </Text>
                       <Text style={styles.doseStat} {...scaleCapSmall}>
-                        {new Intl.NumberFormat('en-IE').format(first)}
+                        {numberToText(first)}
                       </Text>
                     </View>
                   )}
@@ -69,7 +70,7 @@ export const VaccineVendorCard: FC<VaccineVendorProps> = ({vaccineStats}) => {
                         {': '}
                       </Text>
                       <Text style={styles.doseStat} {...scaleCapSmall}>
-                        {new Intl.NumberFormat('en-IE').format(second)}
+                        {numberToText(second)}
                       </Text>
                     </View>
                   )}
@@ -85,7 +86,7 @@ export const VaccineVendorCard: FC<VaccineVendorProps> = ({vaccineStats}) => {
                       color={colors.cyan}
                     />
                     <Text style={styles.totalStat} {...scaleCapLarge}>
-                      {new Intl.NumberFormat('en-IE').format(total)}
+                      {numberToText(total)}
                     </Text>
                   </View>
                 </View>

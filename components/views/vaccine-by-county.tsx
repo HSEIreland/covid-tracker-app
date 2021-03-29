@@ -1,4 +1,4 @@
-import React, {useState, useCallback, FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,23 +9,14 @@ import {
 import {useTranslation} from 'react-i18next';
 
 import {useApplication} from '../../providers/context';
+import {useDataRefresh} from '../../hooks/data-refresh';
+import {numberToText} from '../../services/i18n/common';
 
 import {colors} from '../../constants/colors';
 import {shadows, text} from '../../theme';
 import Layouts from '../../theme/layouts';
 import {MissingData} from '../templates/missing-data';
 import {Loading} from './loading';
-
-function numberToText(stat: any) {
-  switch (typeof stat) {
-    case 'number':
-      return new Intl.NumberFormat('en-IE').format(stat);
-    case 'string':
-      return stat;
-    default:
-      return '';
-  }
-}
 
 const TableRow: FC<{
   a11yLabel: string;
@@ -92,18 +83,8 @@ ${col2Header}: ${total}`
 
 export const VaccineByCounty: FC<{}> = () => {
   const {t} = useTranslation();
-
   const app = useApplication();
-  const [refreshing, setRefreshing] = useState(false);
-
-  const {loadAppData} = app;
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    loadAppData().then(() => setRefreshing(false));
-  }, [loadAppData]);
-
-  const refresh = {refreshing, onRefresh};
-  useEffect(onRefresh, [onRefresh]);
+  const refresh = useDataRefresh();
 
   const heading = t('vaccineByCounty:heading');
 
@@ -119,7 +100,7 @@ export const VaccineByCounty: FC<{}> = () => {
   const col2Header = t('vaccineByCounty:total');
 
   return (
-    <Layouts.Scrollable heading={heading} refresh={{refreshing, onRefresh}}>
+    <Layouts.Scrollable heading={heading} refresh={refresh}>
       <View style={styles.card}>
         <View
           style={[styles.line, styles.columnHeadingLine]}
@@ -170,7 +151,7 @@ export const VaccineByCounty: FC<{}> = () => {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: '#FAFAFA'
+    backgroundColor: colors.background
   },
   contentContainerStyle: {
     paddingHorizontal: 24,

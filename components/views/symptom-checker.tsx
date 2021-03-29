@@ -14,10 +14,11 @@ import {RouteProp, useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import {useApplication, Symptoms, UserLocation} from '../../providers/context';
+import {useApplication, UserLocation} from '../../providers/context';
 import {useDbText} from '../../providers/settings';
 import {useCheckinReminder} from '../../providers/reminders/checkin-reminder';
 import {setAccessibilityFocusRef, useFocusRef} from '../../hooks/accessibility';
+import {getSymptomId, Symptoms} from '../../services/i18n/symptoms';
 
 import {Spacing, Separator} from '../atoms/layout';
 import {Heading} from '../atoms/heading';
@@ -281,7 +282,7 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
 
   if (!app.checkInConsent || showSpinner) {
     return (
-      <Layouts.Scrollable safeArea={false} backgroundColor="#FAFAFA">
+      <Layouts.Scrollable safeArea={false} backgroundColor={colors.background}>
         <Heading
           accessibilityRefocus
           accessibilityFocus
@@ -386,7 +387,7 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
     : 'title';
 
   return (
-    <Layouts.Scrollable safeArea={false} backgroundColor="#FAFAFA">
+    <Layouts.Scrollable safeArea={false} backgroundColor={colors.background}>
       <Heading
         accessibilityFocus
         headingRef={headingRef}
@@ -417,17 +418,13 @@ export const SymptomChecker: FC<SymptomCheckerProps> = ({route}) => {
               <Button
                 style={styles.buttonLeft}
                 type="empty"
-                onPress={() =>
-                  handleAnswer(t(`checker:question${state.question}id`), 0)
-                }>
+                onPress={() => handleAnswer(getSymptomId(state.question), 0)}>
                 {t('checker:no')}
               </Button>
               <Button
                 style={styles.buttonRight}
                 type="empty"
-                onPress={() =>
-                  handleAnswer(t(`checker:question${state.question}id`), 1)
-                }>
+                onPress={() => handleAnswer(getSymptomId(state.question), 1)}>
                 {t('checker:yes')}
               </Button>
             </View>

@@ -85,3 +85,14 @@ export const supportedLocales: Locales = alignDisplay({
     ...pt
   }
 });
+
+export function numberToText(stat: any, locale = 'en-IE') {
+  switch (typeof stat) {
+    case 'number':
+      return new Intl.NumberFormat(locale).format(stat);
+    case 'string':
+      return stat;
+    default:
+      return '';
+  }
+}

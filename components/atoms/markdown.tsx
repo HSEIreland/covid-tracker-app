@@ -1,17 +1,20 @@
-import React, {ReactChildren} from 'react';
+import React, {Children, isValidElement, ReactChildren} from 'react';
 import {
   Text,
   StyleSheet,
   View,
   TextStyle,
   ViewStyle,
-  I18nManager
+  I18nManager,
+  TouchableOpacity
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
 
 // @ts-ignore - module does not have types
 import M from 'react-native-easy-markdown';
+
+import {useApplication} from '../../providers/context';
 
 import {Link} from '../atoms/link';
 
@@ -30,7 +33,8 @@ const MarkdownLink = (
   children: any,
   key: string,
   navigation: any,
-  style: TextStyle
+  style: TextStyle,
+  screenReaderEnabled: boolean
 ) => {
   const isHttp = href.startsWith('http');
 
@@ -49,7 +53,16 @@ const MarkdownLink = (
     });
   };
 
-  return (
+  return screenReaderEnabled ? (
+    <TouchableOpacity
+      key={key}
+      accessibilityRole="link"
+      accessibilityHint={title}
+      accessibilityLabel={childrenAsText(children)}
+      onPress={handle}>
+      <Text style={style}>{children}</Text>
+    </TouchableOpacity>
+  ) : (
     <Text
       key={key}
       accessible={true}
@@ -85,6 +98,9 @@ const Markdown: React.FC<Markdown> = ({
   children: C
 }) => {
   const navigation = useNavigation();
+  const {
+    accessibility: {screenReaderEnabled}
+  } = useApplication();
 
   const combinedStyles: Record<string, ViewStyle | TextStyle> = {
     ...localMarkdownStyles,
@@ -112,8 +128,11 @@ const Markdown: React.FC<Markdown> = ({
     <M
       markdownStyles={combinedStyles}
       style={style || styles.container}
+      renderBlock={(children: ReactChildren, key: string | number) =>
+        renderBlock(children, key, combinedStyles)
+      }
       renderText={(textType: string, children: ReactChildren, key: string) =>
-        renderText(combinedStyles, textType, children, key)
+        renderText(combinedStyles, textType, children, key, screenReaderEnabled)
       }
       renderLink={(
         href: string,
@@ -127,7 +146,8 @@ const Markdown: React.FC<Markdown> = ({
           children,
           key,
           navigation,
-          combinedStyles.link
+          combinedStyles.link,
+          screenReaderEnabled
         )
       }>
       {C}
@@ -140,15 +160,17 @@ const headings = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 const renderText = (
   combinedStyles: Record<string, TextStyle>,
   textType: string,
-  children: ReactChildren,
-  key: string
+  children: ReactChildren | string,
+  key: string,
+  screenReaderEnabled: boolean
 ) => {
   const style = combinedStyles[textType];
 
+  const textContent = childrenAsText(children);
   // Don't read spacer blocks like '==== ' like 'equals equals equals equals'
   // Regex matches text that is nothing but - or = or whitespace (inc newlines)
   // and contains at least one ==, -- etc (so it won't match a bold single =)
-  if (childrenAsText(children).match(/^[-=\s]*[-=]{2,}[-=\s]*$/)) {
+  if (textContent.match(/^[-=\s]*[-=]{2,}[-=\s]*$/)) {
     return (
       <View
         key={key}
@@ -159,19 +181,55 @@ const renderText = (
     );
   }
 
+  // Links at end of paragraphs leave stray '.'s when links become accessible blocks
+  if (screenReaderEnabled && textContent.trim() === '.') {
+    return null;
+  }
+
+  // Accessible block links within paragraphs leave stray '.'s at the start of the next text
+  const trimmedChildren =
+    screenReaderEnabled && typeof children === 'string'
+      ? children.replace(/^\s+[.,:;]\s+/, '')
+      : children;
+
   if (headings.includes(textType)) {
     return (
       <View accessible accessibilityRole="header" key={key}>
-        <Text style={style}>{children}</Text>
+        <Text style={style}>{trimmedChildren}</Text>
       </View>
     );
   }
   return (
+    // Be careful applying styles here as they'll apply inside links, headers etc
     <Text key={key} style={style}>
-      {children}
+      {trimmedChildren}
     </Text>
   );
 };
+
+const renderBlock = (
+  children: ReactChildren,
+  key: string | number,
+  combinedStyles: Record<string, TextStyle>
+) => (
+  // Wrap Text children in styled Text else Android loses styles when sibling is a View
+  // e.g. a paragraph containing plain text and a link when screenreader is enabled
+  <View style={combinedStyles.block} key={key}>
+    {Children.map(children, (child, index) =>
+      isValidElement(child) &&
+      // @ts-ignore - element can have this property
+      child.type?.displayName === 'Text' ? (
+        <Text
+          style={[combinedStyles.text, styles.textWithinBlock]}
+          key={`blocktext_${index}`}>
+          {child}
+        </Text>
+      ) : (
+        child
+      )
+    )}
+  </View>
+);
 
 const localMarkdownStyles = StyleSheet.create({
   h1: text.xlargeBold,
@@ -243,6 +301,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1
+  },
+  textWithinBlock: {
+    marginBottom: 0
   }
 });
 

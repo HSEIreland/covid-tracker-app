@@ -1,21 +1,28 @@
 import React, {FC, useState, useEffect, useRef} from 'react';
-import {Text, View, TextInput, ViewStyle} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  ViewStyle,
+  Keyboard,
+  Platform
+} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import phone from 'phone';
 import * as Haptics from 'expo-haptics';
 
+import countryCodes from '../../assets/country-codes';
+import {setAccessibilityFocusRef} from '../../hooks/accessibility';
+import {useApplication} from '../../providers/context';
+
 import {Spacing, Separator} from '../atoms/layout';
 import {Button} from '../atoms/button';
 import {CountryCodeDropdown} from '../molecules/country-code-dropdown';
 
-import {useApplication} from '../../providers/context';
-
 import {colors} from '../../constants/colors';
 import {baseStyles, inputStyle} from '../../theme';
-
-import countryCodes from '../../assets/country-codes';
 
 interface PhoneNumberValues {
   iso: string;
@@ -72,6 +79,7 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
     callBackDefaultValues
   );
   const numberInputRef = useRef<TextInput | null>(null);
+  const numberErrorRef = useRef<Text | null>(null);
 
   const {iso: callBackIso, number: callBackNumber} = app.callBackData || {};
   useEffect(() => {
@@ -106,6 +114,23 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
     }
   });
 
+  const hasIsoError = !!(callBackForm.errors.iso && callBackForm.touched.iso);
+  const hasNumError = !!(
+    callBackForm.errors.number && callBackForm.touched.number
+  );
+
+  const handleTextDone = () => Keyboard.dismiss();
+  const handleBlur = () => {
+    callBackForm.setFieldTouched('number', true);
+    setTimeout(
+      () =>
+        setAccessibilityFocusRef(
+          numberErrorRef.current ? numberErrorRef : numberInputRef
+        ),
+      Platform.OS === 'ios' ? 0 : 500
+    );
+  };
+
   return (
     <View style={style}>
       <CountryCodeDropdown
@@ -122,6 +147,7 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
           numberInputRef.current = e;
         }}
         style={phoneStyle}
+        onSubmitEditing={handleTextDone}
         placeholderTextColor={colors.teal}
         keyboardType="number-pad"
         returnKeyType="done"
@@ -132,10 +158,10 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
             callBackForm.setFieldValue('number', value || '');
           }
         }}
-        onBlur={() => callBackForm.setFieldTouched('number', true)}
+        onBlur={handleBlur}
         value={callBackForm.values.number}
       />
-      {callBackForm.errors.iso && callBackForm.touched.iso && (
+      {hasIsoError && (
         <>
           <Spacing s={8} />
           <Text style={baseStyles.error}>
@@ -143,10 +169,10 @@ export const PhoneNumber: FC<PhoneNumberProps> = ({
           </Text>
         </>
       )}
-      {callBackForm.errors.number && callBackForm.touched.number && (
+      {hasNumError && (
         <>
           <Spacing s={8} />
-          <Text style={baseStyles.error}>
+          <Text style={baseStyles.error} ref={numberErrorRef}>
             {t(`phoneNumber:number:error:${callBackForm.errors.number}`)}
           </Text>
         </>

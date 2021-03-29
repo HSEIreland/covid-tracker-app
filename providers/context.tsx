@@ -14,12 +14,15 @@ import {
   startOfDay,
   subDays,
   addDays,
-  isBefore
+  isBefore,
+  getTime
 } from 'date-fns';
 
 import {AppConfig} from './settings';
 import {loadData, StatsData} from '../services/api';
 import * as api from '../services/api/';
+import {requestWithCache} from '../services/api/utils';
+import {Symptoms} from '../services/i18n/symptoms';
 
 export interface UserLocation {
   county?: string;
@@ -38,9 +41,6 @@ export interface User {
   location: UserLocation;
   tracking?: any[];
 }
-
-type Symptom = 'fever' | 'cough' | 'breath' | 'flu';
-export type Symptoms = {[key in Symptom]: 0 | 1};
 
 export interface Check {
   timestamp: number;
@@ -62,7 +62,7 @@ interface State {
   data?: StatsData | null;
   checkInConsent: boolean;
   analyticsConsent: boolean;
-  completedChecker: boolean;
+  isCheckerCompleted: () => boolean;
   completedCheckerDate: string | null;
   quickCheckIn: boolean;
   checks: Check[];
@@ -72,6 +72,8 @@ interface State {
   dpinNotificationExpiryDate: Date | null;
   tandcNotificationExpiryDate: Date | null;
   chartsTabIndex: number;
+  uploadDate: Date | null;
+  pendingCode?: string | null;
 }
 
 interface ApplicationContextValue extends State {
@@ -88,7 +90,6 @@ interface ApplicationContextValue extends State {
     symptoms: Symptoms,
     params?: {quickCheckIn: boolean}
   ) => Promise<void>;
-  verifyCheckerStatus: () => void;
 }
 
 const initialState = {
@@ -100,6 +101,19 @@ const initialState = {
     reduceMotionEnabled: false,
     screenReaderEnabled: false
   }
+};
+
+// Used internally for comparisons, not displayed to user
+const checkerStateDateFormat = 'dd/MM/yyyy';
+
+const getIsCheckerCompleted = (completedCheckerDate: string | null) => {
+  return () => {
+    if (!completedCheckerDate) {
+      return false;
+    }
+    const today = format(new Date(), checkerStateDateFormat);
+    return today === completedCheckerDate;
+  };
 };
 
 export const ApplicationContext = createContext(
@@ -132,7 +146,7 @@ export const AP = ({
     loading: false,
     checkInConsent: consent === 'y',
     analyticsConsent: analyticsConsent === 'true',
-    completedChecker: false,
+    isCheckerCompleted: () => false,
     completedCheckerDate: null,
     quickCheckIn: false,
     checks: [],
@@ -144,8 +158,10 @@ export const AP = ({
     },
     dpinNotificationExpiryDate: null,
     tandcNotificationExpiryDate: null,
-    chartsTabIndex: 0
+    chartsTabIndex: 0,
+    uploadDate: null
   });
+
   const handleReduceMotionChange = (reduceMotionEnabled: boolean): void => {
     setState((s) => ({
       ...s,
@@ -196,7 +212,6 @@ export const AP = ({
       let callBackData: CallBackData;
       let checks: Check[] = [];
       let completedCheckerDate: string | null = null;
-      let completedChecker = false;
       let chartsTabIndex = 0;
 
       if (state.user) {
@@ -205,9 +220,7 @@ export const AP = ({
         checks.sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
         if (checks.length) {
-          const today = format(new Date(), 'dd/MM/yyyy');
           completedCheckerDate = format(checks[0].timestamp, 'dd/MM/yyy');
-          completedChecker = today === completedCheckerDate;
         }
 
         chartsTabIndex = Number(
@@ -221,7 +234,7 @@ export const AP = ({
           callBackData = JSON.parse(ctiCallBack) as CallBackData;
         }
       } catch (err) {
-        console.log('Error reading "cti.callBack" from async storage:', err);
+        console.log('Error reading "cti.callBack" from SecureStore:', err);
       }
 
       try {
@@ -259,7 +272,9 @@ export const AP = ({
         const dpinUpdate = await SecureStore.getItemAsync('cti.dpinDateUpdate');
         dpinNotificationExpiryDate =
           (dpinUpdate && new Date(dpinUpdate)) || null;
-      } catch (e) {}
+      } catch (err) {
+        console.log('Error processing "cti.dpinDateUpdate"', err);
+      }
 
       let tandcNotificationExpiryDate: Date | null = null;
       try {
@@ -268,18 +283,31 @@ export const AP = ({
         );
         tandcNotificationExpiryDate =
           (tandcUpdate && new Date(tandcUpdate)) || null;
-      } catch (e) {}
+      } catch (err) {
+        console.log('Error processing "cti.tandcDateUpdate"', err);
+      }
+
+      let uploadDate: Date | null = null;
+      try {
+        const updateTime = await SecureStore.getItemAsync('cti.uploadDate');
+        uploadDate = updateTime ? new Date(Number(updateTime)) : null;
+      } catch (err) {
+        console.log('Error processing "cti.uploadDate"', err);
+      }
+
+      const isCheckerCompleted = getIsCheckerCompleted(completedCheckerDate);
 
       setState((s) => ({
         ...s,
         initializing: false,
-        completedChecker,
+        isCheckerCompleted,
         completedCheckerDate,
         chartsTabIndex,
         checks,
         callBackData: callBackData,
         dpinNotificationExpiryDate,
-        tandcNotificationExpiryDate
+        tandcNotificationExpiryDate,
+        uploadDate
       }));
     };
 
@@ -287,45 +315,14 @@ export const AP = ({
       load();
     } catch (err) {
       console.log('App init error:', err);
-    } finally {
       setState((s) => ({...s, initializing: false}));
     }
   }, []);
 
-  const loadAppData = async () => {
-    try {
-      const data = await loadData();
-      // try caching the data
-      try {
-        console.log('Saving data in storage...');
-        AsyncStorage.setItem('cti.statsData', JSON.stringify(data));
-      } catch (err) {
-        console.log('Error writing "cti.statsData" in storage:', err);
-      }
-
-      setState((s) => ({...s, loading: false, data}));
-      return true;
-    } catch (error) {
-      console.log('Error loading app data: ', error);
-
-      let data: any = null;
-
-      // try loading data from cache
-      try {
-        console.log('Loading data from storage...');
-        const storageData = await AsyncStorage.getItem('cti.statsData');
-        if (storageData) {
-          data = JSON.parse(storageData);
-        }
-      } catch (err) {
-        console.log('Error reading "cti.statsData" from storage:', err);
-      }
-
-      setState((s) => ({...s, loading: false, data}));
-      return error;
-    }
-  };
-  const loadAppDataRef = useCallback(loadAppData, [loadData]);
+  const loadAppDataRef = useCallback(async () => {
+    const {data} = await requestWithCache('cti.statsData', loadData);
+    return setState((s) => ({...s, loading: false, data}));
+  }, []);
 
   const setContext = async (data: Partial<State>) => {
     setState((s) => ({...s, ...data}));
@@ -360,6 +357,12 @@ export const AP = ({
         `${data.chartsTabIndex}`
       );
     }
+    if (data.uploadDate !== undefined) {
+      await SecureStore.setItemAsync(
+        'cti.uploadDate',
+        data.uploadDate ? String(getTime(data.uploadDate)) : ''
+      );
+    }
   };
 
   const clearContext = async (): Promise<void> => {
@@ -371,13 +374,17 @@ export const AP = ({
     await SecureStore.deleteItemAsync('cti.tandcDateUpdate');
     await SecureStore.deleteItemAsync('cti.dpinDateUpdate');
     await SecureStore.deleteItemAsync('analyticsConsent');
+    await SecureStore.deleteItemAsync('cti.uploadDate');
+    await AsyncStorage.removeItem('cti.language');
     await AsyncStorage.removeItem('cti.user');
     await AsyncStorage.removeItem('cti.checkInConsent');
     await AsyncStorage.removeItem('cti.showDebug');
     await AsyncStorage.removeItem('analyticsConsent');
     await AsyncStorage.removeItem('cti.completedExposureOnboarding');
     await AsyncStorage.removeItem('cti.statsData');
+    await AsyncStorage.removeItem('cti.settings');
     await AsyncStorage.removeItem('cti.chartsTabIndex');
+    await AsyncStorage.removeItem('cti.restartScreen');
 
     setState((s) => ({
       ...s,
@@ -386,11 +393,13 @@ export const AP = ({
       checkInConsent: false,
       completedChecker: false,
       completedCheckerDate: null,
+      isCheckerCompleted: getIsCheckerCompleted(null),
       quickCheckIn: false,
       checks: [],
       user: undefined,
       callBackData: undefined,
-      completedExposureOnboarding: false
+      completedExposureOnboarding: false,
+      paused: null
     }));
   };
 
@@ -409,7 +418,6 @@ export const AP = ({
     symptoms: any,
     {quickCheckIn = false} = {}
   ) => {
-    const {user} = state;
     const timestamp = Date.now();
 
     const currentCheck: Check = {
@@ -434,17 +442,20 @@ export const AP = ({
         }
       }
 
+      const completedCheckerDate = format(timestamp, checkerStateDateFormat);
+      const isCheckerCompleted = getIsCheckerCompleted(completedCheckerDate);
+
       await setContext({
         checks,
-        completedChecker: true,
-        completedCheckerDate: format(timestamp, 'dd/MM/yyyy'),
+        isCheckerCompleted,
+        completedCheckerDate,
         quickCheckIn,
         user: {
-          ...user,
+          ...state.user,
           sex,
           ageRange,
           location
-        }
+        } as User
       });
 
       SecureStore.setItemAsync('cti.checks', JSON.stringify(checks));
@@ -460,24 +471,6 @@ export const AP = ({
     }
   };
 
-  const verifyCheckerStatus = () => {
-    console.log('verifyCheckerStatus');
-    const {completedChecker, completedCheckerDate} = state;
-
-    if (completedChecker) {
-      const today = format(new Date(), 'dd/MM/yyyy');
-      console.log(`checker last completed on ${today}`);
-      if (today !== completedCheckerDate) {
-        setState((s) => ({...s, completedChecker: false}));
-      }
-    }
-  };
-
-  const verifyCheckerStatusRef = useCallback(verifyCheckerStatus, [
-    state.completedChecker,
-    state.completedCheckerDate
-  ]);
-
   const value: ApplicationContextValue = {
     ...state,
     setContext,
@@ -485,8 +478,7 @@ export const AP = ({
     showActivityIndicator: showActivityIndicatorRef,
     hideActivityIndicator: hideActivityIndicatorRef,
     loadAppData: loadAppDataRef,
-    checkIn,
-    verifyCheckerStatus: verifyCheckerStatusRef
+    checkIn
   };
 
   return (
