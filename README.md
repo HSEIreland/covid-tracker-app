@@ -1,4 +1,13 @@
+
+# TURN ON THE ISSUE TRACKER !!!!
+
+Sorry for the yelling, but there are issues that could and should be raised and
+discussed. For example:
+  - The use of Google SafetyNet and subseqent tokens - that may be reasonable but the frequency with which tokens are re-freshed etc could lead to those being  a better tracker than IP addresses
+  - The inclusion of the number of notifications (a bit of medical info) in the metrics (what should be a bit of devops info) seems entirely wrong to me.
+
 # COVID Tracker Ireland
+
 
 ## Getting Started
 
