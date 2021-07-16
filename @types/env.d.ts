@@ -1,5 +1,6 @@
 declare module '@env' {
   export const API_HOST: string;
+  export const DCC_HOST: string;
   export const KEY_DOWNLOAD_HOST: string;
   export const KEY_PUBLISH_HOST: string;
   export const ENV: 'development' | 'production';

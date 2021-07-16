@@ -14,6 +14,7 @@ import {useApplication} from '../../providers/context';
 import {useAppState} from '../../hooks/app-state';
 import {useFocusRef} from '../../hooks/accessibility';
 import {useDataRefresh} from '../../hooks/data-refresh';
+import { useVaccineCertConfig } from '../../providers/vaccine-cert-config';
 
 import {Spacing} from '../atoms/spacing';
 
@@ -21,6 +22,8 @@ import {CheckInCard} from '../molecules/check-in-card';
 import {QuickCheckIn} from '../molecules/quick-checkin';
 import {CountyBreakdownCard} from '../molecules/county-breakdown-card';
 import {StatsSource} from '../molecules/stats-source';
+import {VaccineCertCard} from '../molecules/vaccine-cert-card';
+
 import {AppStats} from '../organisms/app-stats';
 import {CovidStats} from '../organisms/covid-stats';
 
@@ -57,10 +60,11 @@ export const Dashboard: FC<any> = ({navigation}) => {
   const [appState] = useAppState();
   const isFocused = useIsFocused();
   const exposure = useExposure();
-  const [ref1, ref2, ref3, ref4, ref5, /* ref6, */ ref7] = useFocusRef({
+  const { config: vaccineConfig } = useVaccineCertConfig();
+  const [ref1, ref2, ref3, ref4, ref5, /* ref6, */ ref7, ref8] = useFocusRef({
     accessibilityFocus: true,
     accessibilityRefocus: true,
-    count: 6,
+    count: 7,
     timeout: 1000
   });
 
@@ -186,6 +190,18 @@ export const Dashboard: FC<any> = ({navigation}) => {
           <Spacing s={16} />
         </>
       )}
+      {vaccineConfig && (
+        <VaccineCertCard
+          ref={ref8}
+          registered={app.vaccineCert}
+          onPress={() =>
+            navigation.navigate(
+              app.vaccineCert ? 'vaccineCert.view' : 'vaccineCert.register'
+            )
+          }
+        />
+      )}
+      <Spacing s={16} />
       {!checkInConsent && (
         <>
           <CheckInCard

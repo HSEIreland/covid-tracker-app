@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-// apply plugin: "com.huawei.agconnect"
+//apply plugin: "com.huawei.agconnect"
 
 import com.android.build.OutputFile
 
@@ -133,9 +133,9 @@ android {
         applicationId "com.covidtracker.hse"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // missingDimensionStrategy "react-native-camera", "general"
-        versionCode 129
-        versionName "1.0.6"
+        missingDimensionStrategy "react-native-camera", "general"
+        versionCode 133
+        versionName "1.0.7"
         resConfigs "en", "ga", "pt", "fr", "lt", "lv", "pl", "ar"
     }
 
@@ -239,6 +239,8 @@ dependencies {
     // debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
     //     exclude group:'com.facebook.flipper'
     // }
+
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

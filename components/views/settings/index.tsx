@@ -20,6 +20,7 @@ import {TutorialModalCard} from '../../organisms/tutorial-modal-card';
 import {colors} from '../../../constants/colors';
 import {text} from '../../../theme';
 import Layouts from '../../../theme/layouts';
+import {useApplication} from '../../../providers/context';
 
 const REQUIRED_PRESS_COUNT = 3;
 
@@ -41,6 +42,7 @@ interface SettingsProps {
 
 export const Settings: React.FC<SettingsProps> = ({navigation}) => {
   const {t} = useTranslation();
+  const {vaccineCert} = useApplication();
   const [pressCount, setPressCount] = useState<number>(0);
   const [showDebug, setShowDebug] = useState<boolean>(false);
   const [version, setVersion] = useState<Version>();
@@ -104,6 +106,13 @@ export const Settings: React.FC<SettingsProps> = ({navigation}) => {
         label: t('settings:checkInReminder'),
         hint: t('settings:checkinReminderHint'),
         screen: 'settings.checkInReminder'
+      },
+      {
+        id: 'vaccineCert',
+        title: t('settings:vaccineCert'),
+        label: t('settings:vaccineCert'),
+        hint: t('settings:vaccineCertHint'),
+        screen: vaccineCert ? 'vaccineCert.view' : 'vaccineCert.register'
       },
       {
         id: 'metrics',

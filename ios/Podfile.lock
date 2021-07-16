@@ -215,7 +215,15 @@ PODS:
     - React-cxxreact (= 0.63.2)
     - React-jsi (= 0.63.2)
   - React-jsinspector (0.63.2)
-  - react-native-exposure-notification-service (1.3.4):
+  - react-native-camera (3.44.3):
+    - React-Core
+    - react-native-camera/RCT (= 3.44.3)
+    - react-native-camera/RN (= 3.44.3)
+  - react-native-camera/RCT (3.44.3):
+    - React-Core
+  - react-native-camera/RN (3.44.3):
+    - React-Core
+  - react-native-exposure-notification-service (1.3.9):
     - Alamofire (~> 5.2)
     - KeychainSwift (~> 19.0)
     - React
@@ -306,7 +314,7 @@ PODS:
     - React
   - RNSslPinning (1.4.9):
     - React
-  - RNSVG (12.1.0):
+  - RNSVG (12.1.1):
     - React
   - SSZipArchive (2.2.3)
   - UMAppLoader (1.2.0)
@@ -359,6 +367,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-exposure-notification-service (from `../node_modules/react-native-exposure-notification-service`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-restart (from `../node_modules/react-native-restart`)
@@ -460,6 +469,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
   react-native-exposure-notification-service:
     :path: "../node_modules/react-native-exposure-notification-service"
   react-native-netinfo:
@@ -569,7 +580,8 @@ SPEC CHECKSUMS:
   React-jsi: 54245e1d5f4b690dec614a73a3795964eeef13a8
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
-  react-native-exposure-notification-service: d92bc29201ce02876afc39ad43a307b12fd703f2
+  react-native-camera: b8cc03e2feec0c04403d0998e37cf519d8fd4c6f
+  react-native-exposure-notification-service: d552f2a900fd2b1d99be4ecfef914f65bec981c9
   react-native-netinfo: 38a1e0b3e89b48e4b5833ed475d8df5f049f6f90
   react-native-restart: d19a0f8d053d065fe64cd2baebb6487111c77149
   react-native-safe-area-context: 955ecfce672683b495d9294d2f154a9ad1d9796b
@@ -593,7 +605,7 @@ SPEC CHECKSUMS:
   RNPermissions: 477d88d0be7ecb0a7b344e4d5fbb0352de104626
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNSslPinning: bd33a1849ec20d38b4c5cd67e6a52b83da0ab3bc
-  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
+  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   UMAppLoader: 61049c8d55590b74e9ae1d5429bf68d96b4a2528
   UMBarCodeScannerInterface: e5e4c87797d3d01214e25cd1618866caf5d4f17f
@@ -610,6 +622,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 80653f25c55d9e6d79d6a0a65589fa213feaee11
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
 
-PODFILE CHECKSUM: b740851ca07f06470ec34e0807d39bbb25206cd7
+PODFILE CHECKSUM: 90812677302f8bf87bff0b9971cb70ee72ea5a3c
 
 COCOAPODS: 1.10.1

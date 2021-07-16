@@ -36,7 +36,8 @@
     "venueHistory": "Venue Check-In",
     "riskyVenueContact": "Risky Venue Contact",
     "vaccineStats": "Vaccination Stats",
-    "vaccineByCounty": "Vaccinations By County"
+    "vaccineByCounty": "Vaccinations By County",
+    "vaccineCert": "EU Digital COVID Certificate"
   },
   "navbar": {
     "settings": "Settings",
@@ -205,7 +206,9 @@
     "leave": "Leave",
     "leaveHint": "Leave the application",
     "venueHistory": "Venue Check-In",
-    "venueHistoryHint": "View the Venue Check-In"
+    "venueHistoryHint": "View the Venue Check-In",
+    "vaccineCert": "Digital Covid Certificate",
+    "vaccineCertHint": "View your EU Digital COVID Certificate"
   },
   "leave": {
     "title": "Leave",
@@ -719,5 +722,79 @@
     "description": "Learn more about the Covid Tracker app",
     "play": "Play video",
     "pause": "Pause"
+  },
+  "vaccineCert": {
+    "permission": {
+      "heading": "Allow camera access",
+      "text": "COVID Tracker app needs access to your camera in order to scan the QR code of your EU vaccine cert",
+      "allowButton": "Allow camera permissions",
+      "cancelButton": "Go back"
+    },
+    "register": {
+      "card": {
+        "title": "Register EU Digital COVID Certificate",
+        "description": "Carry your cert in the app"
+      },
+      "heading": "Register EU Digital COVID Certificate",
+      "text1": "You can register and store your COVID-19 vaccine and test information securely in the COVID Tracker app. This will allow you to easily access your certificate on your phone.",
+      "text2": "EU Digital COVID Certificate is proof that you have:",
+      "list1": "been vaccinated against COVID-19",
+      "list2": "received a negative test result or",
+      "list3": "recovered from COVID-19 in the past 6 months",
+      "scanButton": "Scan EU Digital COVID Certificate",
+      "cancelButton": "Go back"
+    },
+    "delete": {
+      "confirmTitle": "Delete",
+      "confirmText": "Are you sure you want to delete this certificate?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "error": {
+      "INVALID_QR": "Invalid QR",
+      "INVALID_DATA": "Invalid data",
+      "INVALID_SIGNATURE": "Invalid signature",
+      "UNKNOWN_SIG_ALGO": "Unsupported encoding algorithm",
+      "NO_MATCHING_SIG_KEY": "Unable to find signature key",
+      "CERT_EXPIRED": "Certificate has expired",
+      "UNKNOWN": "Unknown error"
+    },
+    "view": {
+      "card": {
+        "title": "View EU Digital COVID Certificate",
+        "description": "View your certificate"
+      },
+      "heading": "EU Digital COVID Certificate",
+      "error": "Error",
+      "notRecognized": "This QR code was not recognised as an EU Digital COVID Certificate",
+      "name": "Name",
+      "dob": "Date of birth",
+      "status": "Status",
+      "diseaseAgentTargeted": "Disease targeted",
+      "vaccineProphylaxis": "Vaccine or profylaxis",
+      "vaccineMedicinalProduct": "Vaccine product",
+      "vaccineMahManf": "Manufacturer",
+      "fullyVaccinated": "Fully vaccinated",
+      "partiallyVaccinated": "Partially vaccinated",
+      "doseNumber": "Dose number",
+      "totalDoses": "Total doses",
+      "vaccinationDate": "Vaccination date",
+      "country": "Country",
+      "certIssuer": "Certificate issuer",
+      "certId": "Certificate ID",
+      "tested": "Tested",
+      "testType": "Test type",
+      "testManf": "Test device",
+      "testTime": "Test time",
+      "testResult": "Test result",
+      "testCenter": "Test center",
+      "firstPositive": "First positive",
+      "recovered": "Recovered",
+      "validFrom": "Valid from",
+      "validTo": "Valid until",
+      "viewDetailsButton": "EU Digital COVID Certificate detail",
+      "deleteButton": "Delete",
+      "scanButton": "Rescan"
+    }
   }
 }

@@ -42,6 +42,7 @@ import {
   SettingsContext,
   useSettings
 } from './providers/settings';
+import {VaccineCertConfigProvider} from './providers/vaccine-cert-config';
 
 import {urls} from './constants/urls';
 
@@ -75,6 +76,7 @@ import {UploadKeys} from './components/views/upload-keys';
 import {Reminder} from './components/views/reminder';
 import {VaccineStats} from './components/views/vaccine-stats';
 import {VaccineByCounty} from './components/views/vaccine-by-county';
+import {Register, Scan, ViewCert} from './components/views/vaccine-cert';
 
 import {Settings} from './components/views/settings';
 import {ContactTracingSettings} from './components/views/settings/contact-tracing';
@@ -405,6 +407,21 @@ const AppStack: React.FC<any> = ({route}) => {
         component={RiskyVenueContact}
         options={{title: t('viewNames:riskyVenueContact')}}
       />*/}
+      <Stack.Screen
+        name="vaccineCert.register"
+        component={Register}
+        options={{title: t('viewNames:vaccineCert')}}
+      />
+      <Stack.Screen
+        name="vaccineCert.scan"
+        component={Scan}
+        options={{title: t('viewNames:vaccineCert')}}
+      />
+      <Stack.Screen
+        name="vaccineCert.view"
+        component={ViewCert}
+        options={{title: t('viewNames:vaccineCert')}}
+      />
     </Stack.Navigator>
   );
 };
@@ -592,7 +609,8 @@ const ExposureApp: React.FC = ({children}) => {
         app.user?.valid &&
           app.completedExposureOnboarding &&
           authToken &&
-          refreshToken
+          refreshToken &&
+          !app.initializing
       )}
       traceConfiguration={settings.traceConfiguration}
       serverUrl={urls.api}
@@ -704,15 +722,17 @@ export default function App(props: {
                   tandcDate={settingsValue.tandcDate}>
                   <ExposureApp>
                     <RemindersProvider>
-                      <StatusBar barStyle="default" />
-                      <Navigation
-                        traceConfiguration={settingsValue.traceConfiguration}
-                        notification={appState.notification}
-                        exposureNotificationClicked={
-                          appState.exposureNotificationClicked
-                        }
-                        setAppState={setAppState}
-                      />
+                      <VaccineCertConfigProvider>
+                        <StatusBar barStyle="default" />
+                        <Navigation
+                          traceConfiguration={settingsValue.traceConfiguration}
+                          notification={appState.notification}
+                          exposureNotificationClicked={
+                            appState.exposureNotificationClicked
+                          }
+                          setAppState={setAppState}
+                        />
+                      </VaccineCertConfigProvider>
                     </RemindersProvider>
                   </ExposureApp>
                 </ApplicationProvider>

@@ -23,6 +23,7 @@ import {loadData, StatsData} from '../services/api';
 import * as api from '../services/api/';
 import {requestWithCache} from '../services/api/utils';
 import {Symptoms} from '../services/i18n/symptoms';
+import {CertificateContent} from '../providers/vaccine-cert-config/types';
 
 export interface UserLocation {
   county?: string;
@@ -55,6 +56,12 @@ export interface CallBackData {
   mobile: string;
 }
 
+export interface VaccineCertData {
+  raw: string;
+  content: CertificateContent;
+  error?: Error;
+}
+
 interface State {
   initializing: boolean;
   loading: boolean | string;
@@ -74,6 +81,7 @@ interface State {
   chartsTabIndex: number;
   uploadDate: Date | null;
   pendingCode?: string | null;
+  vaccineCert?: VaccineCertData;
 }
 
 interface ApplicationContextValue extends State {
@@ -295,6 +303,14 @@ export const AP = ({
         console.log('Error processing "cti.uploadDate"', err);
       }
 
+      let vaccineCert: CertificateContent | undefined;
+      try {
+        const data = await SecureStore.getItemAsync('cti.vaccineCert');
+        vaccineCert = JSON.parse(data);
+      } catch (err) {
+        console.log('Error processing "cti.vaccineCert"', err);
+      }
+
       const isCheckerCompleted = getIsCheckerCompleted(completedCheckerDate);
 
       setState((s) => ({
@@ -307,7 +323,8 @@ export const AP = ({
         callBackData: callBackData,
         dpinNotificationExpiryDate,
         tandcNotificationExpiryDate,
-        uploadDate
+        uploadDate,
+        vaccineCert
       }));
     };
 
@@ -363,6 +380,12 @@ export const AP = ({
         data.uploadDate ? String(getTime(data.uploadDate)) : ''
       );
     }
+    if (data.vaccineCert !== undefined) {
+      await SecureStore.setItemAsync(
+        'cti.vaccineCert',
+        JSON.stringify(data.vaccineCert)
+      );
+    }
   };
 
   const clearContext = async (): Promise<void> => {
@@ -375,6 +398,7 @@ export const AP = ({
     await SecureStore.deleteItemAsync('cti.dpinDateUpdate');
     await SecureStore.deleteItemAsync('analyticsConsent');
     await SecureStore.deleteItemAsync('cti.uploadDate');
+    await SecureStore.deleteItemAsync('cti.vaccineCert');
     await AsyncStorage.removeItem('cti.language');
     await AsyncStorage.removeItem('cti.user');
     await AsyncStorage.removeItem('cti.checkInConsent');
@@ -399,7 +423,8 @@ export const AP = ({
       user: undefined,
       callBackData: undefined,
       completedExposureOnboarding: false,
-      paused: null
+      paused: null,
+      vaccineCert: undefined
     }));
   };
 

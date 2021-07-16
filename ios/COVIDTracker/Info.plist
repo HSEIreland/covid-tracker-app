@@ -74,6 +74,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to use the camera to allow you to scan and store your Digital Covid Cert</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

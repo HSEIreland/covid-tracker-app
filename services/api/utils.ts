@@ -4,7 +4,6 @@ import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-community/async-storage';
 import {fetch as fetchPinned} from 'react-native-ssl-pinning';
 import {backOff} from 'exponential-backoff';
-
 import {isMountedRef, navigationRef} from '../../navigation';
 
 import {urls} from '../../constants/urls';
@@ -15,7 +14,8 @@ export enum METRIC_TYPES {
   CHECK_IN = 'CHECK_IN',
   FORGET = 'FORGET',
   CALLBACK_OPTIN = 'CALLBACK_OPTIN',
-  LOG_ERROR = 'LOG_ERROR'
+  LOG_ERROR = 'LOG_ERROR',
+  UPLOAD_AFTER_CLOSE_CONTACT = 'UPLOAD_AFTER_CONTACT'
 }
 
 export async function request(url: string, cfg: any) {
@@ -166,13 +166,15 @@ export async function saveMetric({event = '', payload = ''}) {
 async function createToken(): Promise<string> {
   try {
     const refreshToken = await SecureStore.getItemAsync('refreshToken');
+    const version = await getVersion();
+    const os = Platform.OS;
 
     const req = await request(`${urls.api}/refresh`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${refreshToken}`
       },
-      body: JSON.stringify({})
+      body: JSON.stringify({os, version: version.display})
     });
     if (!req) {
       throw new Error('Invalid response');
@@ -198,6 +200,17 @@ async function createToken(): Promise<string> {
     return '';
   }
 }
+
+export const randomString = (minLen: number, maxLen: number) => {
+  const stringLen = Math.floor(Math.random() * (maxLen - minLen) + minLen);
+  const chars =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let result = new Array(stringLen);
+  for (let i = stringLen; i > 0; --i) {
+    result[i] = chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result.join();
+};
 
 export const identifyNetworkIssue = async (): Promise<string> => {
   const headers = {};

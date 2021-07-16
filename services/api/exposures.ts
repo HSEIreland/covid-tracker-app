@@ -7,7 +7,7 @@ import {
 import {urls} from '../../constants/urls';
 
 import {getDeviceCheckData} from '.';
-import {networkError, request} from './utils';
+import {networkError, randomString, request} from './utils';
 
 export enum ValidationResult {
   NetworkError,
@@ -35,7 +35,6 @@ export const validateCode = async (
   });
 
   const hash = `${controlHash}${codeHash}`;
-
   try {
     const resp = await request(`${urls.api}/exposures/verify`, {
       authorizationHeaders: true,
@@ -44,7 +43,7 @@ export const validateCode = async (
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({hash})
+      body: JSON.stringify({hash, padding: randomString(512, 1024)})
     });
 
     if (!resp) {
@@ -89,6 +88,7 @@ export const uploadExposureKeys = async (
     body: JSON.stringify({
       token: uploadToken,
       exposures,
+      padding: randomString(512, 1024),
       ...(await getDeviceCheckData(uploadToken))
     })
   });

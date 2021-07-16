@@ -5,12 +5,14 @@ buildscript {
         minSdkVersion = 23
         compileSdkVersion = 29
         targetSdkVersion = 29
+        androidXCore = "1.5.0"
+        firebaseMessagingVersion = "21.1.0"
     }
     repositories {
         google()
         jcenter()
         maven { url 'https://dl.bintray.com/android/android-tools/' }
-        // maven {url 'https://developer.huawei.com/repo/'}
+        //maven {url 'https://developer.huawei.com/repo/'}
     }
     dependencies {
         classpath('com.android.tools.build:gradle:4.1.2')
@@ -18,7 +20,7 @@ buildscript {
         // in the individual module build.gradle files
 
         // Add AppGallery Connect plug-in configurations.
-        // classpath 'com.huawei.agconnect:agcp:1.4.2.300'
+        //classpath 'com.huawei.agconnect:agcp:1.5.1.300'
     }
 }
 
@@ -38,6 +40,10 @@ allprojects {
         jcenter()
         // maven {url 'https://developer.huawei.com/repo/'}
         maven { url 'https://www.jitpack.io' }
+        maven {
+            // expo-camera bundles a custom com.google.android:cameraview
+            url "$rootDir/../node_modules/expo-camera/android/maven"
+        }
     }
 }
 

@@ -235,6 +235,7 @@ export const SettingsProvider: FC<SettingsProviderProps> = ({children}) => {
         'analyticsConsent'
       );
       const {data} = await requestWithCache('cti.settings', api.loadSettings);
+
       const apiSettings: ApiSettings = data ?? {};
 
       const appConfig: AppConfig = {...defaultSettings.appConfig};
